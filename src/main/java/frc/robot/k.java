@@ -48,7 +48,10 @@ public class k {
         public static double driveDistanceCntsPMeter = 1;
         public static double steer_CntsPRad = 1;
         public static double driveRawVelocityToMPS = 1;
-        
-
+    }
+    public static class ARM{
+        public static int leftCANId = 20;
+        public static int rightCANId = 21;
+        public static double bicepP = 1;
     }
 }

@@ -6,8 +6,8 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.Command.ArmDefaultCommand;
+import frc.robot.Command.AutoLeftConeCubeCommandGroup;
 import frc.robot.Command.DrivetrainDefaultCommand;
 import frc.robot.Command.IntakeDefaultCommand;
 import frc.robot.Subsystem.ArmSubsystem;
@@ -24,8 +24,8 @@ public class RobotContainer {
   public static IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
   private IntakeDefaultCommand intakeDefaultCommand = new IntakeDefaultCommand(intakeSubsystem);
 
-  public static XboxController m_controllerDriver = new XboxController(0);
-  public static XboxController m_controllerOperator = new XboxController(1);
+  public static XboxController m_XBOXDriver = new XboxController(0);
+  public static XboxController m_XBOXOperator = new XboxController(1);
 
   public RobotContainer() {
     drivetrainSubsystem.setDefaultCommand(m_drivetrainDefaultCommand);
@@ -37,6 +37,6 @@ public class RobotContainer {
   private void configureBindings() {}
 
   public Command getAutonomousCommand() {
-    return Commands.print("No autonomous command configured");
+    return new AutoLeftConeCubeCommandGroup();
   }
 }
