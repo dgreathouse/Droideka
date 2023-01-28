@@ -4,14 +4,69 @@
 
 package frc.robot.Subsystem;
 
+import com.kauailabs.navx.frc.AHRS;
+
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
+import edu.wpi.first.math.kinematics.SwerveModulePosition;
+import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Lib.SwerveModule;
+import frc.robot.k.DRIVETRAIN;
+import frc.robot.k.SWERVE;
 
 public class DrivetrainSubsystem extends SubsystemBase {
-  /** Creates a new DrivetrainSubsystem. */
-  public DrivetrainSubsystem() {}
+  SwerveModule m_fl = new SwerveModule(SWERVE.SDFrontLeft);
+  SwerveModule m_fr = new SwerveModule(SWERVE.SDFrontRight);
+  SwerveModule m_b = new SwerveModule(SWERVE.SDBack);
 
+  AHRS m_gyro = new AHRS(Port.kMXP);
+  private final SwerveDriveOdometry m_odometry = 
+    new SwerveDriveOdometry(
+      DRIVETRAIN.kinematics, getRobotRotation2D(), 
+      new SwerveModulePosition[]{
+        m_fl.getPosition(),
+        m_fr.getPosition(),
+        m_b.getPosition()
+      });
+  /** Creates a new DrivetrainSubsystem. */
+  public DrivetrainSubsystem() {
+    resetGyro();
+  }
+  public void drive(double _xSpeed, double _ySpeed, double _rot, boolean _fieldRelative){
+    var swerveModuleStates =
+        DRIVETRAIN.kinematics.toSwerveModuleStates(
+            _fieldRelative
+                ? ChassisSpeeds.fromFieldRelativeSpeeds(_xSpeed, _ySpeed, _rot, getRobotRotation2D())
+                : new ChassisSpeeds(_xSpeed, _ySpeed, _rot));
+    SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, DRIVETRAIN.maxSpeed);
+
+    m_fl.setDesiredState(swerveModuleStates[0]);
+    m_fr.setDesiredState(swerveModuleStates[1]);
+    m_b.setDesiredState(swerveModuleStates[2]);
+  }
+  public double getRobotAngle(){
+    return m_gyro.getAngle();
+  }
+  public Rotation2d getRobotRotation2D(){
+    return m_gyro.getRotation2d();
+  }
+  public void resetGyro(){
+    m_gyro.reset();
+  }
+  public void updateOdometry() {
+    m_odometry.update(
+        m_gyro.getRotation2d(),
+        new SwerveModulePosition[] {
+          m_fl.getPosition(),
+          m_fr.getPosition(),
+          m_b.getPosition()
+        });
+  }
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    updateOdometry();
   }
 }

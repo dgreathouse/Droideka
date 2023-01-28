@@ -100,7 +100,7 @@ public class SwerveModule {
         SmartDashboard.putNumber(m_data.name + "_DFF",driveFeedforward);
         SmartDashboard.putNumber(m_data.name + "_SPIDOut",steerOutput);
         SmartDashboard.putNumber(m_data.name + "_DPIDOut",driveOutput);
-        //SmartDashboard.putNumber("Batt", RobotController.getBatteryVoltage());
+        
         
         m_driveFx.setVoltage(driveOutput + driveFeedforward);
         m_steerFx.setVoltage(steerOutput + steerFeedforward);

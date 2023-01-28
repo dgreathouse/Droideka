@@ -13,7 +13,8 @@ import frc.robot.Lib.SwerveData;
 /** Add your docs here. */
 public class k {
     public static class DRIVETRAIN {
-       
+       public static double maxSpeed = 4.36; // m/s
+       public static double maxAngularSpeed = Math.PI; // 1/2 Rotation/Sec
         public static SwerveDriveKinematics kinematics = new SwerveDriveKinematics(
             // Front to back 607mm, Side to side 640mm
             new Translation2d(0.3035, 0.320), // Front Left
