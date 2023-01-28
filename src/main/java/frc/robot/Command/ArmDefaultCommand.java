@@ -39,7 +39,7 @@ public class ArmDefaultCommand extends CommandBase {
   public ArmDefaultCommand(ArmSubsystem _subsystem) {
     
     addRequirements(_subsystem);
-    left_PID =  _subsystem.m_leftCanSparkMax.getPIDController();
+  //  left_PID =  _subsystem.m_leftCanSparkMax.getPIDController();
   }
 
   // Called when the command is initially scheduled.

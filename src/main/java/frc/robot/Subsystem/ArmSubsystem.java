@@ -19,9 +19,9 @@ public class ArmSubsystem extends SubsystemBase {
    */
   /** Creates a new Arm. */
   public ArmSubsystem() {
-    m_leftCanSparkMax = new CANSparkMax(k.ARM.leftCANId, MotorType.kBrushless);
-    m_rightCanSparkMax = new CANSparkMax(k.ARM.rightCANId, MotorType.kBrushless);
-    m_rightCanSparkMax.follow(m_leftCanSparkMax, true);
+    // m_leftCanSparkMax = new CANSparkMax(k.ARM.leftCANId, MotorType.kBrushless);
+    // m_rightCanSparkMax = new CANSparkMax(k.ARM.rightCANId, MotorType.kBrushless);
+    // m_rightCanSparkMax.follow(m_leftCanSparkMax, true);
 
 
   }

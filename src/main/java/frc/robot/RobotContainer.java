@@ -25,7 +25,7 @@ public class RobotContainer {
   private IntakeDefaultCommand intakeDefaultCommand = new IntakeDefaultCommand(intakeSubsystem);
 
   public static XboxController m_XBOXDriver = new XboxController(0);
-  public static XboxController m_XBOXOperator = new XboxController(1);
+  //public static XboxController m_XBOXOperator = new XboxController(1);
 
   public RobotContainer() {
     drivetrainSubsystem.setDefaultCommand(m_drivetrainDefaultCommand);

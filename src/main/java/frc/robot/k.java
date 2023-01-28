@@ -1,7 +1,3 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.InvertType;
@@ -21,38 +17,39 @@ public class k {
             new Translation2d(0.3035, -0.320),
             new Translation2d(-0.3035, 0.0)
         );
+        public static double maxVoltage = 12.0;
     }
     public static class SWERVE {
-        public static SwerveData SDBack = new SwerveData("back", 0, InvertType.None, 0, InvertType.None, 0, 0);
-        public static SwerveData SDFrontLeft = new SwerveData("back", 0, InvertType.None, 0, InvertType.None, 0, 0);
-        public static SwerveData SDFrontRight = new SwerveData("back", 0, InvertType.None, 0, InvertType.None, 0, 0);
+        public static SwerveData SDBack = new SwerveData("Back", 10, InvertType.None, 20, InvertType.InvertMotorOutput, 1, 14);
+        public static SwerveData SDFrontLeft = new SwerveData("FLeft",11, InvertType.None, 21, InvertType.InvertMotorOutput, 2, 163.5);
+        public static SwerveData SDFrontRight = new SwerveData("FRight",12, InvertType.InvertMotorOutput,22, InvertType.InvertMotorOutput, 3, 282);
 
-        public static double driveKp = 0;
-        public static double driveKi = 0;
+        public static double driveKp = 1.0;
+        public static double driveKi = .1;
         public static double driveKd = 0;
 
-        public static double steerKp = 0;
-        public static double steerKi = 0;
+        public static double steerKp = 7.55;
+        public static double steerKi = 1.5;
         public static double steerKd = 0;
 
-        public static double steerMax_RadPS = 0;
-        public static double steerMax_RadPSSq = 0;
+        public static double steerMax_RadPS = Math.PI;
+        public static double steerMax_RadPSSq = Math.pow(steerMax_RadPS,2);
 
-        public static double steerSMFKs = 0;
-        public static double steerSMFKv = 0;
+        public static double steerSMFKs = 0.15;
+        public static double steerSMFKv = 0.15;
         public static double steerSMFKa = 0;
 
-        public static double driveSMFKs = 0;
-        public static double driveSMFKv = 0;
+        public static double driveSMFKs = 0.025;
+        public static double driveSMFKv = 4.36;
         public static double driveSMFKa = 0;
 
         public static double driveDistanceCntsPMeter = 1;
-        public static double steer_CntsPRad = 1;
-        public static double driveRawVelocityToMPS = 1;
+        public static double steer_CntsPRad = 5028.932;
+        public static double driveRawVelocityToMPS = 4990.68;
     }
     public static class ARM{
-        public static int leftCANId = 20;
-        public static int rightCANId = 21;
+        public static int leftCANId = 30;
+        public static int rightCANId = 31;
         public static double bicepP = 1;
     }
 }

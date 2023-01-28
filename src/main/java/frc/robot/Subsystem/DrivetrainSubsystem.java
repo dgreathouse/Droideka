@@ -4,6 +4,7 @@
 
 package frc.robot.Subsystem;
 
+import com.ctre.phoenix.sensors.Pigeon2;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -12,6 +13,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.wpilibj.SPI.Port;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Lib.SwerveModule;
 import frc.robot.k.DRIVETRAIN;
@@ -23,6 +25,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   SwerveModule m_b = new SwerveModule(SWERVE.SDBack);
 
   AHRS m_gyro = new AHRS(Port.kMXP);
+  Pigeon2 m_PGyro = new Pigeon2(5);
   private final SwerveDriveOdometry m_odometry = 
     new SwerveDriveOdometry(
       DRIVETRAIN.kinematics, getRobotRotation2D(), 
@@ -34,6 +37,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   /** Creates a new DrivetrainSubsystem. */
   public DrivetrainSubsystem() {
     resetGyro();
+    
   }
   public void drive(double _xSpeed, double _ySpeed, double _rot, boolean _fieldRelative){
     var swerveModuleStates =
@@ -68,5 +72,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     updateOdometry();
+    SmartDashboard.putNumber("PigeonAngle", m_PGyro.getAbsoluteCompassHeading());
+    SmartDashboard.putNumber("NavXAngle", m_gyro.getAngle());
+    m_b.sendData();
+    m_fl.sendData();
+    m_fr.sendData();
   }
 }
