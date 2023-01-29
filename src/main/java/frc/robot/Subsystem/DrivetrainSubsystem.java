@@ -52,7 +52,14 @@ public class DrivetrainSubsystem extends SubsystemBase {
     m_fr.setDesiredState(swerveModuleStates[1]);
     m_b.setDesiredState(swerveModuleStates[2]);
   }
-
+  /**
+   * 
+   * @return Distance in Meters
+   */
+  public double getDriveDistance(){
+    double dis = (m_fl.getDriveDistance() + m_fr.getDriveDistance() + m_b.getDriveDistance())/3.0;
+    return dis;
+  }
   public double getRobotAngle(){
     return m_gyro.getAngle();
   }
