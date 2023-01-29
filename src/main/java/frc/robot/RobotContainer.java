@@ -5,11 +5,15 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Command.ArmDefaultCommand;
 import frc.robot.Command.AutoLeftConeCubeCommandGroup;
 import frc.robot.Command.DrivetrainDefaultCommand;
 import frc.robot.Command.IntakeDefaultCommand;
+import frc.robot.Command.SwitchGyroCommand;
 import frc.robot.Subsystem.ArmSubsystem;
 import frc.robot.Subsystem.DrivetrainSubsystem;
 import frc.robot.Subsystem.IntakeSubsystem;
@@ -34,7 +38,10 @@ public class RobotContainer {
     configureBindings();
   }
 
-  private void configureBindings() {}
+  private void configureBindings() {
+    Trigger switchTrigger = new JoystickButton(m_XBOXDriver, XboxController.Button.kA.value);
+    switchTrigger.onTrue(new SwitchGyroCommand());
+  }
 
   public Command getAutonomousCommand() {
     return new AutoLeftConeCubeCommandGroup();

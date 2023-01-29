@@ -15,6 +15,7 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Lib.GyroEnum;
 import frc.robot.Lib.SwerveModule;
 import frc.robot.k.DRIVETRAIN;
 import frc.robot.k.SWERVE;
@@ -23,7 +24,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   SwerveModule m_fl = new SwerveModule(SWERVE.SDFrontLeft);
   SwerveModule m_fr = new SwerveModule(SWERVE.SDFrontRight);
   SwerveModule m_b = new SwerveModule(SWERVE.SDBack);
-
+  GyroEnum currentGyro = GyroEnum.AHRS;
   AHRS m_gyro = new AHRS(Port.kMXP);
   Pigeon2 m_PGyro = new Pigeon2(5);
   private final SwerveDriveOdometry m_odometry = 
@@ -51,6 +52,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     m_fr.setDesiredState(swerveModuleStates[1]);
     m_b.setDesiredState(swerveModuleStates[2]);
   }
+
   public double getRobotAngle(){
     return m_gyro.getAngle();
   }
@@ -59,6 +61,13 @@ public class DrivetrainSubsystem extends SubsystemBase {
   }
   public void resetGyro(){
     m_gyro.reset();
+  }
+  public void switchGyro(){
+    if(currentGyro == GyroEnum.AHRS){
+      currentGyro = GyroEnum.PIGEON2;
+    }else if(currentGyro == GyroEnum.PIGEON2){
+      currentGyro = GyroEnum.AHRS;
+    }
   }
   public void updateOdometry() {
     m_odometry.update(

@@ -15,7 +15,18 @@ public class AutoLeftConeCubeCommandGroup extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      
+      /**
+       * Place Cone on high level
+       * Drive back to cube
+       * Turn to cube
+       * Pick up cube
+       * Turn to scoring station
+       * Drive to scoring station
+       * Shift right to cube area
+       * Drive forward to far cone 
+       * drop cube.
+       * Drive to charging station and balance
+       */
     );
   }
 }
