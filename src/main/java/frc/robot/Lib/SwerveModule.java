@@ -50,12 +50,12 @@ public class SwerveModule {
         
         m_driveFx.configVoltageCompSaturation(DRIVETRAIN.maxVoltage, 20);
         m_driveFx.enableVoltageCompensation(false);
-        m_driveFx.setNeutralMode(NeutralMode.Coast);
+        m_driveFx.setNeutralMode(NeutralMode.Brake);
         m_driveFx.setSelectedSensorPosition(0);
 
         m_steerFx.configVoltageCompSaturation(DRIVETRAIN.maxVoltage, 20);
         m_steerFx.enableVoltageCompensation(false);
-        m_steerFx.setNeutralMode(NeutralMode.Coast);
+        m_steerFx.setNeutralMode(NeutralMode.Brake);
 
         m_steerPIDController.enableContinuousInput(-Math.PI, Math.PI);
         
@@ -116,6 +116,7 @@ public class SwerveModule {
         SmartDashboard.putNumber(m_data.name + "_DVel",getDriveVelocity());
         SmartDashboard.putNumber(m_data.name + "StateSpeed", state.speedMetersPerSecond);
         SmartDashboard.putNumber(m_data.name + "StateAngle", state.angle.getRadians());
+        SmartDashboard.putNumber(m_data.name + "StateSTVel", m_steerPIDController.getSetpoint().velocity);
         
         m_driveFx.setVoltage(driveOutput + driveFeedforward);
         m_steerFx.setVoltage(steerOutput + steerFeedforward);

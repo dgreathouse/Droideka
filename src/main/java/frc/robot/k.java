@@ -24,27 +24,29 @@ public class k {
         public static SwerveData SDFrontLeft = new SwerveData("FLeft",11, InvertType.None, 21, InvertType.InvertMotorOutput, 2, 163.5);
         public static SwerveData SDFrontRight = new SwerveData("FRight",12, InvertType.InvertMotorOutput,22, InvertType.InvertMotorOutput, 3, 282);
 
-        public static double driveKp = 1.0;
-        public static double driveKi = .1;
-        public static double driveKd = 0;
 
-        public static double steerKp = 7.55;
-        public static double steerKi = 1.5;
+
+        public static double steerKp = 3;
+        public static double steerKi = 6;
         public static double steerKd = 0;
+
+        public static double steerSMFKs = 0.0;
+        public static double steerSMFKv = 0;
+        public static double steerSMFKa = 0;
 
         public static double steerMax_RadPS = Math.PI;
         public static double steerMax_RadPSSq = Math.pow(steerMax_RadPS,2);
+        public static double steer_CntsPRad = 5028.932;
 
-        public static double steerSMFKs = 0.15;
-        public static double steerSMFKv = 0.15;
-        public static double steerSMFKa = 0;
+        public static double driveKp = 0.5;
+        public static double driveKi = 1.5;
+        public static double driveKd = 0;
 
         public static double driveSMFKs = 0.025;
-        public static double driveSMFKv = 4.36;
+        public static double driveSMFKv = 3.2;
         public static double driveSMFKa = 0;
 
         public static double driveDistanceCntsPMeter = 1;
-        public static double steer_CntsPRad = 5028.932;
         public static double driveRawVelocityToMPS = 4990.68;
     }
     public static class ARM{
