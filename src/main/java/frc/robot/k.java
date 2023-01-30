@@ -54,4 +54,9 @@ public class k {
         public static int rightCANId = 31;
         public static double bicepP = 1;
     }
+    public static class INTAKE{
+        public static int spinMotCANId = 40;
+        public static int rotateMotCANId = 41;
+        public static int cntsPDeg = 100;
+    }
 }
