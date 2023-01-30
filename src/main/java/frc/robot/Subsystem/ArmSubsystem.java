@@ -5,10 +5,8 @@
 package frc.robot.Subsystem;
 
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.k;
+
 
 public class ArmSubsystem extends SubsystemBase {
   public CANSparkMax m_leftCanSparkMax;
