@@ -8,7 +8,8 @@ package frc.robot.Command;
 import com.revrobotics.SparkMaxPIDController;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-
+import frc.robot.RobotContainer;
+import frc.robot.Lib.ArmPosEnum;
 import frc.robot.Subsystem.ArmSubsystem;
 
 /**
@@ -34,12 +35,17 @@ import frc.robot.Subsystem.ArmSubsystem;
  * The Forearm motor is not yet done in the ArmSubsystem. How the arm bicep and forearm motors are controlled together is to be determined
  */
 public class ArmDefaultCommand extends CommandBase {
-  SparkMaxPIDController left_PID;
+
+  double bicepPos = 0;
+  double elbowPos = 0;
+  double intakePos = 0;
+  double intakeVel = 0;
+
   /** Creates a new ArmDefaultCommand. */
   public ArmDefaultCommand(ArmSubsystem _subsystem) {
-    
     addRequirements(_subsystem);
-  //  left_PID =  _subsystem.m_leftCanSparkMax.getPIDController();
+
+
   }
 
   // Called when the command is initially scheduled.
@@ -48,10 +54,75 @@ public class ArmDefaultCommand extends CommandBase {
 
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
+  /**
+     * What must be done here;
+     * Move to positions and set intake at a speed
+   */
   @Override
-  public void execute() {}
+  public void execute() {
+    double intakeSpeed = RobotContainer.m_XBOXOperator.getLeftTriggerAxis() - RobotContainer.m_XBOXOperator.getRightTriggerAxis();
+    RobotContainer.armSubsystem.spinIntake(intakeSpeed);
 
+    switch(RobotContainer.armSubsystem.m_armPos){
+      case FAR_CONE:
+      RobotContainer.armSubsystem.rotateBicep(0);
+      RobotContainer.armSubsystem.rotateElbow(0);
+      RobotContainer.armSubsystem.rotateIntake(0);
+        break;
+      case FAR_CUBE:
+      RobotContainer.armSubsystem.rotateBicep(0);
+      RobotContainer.armSubsystem.rotateElbow(0);
+      RobotContainer.armSubsystem.rotateIntake(0);
+        break;
+      case FLOOR_FRONT_BLOB:
+      RobotContainer.armSubsystem.rotateBicep(0);
+      RobotContainer.armSubsystem.rotateElbow(0);
+      RobotContainer.armSubsystem.rotateIntake(0);
+        break;
+      case HOME:
+        RobotContainer.armSubsystem.rotateBicep(0);
+        RobotContainer.armSubsystem.rotateElbow(0);
+        RobotContainer.armSubsystem.rotateIntake(0);
+        break;
+      case LOW_CONE:
+      RobotContainer.armSubsystem.rotateBicep(0);
+      RobotContainer.armSubsystem.rotateElbow(0);
+      RobotContainer.armSubsystem.rotateIntake(0);
+        break;
+      case LOW_CUBE:
+      RobotContainer.armSubsystem.rotateBicep(0);
+      RobotContainer.armSubsystem.rotateElbow(0);
+      RobotContainer.armSubsystem.rotateIntake(0);
+        break;
+      case MID_CONE:
+      RobotContainer.armSubsystem.rotateBicep(0);
+      RobotContainer.armSubsystem.rotateElbow(0);
+      RobotContainer.armSubsystem.rotateIntake(0);
+        break;
+      case MID_CUBE:
+      RobotContainer.armSubsystem.rotateBicep(0);
+      RobotContainer.armSubsystem.rotateElbow(0);
+      RobotContainer.armSubsystem.rotateIntake(0);
+        break;
+      case WALL_CONE:
+      RobotContainer.armSubsystem.rotateBicep(0);
+      RobotContainer.armSubsystem.rotateElbow(0);
+      RobotContainer.armSubsystem.rotateIntake(0);
+        break;
+      case WALL_CUBE:
+      RobotContainer.armSubsystem.rotateBicep(0);
+      RobotContainer.armSubsystem.rotateElbow(0);
+      RobotContainer.armSubsystem.rotateIntake(0);
+        break;
+      default:
+      RobotContainer.armSubsystem.rotateBicep(0);
+      RobotContainer.armSubsystem.rotateElbow(0);
+      RobotContainer.armSubsystem.rotateIntake(0);
+        break;}
+
+  }
+
+  
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {}

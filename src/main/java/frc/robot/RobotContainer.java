@@ -6,16 +6,19 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Command.ArmDefaultCommand;
+import frc.robot.Command.ArmSetCommand;
 import frc.robot.Command.AutoLeftConeCubeCommandGroup;
 import frc.robot.Command.DrivetrainDefaultCommand;
-import frc.robot.Command.IntakeDefaultCommand;
+
 import frc.robot.Command.SwitchGyroCommand;
+import frc.robot.Lib.ArmPosEnum;
 import frc.robot.Subsystem.ArmSubsystem;
 import frc.robot.Subsystem.DrivetrainSubsystem;
-import frc.robot.Subsystem.IntakeSubsystem;
+
 
 public class RobotContainer {
   public static DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
@@ -24,22 +27,26 @@ public class RobotContainer {
   public static ArmSubsystem armSubsystem = new ArmSubsystem();
   private ArmDefaultCommand armDefaultCommand = new ArmDefaultCommand(armSubsystem);
 
-  public static IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
-  private IntakeDefaultCommand intakeDefaultCommand = new IntakeDefaultCommand(intakeSubsystem);
 
   public static XboxController m_XBOXDriver = new XboxController(0);
-  //public static XboxController m_XBOXOperator = new XboxController(1);
+  public static XboxController m_XBOXOperator = new XboxController(1);
 
   public RobotContainer() {
     drivetrainSubsystem.setDefaultCommand(m_drivetrainDefaultCommand);
     armSubsystem.setDefaultCommand(armDefaultCommand);
-    intakeSubsystem.setDefaultCommand(intakeDefaultCommand);
     configureBindings();
   }
 
   private void configureBindings() {
-    Trigger switchTrigger = new JoystickButton(m_XBOXDriver, XboxController.Button.kA.value);
-    switchTrigger.onTrue(new SwitchGyroCommand());
+    CommandXboxController operatorController = new CommandXboxController(1);
+    Trigger switchGyroTrigger = new JoystickButton(m_XBOXDriver, XboxController.Button.kStart.value);
+    switchGyroTrigger.onTrue(new SwitchGyroCommand());
+
+    // Arm Bindings
+    operatorController.leftBumper().and(operatorController.rightBumper()).onTrue(new ArmSetCommand(ArmPosEnum.HOME));
+    operatorController.leftBumper().and(operatorController.a()).onTrue(new ArmSetCommand(ArmPosEnum.WALL_CONE));
+ 
+
   }
 
   public Command getAutonomousCommand() {

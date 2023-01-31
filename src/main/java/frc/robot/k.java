@@ -50,13 +50,18 @@ public class k {
         public static double driveRawVelocityToMPS = 4990.68;
     }
     public static class ARM{
-        public static int leftCANId = 30;
-        public static int rightCANId = 31;
+        public static int leftBicepCANId = 30;
+        public static int rightBicepCANId = 31;
+        public static int leftElbowCANId = 32;
+        public static int rightElbowCANId = 33;
+        public static int leftIntakeRotateCANId = 34;
+        public static int rightIntakeSpinnerCANId = 35;
         public static double bicepP = 1;
+        public static double bicepCntsPDeg = 1;
+        public static double elbowCntsPDeg = 1;
+        public static double intakeCntsPDeg = 1;
+
+        
     }
-    public static class INTAKE{
-        public static int spinMotCANId = 40;
-        public static int rotateMotCANId = 41;
-        public static int cntsPDeg = 100;
-    }
+
 }
