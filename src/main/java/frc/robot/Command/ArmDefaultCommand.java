@@ -4,12 +4,8 @@
 
 package frc.robot.Command;
 
-
-import com.revrobotics.SparkMaxPIDController;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
-import frc.robot.Lib.ArmPosEnum;
 import frc.robot.Subsystem.ArmSubsystem;
 
 /**
@@ -44,8 +40,6 @@ public class ArmDefaultCommand extends CommandBase {
   /** Creates a new ArmDefaultCommand. */
   public ArmDefaultCommand(ArmSubsystem _subsystem) {
     addRequirements(_subsystem);
-
-
   }
 
   // Called when the command is initially scheduled.
@@ -65,57 +59,57 @@ public class ArmDefaultCommand extends CommandBase {
 
     switch(RobotContainer.armSubsystem.m_armPos){
       case FAR_CONE:
-      RobotContainer.armSubsystem.rotateBicep(0);
+      RobotContainer.armSubsystem.rotateShoulder(0);
       RobotContainer.armSubsystem.rotateElbow(0);
       RobotContainer.armSubsystem.rotateIntake(0);
         break;
       case FAR_CUBE:
-      RobotContainer.armSubsystem.rotateBicep(0);
+      RobotContainer.armSubsystem.rotateShoulder(0);
       RobotContainer.armSubsystem.rotateElbow(0);
       RobotContainer.armSubsystem.rotateIntake(0);
         break;
       case FLOOR_FRONT_BLOB:
-      RobotContainer.armSubsystem.rotateBicep(0);
+      RobotContainer.armSubsystem.rotateShoulder(0);
       RobotContainer.armSubsystem.rotateElbow(0);
       RobotContainer.armSubsystem.rotateIntake(0);
         break;
       case HOME:
-        RobotContainer.armSubsystem.rotateBicep(0);
+        RobotContainer.armSubsystem.rotateShoulder(0);
         RobotContainer.armSubsystem.rotateElbow(0);
         RobotContainer.armSubsystem.rotateIntake(0);
         break;
       case LOW_CONE:
-      RobotContainer.armSubsystem.rotateBicep(0);
+      RobotContainer.armSubsystem.rotateShoulder(0);
       RobotContainer.armSubsystem.rotateElbow(0);
       RobotContainer.armSubsystem.rotateIntake(0);
         break;
       case LOW_CUBE:
-      RobotContainer.armSubsystem.rotateBicep(0);
+      RobotContainer.armSubsystem.rotateShoulder(0);
       RobotContainer.armSubsystem.rotateElbow(0);
       RobotContainer.armSubsystem.rotateIntake(0);
         break;
       case MID_CONE:
-      RobotContainer.armSubsystem.rotateBicep(0);
+      RobotContainer.armSubsystem.rotateShoulder(0);
       RobotContainer.armSubsystem.rotateElbow(0);
       RobotContainer.armSubsystem.rotateIntake(0);
         break;
       case MID_CUBE:
-      RobotContainer.armSubsystem.rotateBicep(0);
+      RobotContainer.armSubsystem.rotateShoulder(0);
       RobotContainer.armSubsystem.rotateElbow(0);
       RobotContainer.armSubsystem.rotateIntake(0);
         break;
       case WALL_CONE:
-      RobotContainer.armSubsystem.rotateBicep(0);
+      RobotContainer.armSubsystem.rotateShoulder(0);
       RobotContainer.armSubsystem.rotateElbow(0);
       RobotContainer.armSubsystem.rotateIntake(0);
         break;
       case WALL_CUBE:
-      RobotContainer.armSubsystem.rotateBicep(0);
+      RobotContainer.armSubsystem.rotateShoulder(0);
       RobotContainer.armSubsystem.rotateElbow(0);
       RobotContainer.armSubsystem.rotateIntake(0);
         break;
       default:
-      RobotContainer.armSubsystem.rotateBicep(0);
+      RobotContainer.armSubsystem.rotateShoulder(0);
       RobotContainer.armSubsystem.rotateElbow(0);
       RobotContainer.armSubsystem.rotateIntake(0);
         break;}

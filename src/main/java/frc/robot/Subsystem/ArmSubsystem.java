@@ -21,8 +21,8 @@ import frc.robot.Lib.ArmPosEnum;/**
  * The last method controls the intake velocity.
  */
 public class ArmSubsystem extends SubsystemBase {
-  public WPI_TalonFX m_leftBicepMotCtrl;
-  public WPI_TalonFX m_rightBicepMotCtrl;
+  public WPI_TalonFX m_leftShoulderMotCtrl;
+  public WPI_TalonFX m_rightShoulderMotCtrl;
   public WPI_TalonSRX m_leftElbowMotCtrl;
   public WPI_TalonSRX m_rightElbowMotCtrl;
   public WPI_TalonSRX m_intakeRotateMotCtrl;
@@ -30,7 +30,7 @@ public class ArmSubsystem extends SubsystemBase {
 
   public ArmPosEnum m_armPos = ArmPosEnum.HOME;
   public double m_elbowAngle = 0;
-  public double m_bicepAngle = 0;
+  public double m_shoulderAngle = 0;
   public double m_intakeAngle = 0;
   public double m_intakeVelocity = 0;
   /**
@@ -38,21 +38,21 @@ public class ArmSubsystem extends SubsystemBase {
    */
   /** Creates a new Arm. */
   public ArmSubsystem() {
-    /************************ BICEP ****************************/
+    /************************ Shoulder ****************************/
     // Create new instance of motor control classes 
-    m_leftBicepMotCtrl = new WPI_TalonFX(k.ARM.leftBicepCANId);
-    m_rightBicepMotCtrl = new WPI_TalonFX(k.ARM.rightBicepCANId);
+    m_leftShoulderMotCtrl = new WPI_TalonFX(k.ARM.leftShoulderCANId);
+    m_rightShoulderMotCtrl = new WPI_TalonFX(k.ARM.rightShoulderCANId);
 
     // Invert the other controller that is going to follow
-    m_rightBicepMotCtrl.setInverted(InvertType.InvertMotorOutput);
-    m_rightBicepMotCtrl.follow(m_leftBicepMotCtrl);
+    m_rightShoulderMotCtrl.setInverted(InvertType.InvertMotorOutput);
+    m_rightShoulderMotCtrl.follow(m_leftShoulderMotCtrl);
 
     // Configure the closedloop gain values
-    m_leftBicepMotCtrl.config_kP(0, 0.5);
-    m_leftBicepMotCtrl.config_kI(0, 0.0);
-    m_leftBicepMotCtrl.config_kD(0, 0.0);
-    m_leftBicepMotCtrl.configClosedLoopPeakOutput(0, 0.75);
-    m_leftBicepMotCtrl.configClosedloopRamp(1);
+    m_leftShoulderMotCtrl.config_kP(0, 0.5);
+    m_leftShoulderMotCtrl.config_kI(0, 0.0);
+    m_leftShoulderMotCtrl.config_kD(0, 0.0);
+    m_leftShoulderMotCtrl.configClosedLoopPeakOutput(0, 0.75);
+    m_leftShoulderMotCtrl.configClosedloopRamp(1);
 
     /************************ ELBOW ****************************/
     // Create new instance of motor control classes 
@@ -61,7 +61,7 @@ public class ArmSubsystem extends SubsystemBase {
 
     // Invert the other controller that is going to follow
     m_rightElbowMotCtrl.setInverted(InvertType.InvertMotorOutput);
-    m_rightElbowMotCtrl.follow(m_leftBicepMotCtrl);
+    m_rightElbowMotCtrl.follow(m_leftShoulderMotCtrl);
 
     // Configure the closedloop gain values
     m_leftElbowMotCtrl.config_kP(0, 0.5);
@@ -88,9 +88,9 @@ public class ArmSubsystem extends SubsystemBase {
 
     m_armPos = ArmPosEnum.HOME;
   }
-  public void rotateBicep(double _angle){
-    double angle = _angle * k.ARM.bicepCntsPDeg;
-    m_leftBicepMotCtrl.set(ControlMode.Position, angle);
+  public void rotateShoulder(double _angle){
+    double angle = _angle * k.ARM.shoulderCntsPDeg;
+    m_leftShoulderMotCtrl.set(ControlMode.Position, angle);
 
   }
   public void rotateElbow(double _angle){
