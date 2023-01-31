@@ -104,7 +104,27 @@ public class ArmSubsystem extends SubsystemBase {
   public void spinIntake(double _velocity){
     m_intakeSpinnerMotCtrl.set(ControlMode.PercentOutput, _velocity);
   }
+  public void setShoulderAngle(double _angle){
+    m_shoulderAngle = _angle;
+  }
+  public void setElbowAngle(double _angle){
+    m_elbowAngle = _angle;
+  }
+  public void setIntakeAngle(double _angle){
+    m_intakeAngle = _angle;
+  }
+  public void setIntakeVelocity(double _velocity){
+    m_intakeVelocity = _velocity;
+  }
+  /** Return true if all motors are within target range */
+  public boolean onTarget(){
+    double shoulderAngle = m_leftShoulderMotCtrl.getSelectedSensorPosition();
+    double elbowAngle = m_leftElbowMotCtrl.getSelectedSensorPosition();
+    double intakeAngle = m_intakeRotateMotCtrl.getSelectedSensorPosition();
 
+    // TODO: Check all angles within the range of where they need to be.
+    return false;
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

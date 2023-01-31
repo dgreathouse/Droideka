@@ -4,6 +4,8 @@
 
 package frc.robot.Command;
 
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.Subsystem.ArmSubsystem;
@@ -54,68 +56,90 @@ public class ArmDefaultCommand extends CommandBase {
    */
   @Override
   public void execute() {
-    double intakeSpeed = RobotContainer.m_XBOXOperator.getLeftTriggerAxis() - RobotContainer.m_XBOXOperator.getRightTriggerAxis();
-    RobotContainer.armSubsystem.spinIntake(intakeSpeed);
+    // Set the intake velocity based on teleop or auto
+    if(DriverStation.isTeleop()){
+      intakeVel = RobotContainer.m_XBOXOperator.getLeftTriggerAxis() - RobotContainer.m_XBOXOperator.getRightTriggerAxis();
+    }else if(DriverStation.isAutonomous()){
+      intakeVel = RobotContainer.armSubsystem.m_intakeVelocity;
+    }
 
+    // Set the values for where to move based on the selected arm position.
     switch(RobotContainer.armSubsystem.m_armPos){
       case FAR_CONE:
-      RobotContainer.armSubsystem.rotateShoulder(0);
-      RobotContainer.armSubsystem.rotateElbow(0);
-      RobotContainer.armSubsystem.rotateIntake(0);
+      RobotContainer.armSubsystem.setShoulderAngle(0);
+      RobotContainer.armSubsystem.setElbowAngle(0);
+      RobotContainer.armSubsystem.setIntakeAngle(0);
+      RobotContainer.armSubsystem.setIntakeVelocity(0);
         break;
       case FAR_CUBE:
-      RobotContainer.armSubsystem.rotateShoulder(0);
-      RobotContainer.armSubsystem.rotateElbow(0);
-      RobotContainer.armSubsystem.rotateIntake(0);
+      RobotContainer.armSubsystem.setShoulderAngle(0);
+      RobotContainer.armSubsystem.setElbowAngle(0);
+      RobotContainer.armSubsystem.setIntakeAngle(0);
+      RobotContainer.armSubsystem.setIntakeVelocity(0);
         break;
       case FLOOR_FRONT_BLOB:
-      RobotContainer.armSubsystem.rotateShoulder(0);
-      RobotContainer.armSubsystem.rotateElbow(0);
-      RobotContainer.armSubsystem.rotateIntake(0);
+      RobotContainer.armSubsystem.setShoulderAngle(0);
+      RobotContainer.armSubsystem.setElbowAngle(0);
+      RobotContainer.armSubsystem.setIntakeAngle(0);
+      RobotContainer.armSubsystem.setIntakeVelocity(0);
         break;
       case HOME:
-        RobotContainer.armSubsystem.rotateShoulder(0);
-        RobotContainer.armSubsystem.rotateElbow(0);
-        RobotContainer.armSubsystem.rotateIntake(0);
+      RobotContainer.armSubsystem.setShoulderAngle(0);
+      RobotContainer.armSubsystem.setElbowAngle(0);
+      RobotContainer.armSubsystem.setIntakeAngle(0);
+      RobotContainer.armSubsystem.setIntakeVelocity(0);
         break;
       case LOW_CONE:
-      RobotContainer.armSubsystem.rotateShoulder(0);
-      RobotContainer.armSubsystem.rotateElbow(0);
-      RobotContainer.armSubsystem.rotateIntake(0);
+      RobotContainer.armSubsystem.setShoulderAngle(0);
+      RobotContainer.armSubsystem.setElbowAngle(0);
+      RobotContainer.armSubsystem.setIntakeAngle(0);
+      RobotContainer.armSubsystem.setIntakeVelocity(0);
         break;
       case LOW_CUBE:
-      RobotContainer.armSubsystem.rotateShoulder(0);
-      RobotContainer.armSubsystem.rotateElbow(0);
-      RobotContainer.armSubsystem.rotateIntake(0);
+      RobotContainer.armSubsystem.setShoulderAngle(0);
+      RobotContainer.armSubsystem.setElbowAngle(0);
+      RobotContainer.armSubsystem.setIntakeAngle(0);
+      RobotContainer.armSubsystem.setIntakeVelocity(0);
         break;
       case MID_CONE:
-      RobotContainer.armSubsystem.rotateShoulder(0);
-      RobotContainer.armSubsystem.rotateElbow(0);
-      RobotContainer.armSubsystem.rotateIntake(0);
+      RobotContainer.armSubsystem.setShoulderAngle(0);
+      RobotContainer.armSubsystem.setElbowAngle(0);
+      RobotContainer.armSubsystem.setIntakeAngle(0);
+      RobotContainer.armSubsystem.setIntakeVelocity(0);
         break;
       case MID_CUBE:
-      RobotContainer.armSubsystem.rotateShoulder(0);
-      RobotContainer.armSubsystem.rotateElbow(0);
-      RobotContainer.armSubsystem.rotateIntake(0);
+      RobotContainer.armSubsystem.setShoulderAngle(0);
+      RobotContainer.armSubsystem.setElbowAngle(0);
+      RobotContainer.armSubsystem.setIntakeAngle(0);
+      RobotContainer.armSubsystem.setIntakeVelocity(0);
         break;
       case WALL_CONE:
-      RobotContainer.armSubsystem.rotateShoulder(0);
-      RobotContainer.armSubsystem.rotateElbow(0);
-      RobotContainer.armSubsystem.rotateIntake(0);
+      RobotContainer.armSubsystem.setShoulderAngle(0);
+      RobotContainer.armSubsystem.setElbowAngle(0);
+      RobotContainer.armSubsystem.setIntakeAngle(0);
+      RobotContainer.armSubsystem.setIntakeVelocity(0);
         break;
       case WALL_CUBE:
-      RobotContainer.armSubsystem.rotateShoulder(0);
-      RobotContainer.armSubsystem.rotateElbow(0);
-      RobotContainer.armSubsystem.rotateIntake(0);
+      RobotContainer.armSubsystem.setShoulderAngle(0);
+      RobotContainer.armSubsystem.setElbowAngle(0);
+      RobotContainer.armSubsystem.setIntakeAngle(0);
+      RobotContainer.armSubsystem.setIntakeVelocity(0);
         break;
       default:
-      RobotContainer.armSubsystem.rotateShoulder(0);
-      RobotContainer.armSubsystem.rotateElbow(0);
-      RobotContainer.armSubsystem.rotateIntake(0);
-        break;}
+      RobotContainer.armSubsystem.setShoulderAngle(0);
+      RobotContainer.armSubsystem.setElbowAngle(0);
+      RobotContainer.armSubsystem.setIntakeAngle(0);
+      RobotContainer.armSubsystem.setIntakeVelocity(0);
+        break;
+      }
+      // Call the arm methods to make the arm motors move
+      RobotContainer.armSubsystem.rotateShoulder(RobotContainer.armSubsystem.m_shoulderAngle);
+      RobotContainer.armSubsystem.rotateElbow(RobotContainer.armSubsystem.m_elbowAngle);
+      RobotContainer.armSubsystem.rotateIntake(RobotContainer.armSubsystem.m_intakeAngle);
+      RobotContainer.armSubsystem.spinIntake(intakeVel);
 
   }
-
+ 
   
   // Called once the command ends or is interrupted.
   @Override
