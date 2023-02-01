@@ -26,7 +26,7 @@ import frc.robot.Subsystem.DrivetrainSubsystem;
 
 public class RobotContainer {
   public static DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
-  private DrivetrainDefaultCommand m_drivetrainDefaultCommand = new DrivetrainDefaultCommand(drivetrainSubsystem);
+  private DrivetrainDefaultCommand drivetrainDefaultCommand = new DrivetrainDefaultCommand(drivetrainSubsystem);
 
   public static ArmSubsystem armSubsystem = new ArmSubsystem();
   private ArmDefaultCommand armDefaultCommand = new ArmDefaultCommand(armSubsystem);
@@ -37,9 +37,12 @@ public class RobotContainer {
 
   SendableChooser<Command> autoChooser = new SendableChooser<>();
 
-
+  /** RobotContainer holds all the static data for references to the subsystems.
+   * To call a method in the subsystem use the following code example
+   * RobotContainer.armSubsystem.EnterMethodName();
+   */
   public RobotContainer() {
-    drivetrainSubsystem.setDefaultCommand(m_drivetrainDefaultCommand);
+    drivetrainSubsystem.setDefaultCommand(drivetrainDefaultCommand);
     armSubsystem.setDefaultCommand(armDefaultCommand);
 
     configureBindings();
@@ -53,7 +56,7 @@ public class RobotContainer {
 
 
   }
-
+  /** Configure the XBOX controller bindings from buttons/axis to Commands */
   private void configureBindings() {
     CommandXboxController operatorController = new CommandXboxController(1);
     Trigger switchGyroTrigger = new JoystickButton(m_XBOXDriver, XboxController.Button.kStart.value);
@@ -65,7 +68,7 @@ public class RobotContainer {
  
 
   }
-
+  /** Return the selected command from the smartdashboard on the drivestation */
   public Command getAutonomousCommand() {
     return autoChooser.getSelected();
   }
