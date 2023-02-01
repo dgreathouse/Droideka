@@ -5,12 +5,15 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Command.ArmDefaultCommand;
 import frc.robot.Command.ArmSetCommand;
+import frc.robot.Command.AutoDoNothingCommandGroup;
 import frc.robot.Command.AutoLeftConeCubeCommandGroup;
 import frc.robot.Command.DrivetrainDefaultCommand;
 
@@ -32,12 +35,23 @@ public class RobotContainer {
   public static XboxController m_XBOXDriver = new XboxController(0);
   public static XboxController m_XBOXOperator = new XboxController(1);
 
+  SendableChooser<Command> autoChooser = new SendableChooser<>();
+
 
   public RobotContainer() {
     drivetrainSubsystem.setDefaultCommand(m_drivetrainDefaultCommand);
     armSubsystem.setDefaultCommand(armDefaultCommand);
 
     configureBindings();
+
+    autoChooser.addOption("Left Cone, Get Cube, Balance", new AutoLeftConeCubeCommandGroup());
+    autoChooser.setDefaultOption("Do Nothing", new AutoDoNothingCommandGroup());
+    // Add more auto options here
+    
+    SmartDashboard.putData(autoChooser);
+
+
+
   }
 
   private void configureBindings() {
@@ -53,6 +67,6 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    return new AutoLeftConeCubeCommandGroup();
+    return autoChooser.getSelected();
   }
 }
