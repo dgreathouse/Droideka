@@ -29,8 +29,8 @@ public class ArmSubsystem extends SubsystemBase {
   public WPI_TalonSRX m_intakeSpinnerMotCtrl;
 
   public ArmPosEnum m_armPos = ArmPosEnum.HOME;
-  public double m_elbowAngle = 0;
   public double m_shoulderAngle = 0;
+  public double m_elbowAngle = 0;
   public double m_intakeAngle = 0;
   public double m_intakeVelocity = 0;
   /**
@@ -86,7 +86,6 @@ public class ArmSubsystem extends SubsystemBase {
     m_intakeRotateMotCtrl.configClosedLoopPeakOutput(0, 0.75);
     m_intakeRotateMotCtrl.configClosedloopRamp(1);
 
-    m_armPos = ArmPosEnum.HOME;
   }
   public void rotateShoulder(double _angle){
     double angle = _angle * k.ARM.shoulderCntsPDeg;

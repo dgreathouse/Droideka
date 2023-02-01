@@ -16,7 +16,7 @@ public class ArmSetCommand extends InstantCommand {
   ArmPosEnum m_pos;
   public ArmSetCommand(ArmPosEnum _pos) {
     addRequirements(RobotContainer.armSubsystem);
-    
+    m_pos = _pos;
   }
 
   // Called when the command is initially scheduled.
