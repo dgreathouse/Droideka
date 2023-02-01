@@ -23,7 +23,6 @@ public class AutoLeftConeCubeCommandGroup extends SequentialCommandGroup {
       new ArmIntakeVelCommand(0),
       new ParallelCommandGroup(
         new ArmSetCommand(ArmPosEnum.HOME),
-        new ArmOnTargetCommand(),
         new AutoDrivetrainPIDCommand(48, 5),
         new AutoDrivetrainRotatePIDCommand(20, 2)
       )
@@ -35,7 +34,7 @@ public class AutoLeftConeCubeCommandGroup extends SequentialCommandGroup {
        * Turn to scoring station
        * Drive to scoring station
        * Shift right to cube area
-       * Drive forward to far cone 
+       * Drive forward to far cube 
        * drop cube.
        * Drive to charging station and balance
        */
