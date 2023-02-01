@@ -9,11 +9,13 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.RobotContainer;
 import frc.robot.Lib.ArmPosEnum;
 
-// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
-// information, see:
-// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
+
 public class ArmSetCommand extends InstantCommand {
   ArmPosEnum m_pos;
+  /** 
+ * Set the requested position for the arm to move to. 
+ * This is an InstantCommand which means it will run once and exit
+ */
   public ArmSetCommand(ArmPosEnum _pos) {
     addRequirements(RobotContainer.armSubsystem);
     m_pos = _pos;
@@ -23,5 +25,6 @@ public class ArmSetCommand extends InstantCommand {
   @Override
   public void initialize() {
     RobotContainer.armSubsystem.m_armPos = m_pos;
+    RobotContainer.armSubsystem.resetMoveTimers();
   }
 }

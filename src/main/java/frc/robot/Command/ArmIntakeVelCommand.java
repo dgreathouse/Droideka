@@ -12,6 +12,12 @@ import frc.robot.RobotContainer;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ArmIntakeVelCommand extends InstantCommand {
   double m_vel = 0;
+  /**
+   * Create a new ArmIntakeVelCommand(double velocity)
+   * Sets the velocity of the intake from +/- 1 
+   * This command will exit immediatly 
+   * @param _vel The Velocity from +/- 1
+   */
   public ArmIntakeVelCommand(double _vel) {
     addRequirements(RobotContainer.armSubsystem);
     m_vel = 0;

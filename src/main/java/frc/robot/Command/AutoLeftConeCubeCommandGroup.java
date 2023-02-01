@@ -17,12 +17,13 @@ public class AutoLeftConeCubeCommandGroup extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new ArmSetCommand(ArmPosEnum.FAR_CONE),
+      new ArmOnTargetCommand(),
       new ArmIntakeVelCommand(1),
       new WaitCommand(1),
       new ArmIntakeVelCommand(0),
-      new ArmSetCommand(ArmPosEnum.HOME),
       new ParallelCommandGroup(
-        new ArmSetCommand(ArmPosEnum.FLOOR_FRONT_CUBE),
+        new ArmSetCommand(ArmPosEnum.HOME),
+        new ArmOnTargetCommand(),
         new AutoDrivetrainPIDCommand(48, 5),
         new AutoDrivetrainRotatePIDCommand(20, 2)
       )

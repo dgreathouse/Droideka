@@ -13,10 +13,12 @@ import frc.robot.Command.ArmDefaultCommand;
 import frc.robot.Command.ArmSetCommand;
 import frc.robot.Command.AutoLeftConeCubeCommandGroup;
 import frc.robot.Command.DrivetrainDefaultCommand;
+
 import frc.robot.Command.SwitchGyroCommand;
 import frc.robot.Lib.ArmPosEnum;
 import frc.robot.Subsystem.ArmSubsystem;
 import frc.robot.Subsystem.DrivetrainSubsystem;
+
 
 
 public class RobotContainer {
@@ -30,9 +32,11 @@ public class RobotContainer {
   public static XboxController m_XBOXDriver = new XboxController(0);
   public static XboxController m_XBOXOperator = new XboxController(1);
 
+
   public RobotContainer() {
     drivetrainSubsystem.setDefaultCommand(m_drivetrainDefaultCommand);
     armSubsystem.setDefaultCommand(armDefaultCommand);
+
     configureBindings();
   }
 
