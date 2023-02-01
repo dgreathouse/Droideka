@@ -22,7 +22,7 @@ public class AutoLeftConeCubeCommandGroup extends SequentialCommandGroup {
       new ArmIntakeVelCommand(0),
       new ArmSetCommand(ArmPosEnum.HOME),
       new ParallelCommandGroup(
-        new ArmSetCommand(ArmPosEnum.FLOOR_FRONT_BLOB),
+        new ArmSetCommand(ArmPosEnum.FLOOR_FRONT_CUBE),
         new AutoDrivetrainPIDCommand(48, 5),
         new AutoDrivetrainRotatePIDCommand(20, 2)
       )

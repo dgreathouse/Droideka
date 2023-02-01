@@ -50,18 +50,35 @@ public class k {
         public static double driveRawVelocityToMPS = 4990.68;
     }
     public static class ARM{
-        public static int leftShoulderCANId = 30;
-        public static int rightShoulderCANId = 31;
-        public static int leftElbowCANId = 32;
-        public static int rightElbowCANId = 33;
-        public static int leftIntakeRotateCANId = 34;
-        public static int rightIntakeSpinnerCANId = 35;
-        public static double shoulderP = 1;
-        public static double shoulderCntsPDeg = 1;
-        public static double elbowCntsPDeg = 1;
-        public static double intakeCntsPDeg = 1;
 
         
+    }
+    public static class SHOULDER {
+        public static int leftCANId = 30;
+        public static int rightCANId = 31;
+        public static double PID_P = 1;
+        public static double PID_I = 1;
+        public static double CntsPDeg = 1;
+        public static double PercentOnTarget = 1;
+        public static double TimeoutOnTarget = 2;
+    }
+    public static class ELBOW {
+        public static int leftCANId = 32;
+        public static int rightCANId = 33;
+        public static double PID_P = 1;
+        public static double PID_I = 1;
+        public static double CntsPDeg = 1;
+        public static double PercentOnTarget = 1;
+        public static double TimeoutOnTarget = 2;
+    }
+    public static class INTAKE {
+        public static int leftRotateCANId = 34;
+        public static int rightSpinnerCANId = 35;
+        public static double PID_P = 1;
+        public static double PID_I = 1;
+        public static double CntsPDeg = 1;
+        public static double PercentOnTarget = 1;
+        public static double TimeoutOnTarget = 2;
     }
 
 }

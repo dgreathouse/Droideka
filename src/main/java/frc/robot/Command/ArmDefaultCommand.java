@@ -55,12 +55,7 @@ public class ArmDefaultCommand extends CommandBase {
    */
   @Override
   public void execute() {
-    // Set the intake velocity based on teleop or auto
-    if(DriverStation.isTeleop()){
-      intakeVel = RobotContainer.m_XBOXOperator.getLeftTriggerAxis() - RobotContainer.m_XBOXOperator.getRightTriggerAxis();
-    }else if(DriverStation.isAutonomous()){
-      intakeVel = RobotContainer.armSubsystem.m_intakeVelocity;
-    }
+
 
     // Set the values for where to move based on the selected arm position.
     switch(RobotContainer.armSubsystem.m_armPos){
@@ -74,7 +69,7 @@ public class ArmDefaultCommand extends CommandBase {
       RobotContainer.armSubsystem.setElbowAngle(0);
       RobotContainer.armSubsystem.setIntakeAngle(0);
         break;
-      case FLOOR_FRONT_BLOB:
+      case FLOOR_FRONT_CUBE:
       RobotContainer.armSubsystem.setShoulderAngle(0);
       RobotContainer.armSubsystem.setElbowAngle(0);
       RobotContainer.armSubsystem.setIntakeAngle(0);
@@ -124,7 +119,17 @@ public class ArmDefaultCommand extends CommandBase {
       RobotContainer.armSubsystem.rotateShoulder(RobotContainer.armSubsystem.m_shoulderAngle);
       RobotContainer.armSubsystem.rotateElbow(RobotContainer.armSubsystem.m_elbowAngle);
       RobotContainer.armSubsystem.rotateIntake(RobotContainer.armSubsystem.m_intakeAngle);
-      RobotContainer.armSubsystem.spinIntake(intakeVel);
+      // Set the intake velocity based on teleop or auto
+      if(DriverStation.isTeleop()){
+        intakeVel = RobotContainer.m_XBOXOperator.getLeftTriggerAxis() - RobotContainer.m_XBOXOperator.getRightTriggerAxis();
+        RobotContainer.armSubsystem.spinIntake(intakeVel);
+      }else if(DriverStation.isAutonomous()){
+        intakeVel = RobotContainer.armSubsystem.m_intakeVelocity;
+        if(RobotContainer.armSubsystem.onTarget()){
+          RobotContainer.armSubsystem.spinIntake(intakeVel);
+        }
+      }
+
 
   }
  

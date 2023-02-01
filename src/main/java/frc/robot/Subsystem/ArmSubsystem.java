@@ -9,6 +9,7 @@ import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.k;
 import frc.robot.Lib.ArmPosEnum;/**
@@ -28,11 +29,23 @@ public class ArmSubsystem extends SubsystemBase {
   public WPI_TalonSRX m_intakeRotateMotCtrl;
   public WPI_TalonSRX m_intakeSpinnerMotCtrl;
 
+  /**
+     * These public data variables are set by the ArmDefaultCommand class to the 
+     * required angles and velocity for each location the arm joints need to move to
+     * 
+     * Three angle methods exist that take in a value/angle to move to. 
+     * The three methods are for Shoulder, Elbow and Intake angle. 
+     * These angles are the set angles or requested angle to move to.
+   */
   public ArmPosEnum m_armPos = ArmPosEnum.HOME;
   public double m_shoulderAngle = 0;
   public double m_elbowAngle = 0;
   public double m_intakeAngle = 0;
   public double m_intakeVelocity = 0;
+
+  Timer shoulderMoveTimer;
+  Timer elbowMoveTimer;
+  Timer intakeMoveTimer;
   /**
    * 
    */
@@ -40,8 +53,8 @@ public class ArmSubsystem extends SubsystemBase {
   public ArmSubsystem() {
     /************************ Shoulder ****************************/
     // Create new instance of motor control classes 
-    m_leftShoulderMotCtrl = new WPI_TalonFX(k.ARM.leftShoulderCANId);
-    m_rightShoulderMotCtrl = new WPI_TalonFX(k.ARM.rightShoulderCANId);
+    m_leftShoulderMotCtrl = new WPI_TalonFX(k.SHOULDER.leftCANId);
+    m_rightShoulderMotCtrl = new WPI_TalonFX(k.SHOULDER.rightCANId);
 
     // Invert the other controller that is going to follow
     m_rightShoulderMotCtrl.setInverted(InvertType.InvertMotorOutput);
@@ -56,8 +69,8 @@ public class ArmSubsystem extends SubsystemBase {
 
     /************************ ELBOW ****************************/
     // Create new instance of motor control classes 
-    m_leftElbowMotCtrl = new WPI_TalonSRX(k.ARM.leftElbowCANId);
-    m_rightElbowMotCtrl = new WPI_TalonSRX(k.ARM.rightElbowCANId);
+    m_leftElbowMotCtrl = new WPI_TalonSRX(k.ELBOW.leftCANId);
+    m_rightElbowMotCtrl = new WPI_TalonSRX(k.ELBOW.rightCANId);
 
     // Invert the other controller that is going to follow
     m_rightElbowMotCtrl.setInverted(InvertType.InvertMotorOutput);
@@ -72,8 +85,8 @@ public class ArmSubsystem extends SubsystemBase {
 
     /************************ INTAKE ****************************/
     // Create new instance of motor control classes 
-    m_intakeRotateMotCtrl = new WPI_TalonSRX(k.ARM.leftIntakeRotateCANId);
-    m_intakeSpinnerMotCtrl = new WPI_TalonSRX(k.ARM.rightIntakeSpinnerCANId);
+    m_intakeRotateMotCtrl = new WPI_TalonSRX(k.INTAKE.leftRotateCANId);
+    m_intakeSpinnerMotCtrl = new WPI_TalonSRX(k.INTAKE.rightSpinnerCANId);
 
     // Invert output if needed
     m_intakeRotateMotCtrl.setInverted(InvertType.None);
@@ -86,18 +99,28 @@ public class ArmSubsystem extends SubsystemBase {
     m_intakeRotateMotCtrl.configClosedLoopPeakOutput(0, 0.75);
     m_intakeRotateMotCtrl.configClosedloopRamp(1);
 
+    shoulderMoveTimer = new Timer();
+    elbowMoveTimer = new Timer();
+    intakeMoveTimer = new Timer();
+    
+
+  }
+  public void resetMoveTimers(){
+    shoulderMoveTimer.reset();
+    elbowMoveTimer.reset();
+    intakeMoveTimer.reset();
   }
   public void rotateShoulder(double _angle){
-    double angle = _angle * k.ARM.shoulderCntsPDeg;
+    double angle = _angle * k.SHOULDER.CntsPDeg;
     m_leftShoulderMotCtrl.set(ControlMode.Position, angle);
 
   }
   public void rotateElbow(double _angle){
-    double angle = _angle * k.ARM.elbowCntsPDeg;
+    double angle = _angle * k.ELBOW.CntsPDeg;
     m_leftElbowMotCtrl.set(ControlMode.Position, angle);
   }
   public void rotateIntake(double _angle){
-    double angle = _angle * k.ARM.intakeCntsPDeg;
+    double angle = _angle * k.INTAKE.CntsPDeg;
     m_intakeRotateMotCtrl.set(ControlMode.Position, angle);
   }
   public void spinIntake(double _velocity){
@@ -115,15 +138,34 @@ public class ArmSubsystem extends SubsystemBase {
   public void setIntakeVelocity(double _velocity){
     m_intakeVelocity = _velocity;
   }
-  /** Return true if all motors are within target range */
+  /** Return true if all motors are within target range or timeouts have happened */
   public boolean onTarget(){
-    double shoulderAngle = m_leftShoulderMotCtrl.getSelectedSensorPosition();
-    double elbowAngle = m_leftElbowMotCtrl.getSelectedSensorPosition();
-    double intakeAngle = m_intakeRotateMotCtrl.getSelectedSensorPosition();
-
-    // TODO: Check all angles within the range of where they need to be.
-    return false;
+    double shoulderAngle = m_leftShoulderMotCtrl.getSelectedSensorPosition() / k.SHOULDER.CntsPDeg;
+    double elbowAngle = m_leftElbowMotCtrl.getSelectedSensorPosition() / k.ELBOW.CntsPDeg;
+    double intakeAngle = m_intakeRotateMotCtrl.getSelectedSensorPosition() / k.INTAKE.CntsPDeg;
+    boolean angleOnTarget = false;
+    boolean timeoutDone = false;
+    if(atAngle(m_shoulderAngle, shoulderAngle, k.SHOULDER.PercentOnTarget) &&
+        atAngle(m_elbowAngle, elbowAngle, k.ELBOW.PercentOnTarget) &&
+        atAngle(m_intakeAngle, intakeAngle, k.INTAKE.PercentOnTarget)){
+          angleOnTarget = true;
+        }
+    if(shoulderMoveTimer.hasElapsed(k.SHOULDER.TimeoutOnTarget) && 
+        elbowMoveTimer.hasElapsed(k.ELBOW.TimeoutOnTarget)&&
+        intakeMoveTimer.hasElapsed(k.INTAKE.TimeoutOnTarget)){
+          timeoutDone = true;
+    }
+    
+    if(angleOnTarget || timeoutDone){
+      return true;
+    }else {
+      return false;
+    }
   }
+  private boolean atAngle(double target, double actual, double percent){
+    return true;
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
