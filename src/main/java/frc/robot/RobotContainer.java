@@ -4,13 +4,10 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Command.ArmDefaultCommand;
 import frc.robot.Command.ArmSetCommand;
 import frc.robot.Command.AutoDoNothingCommandGroup;
@@ -18,6 +15,7 @@ import frc.robot.Command.AutoLeftConeCubeCommandGroup;
 import frc.robot.Command.DrivetrainDefaultCommand;
 
 import frc.robot.Command.SwitchGyroCommand;
+import frc.robot.Command.SwitchRotationMode;
 import frc.robot.Lib.ArmPosEnum;
 import frc.robot.Subsystem.ArmSubsystem;
 import frc.robot.Subsystem.DrivetrainSubsystem;
@@ -51,20 +49,16 @@ public class RobotContainer {
     
     SmartDashboard.putData(autoChooser);
 
-
-
   }
   /** Configure the XBOX controller bindings from buttons/axis to Commands */
   private void configureBindings() {
-    // Driver button bindings
+    // Driver Controller bindings
     driverController.start().onTrue(new SwitchGyroCommand());
-    
+    driverController.a().onTrue(new SwitchRotationMode());
 
-    // Operator Bindings
-    
+    // Operator Controller Bindings
     operatorController.leftBumper().and(operatorController.rightBumper()).onTrue(new ArmSetCommand(ArmPosEnum.HOME));
     operatorController.leftBumper().and(operatorController.a()).onTrue(new ArmSetCommand(ArmPosEnum.WALL_CONE));
- 
 
   }
   /** Return the selected command from the smartdashboard on the drivestation */
