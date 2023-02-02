@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Lib.GyroEnum;
+import frc.robot.Lib.RotationMode;
 import frc.robot.Lib.SwerveModule;
 import frc.robot.k.DRIVETRAIN;
 import frc.robot.k.SWERVE;
@@ -27,6 +28,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
   GyroEnum currentGyro = GyroEnum.AHRS;
   AHRS m_gyro = new AHRS(Port.kMXP);
   Pigeon2 m_PGyro = new Pigeon2(5);
+  RotationMode m_rotationMode = RotationMode.AxisSpeed;
+
   private final SwerveDriveOdometry m_odometry = 
     new SwerveDriveOdometry(
       DRIVETRAIN.kinematics, getRobotRotation2D(), 
@@ -52,6 +55,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     m_fr.setDesiredState(swerveModuleStates[1]);
     m_b.setDesiredState(swerveModuleStates[2]);
   }
+
   /**
    * 
    * @return Distance in Meters
@@ -75,6 +79,16 @@ public class DrivetrainSubsystem extends SubsystemBase {
     }else if(currentGyro == GyroEnum.PIGEON2){
       currentGyro = GyroEnum.AHRS;
     }
+  }
+  public void switchRotMode(){
+    if(m_rotationMode == RotationMode.PIDAngle){
+      m_rotationMode = RotationMode.AxisSpeed;
+    }else if(m_rotationMode == RotationMode.AxisSpeed){
+      m_rotationMode = RotationMode.PIDAngle;
+    }
+  }
+  public RotationMode gRotationMode(){
+    return m_rotationMode;
   }
   public void updateOdometry() {
     m_odometry.update(

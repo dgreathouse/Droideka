@@ -18,6 +18,11 @@ public class k {
             new Translation2d(-0.3035, 0.0)
         );
         public static double maxVoltage = 12.0;
+        public static double rotKp = 0.1;
+        public static double rotKi = 0.0;
+        public static double rotKd = 0.0;
+        public static double rotToleranceDeg = 1;
+        public static double rotToleranceVel = 10; // Deg/sec
     }
     public static class SWERVE {
         public static SwerveData SDBack = new SwerveData("Back", 10, InvertType.None, 20, InvertType.InvertMotorOutput, 1, 14);
@@ -49,9 +54,8 @@ public class k {
         public static double driveDistanceCntsPMeter = 1;
         public static double driveRawVelocityToMPS = 4990.68;
     }
-    public static class ARM{
-
-        
+    public static class OI {
+        public static double stickAngleMax = 0.9;
     }
     public static class SHOULDER {
         public static int leftCANId = 30;

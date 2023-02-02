@@ -121,7 +121,7 @@ public class ArmDefaultCommand extends CommandBase {
       RobotContainer.armSubsystem.rotateIntake(RobotContainer.armSubsystem.m_intakeAngle);
       // Set the intake velocity based on teleop or auto
       if(DriverStation.isTeleop()){
-        intakeVel = RobotContainer.m_XBOXOperator.getLeftTriggerAxis() - RobotContainer.m_XBOXOperator.getRightTriggerAxis();
+        intakeVel = RobotContainer.operatorController.getLeftTriggerAxis() - RobotContainer.operatorController.getRightTriggerAxis();
         RobotContainer.armSubsystem.spinIntake(intakeVel);
       }else if(DriverStation.isAutonomous()){
         intakeVel = RobotContainer.armSubsystem.m_intakeVelocity;

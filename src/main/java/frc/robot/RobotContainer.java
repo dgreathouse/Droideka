@@ -28,10 +28,8 @@ public class RobotContainer {
   public static ArmSubsystem armSubsystem = new ArmSubsystem();
   private ArmDefaultCommand armDefaultCommand = new ArmDefaultCommand(armSubsystem);
 
-
-  public static XboxController m_XBOXDriver = new XboxController(0);
-  public static XboxController m_XBOXOperator = new XboxController(1);
-
+  public static CommandXboxController driverController = new CommandXboxController(0);
+  public static CommandXboxController operatorController = new CommandXboxController(1);
 
   public RobotContainer() {
     drivetrainSubsystem.setDefaultCommand(m_drivetrainDefaultCommand);
@@ -41,11 +39,12 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    CommandXboxController operatorController = new CommandXboxController(1);
-    Trigger switchGyroTrigger = new JoystickButton(m_XBOXDriver, XboxController.Button.kStart.value);
-    switchGyroTrigger.onTrue(new SwitchGyroCommand());
+    // Driver button bindings
+    driverController.start().onTrue(new SwitchGyroCommand());
+    
 
-    // Arm Bindings
+    // Operator Bindings
+    
     operatorController.leftBumper().and(operatorController.rightBumper()).onTrue(new ArmSetCommand(ArmPosEnum.HOME));
     operatorController.leftBumper().and(operatorController.a()).onTrue(new ArmSetCommand(ArmPosEnum.WALL_CONE));
  
