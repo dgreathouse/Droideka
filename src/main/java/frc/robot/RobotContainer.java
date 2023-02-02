@@ -5,12 +5,15 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Command.ArmDefaultCommand;
 import frc.robot.Command.ArmSetCommand;
+import frc.robot.Command.AutoDoNothingCommandGroup;
 import frc.robot.Command.AutoLeftConeCubeCommandGroup;
 import frc.robot.Command.DrivetrainDefaultCommand;
 
@@ -23,21 +26,35 @@ import frc.robot.Subsystem.DrivetrainSubsystem;
 
 public class RobotContainer {
   public static DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
-  private DrivetrainDefaultCommand m_drivetrainDefaultCommand = new DrivetrainDefaultCommand(drivetrainSubsystem);
+  private DrivetrainDefaultCommand drivetrainDefaultCommand = new DrivetrainDefaultCommand(drivetrainSubsystem);
 
   public static ArmSubsystem armSubsystem = new ArmSubsystem();
   private ArmDefaultCommand armDefaultCommand = new ArmDefaultCommand(armSubsystem);
 
   public static CommandXboxController driverController = new CommandXboxController(0);
   public static CommandXboxController operatorController = new CommandXboxController(1);
+  SendableChooser<Command> autoChooser = new SendableChooser<>();
 
+  /** RobotContainer holds all the static data for references to the subsystems.
+   * To call a method in the subsystem use the following code example
+   * RobotContainer.armSubsystem.EnterMethodName();
+   */
   public RobotContainer() {
-    drivetrainSubsystem.setDefaultCommand(m_drivetrainDefaultCommand);
+    drivetrainSubsystem.setDefaultCommand(drivetrainDefaultCommand);
     armSubsystem.setDefaultCommand(armDefaultCommand);
 
     configureBindings();
-  }
 
+    autoChooser.addOption("Left Cone, Get Cube, Balance", new AutoLeftConeCubeCommandGroup());
+    autoChooser.setDefaultOption("Do Nothing", new AutoDoNothingCommandGroup());
+    // Add more auto options here
+    
+    SmartDashboard.putData(autoChooser);
+
+
+
+  }
+  /** Configure the XBOX controller bindings from buttons/axis to Commands */
   private void configureBindings() {
     // Driver button bindings
     driverController.start().onTrue(new SwitchGyroCommand());
@@ -50,8 +67,8 @@ public class RobotContainer {
  
 
   }
-
+  /** Return the selected command from the smartdashboard on the drivestation */
   public Command getAutonomousCommand() {
-    return new AutoLeftConeCubeCommandGroup();
+    return autoChooser.getSelected();
   }
 }
