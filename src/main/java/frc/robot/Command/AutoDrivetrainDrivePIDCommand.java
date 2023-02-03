@@ -11,9 +11,9 @@ import frc.robot.RobotContainer;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AutoDrivetrainPIDCommand extends PIDCommand {
+public class AutoDrivetrainDrivePIDCommand extends PIDCommand {
   /** Creates a new AutoDrivePIDCommand. */
-  public AutoDrivetrainPIDCommand(double _distance, double timeOut) {
+  public AutoDrivetrainDrivePIDCommand(double _distance, double timeOut) {
     super(
         // The controller that the command will use
         new PIDController(1, 0, 0),

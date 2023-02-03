@@ -23,6 +23,10 @@ public class k {
         public static double rotKd = 0.0;
         public static double rotToleranceDeg = 1;
         public static double rotToleranceVel = 10; // Deg/sec
+        public static double stickDeadband = 0.1;
+        public static double speedScale = 1.0;
+        public static double rotationScale = 1.0;
+        public static double autoRotateOutScale = 1.0;
     }
     public static class SWERVE {
         public static SwerveData SDBack = new SwerveData("Back", 10, InvertType.None, 20, InvertType.InvertMotorOutput, 1, 14.15);

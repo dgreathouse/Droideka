@@ -17,10 +17,10 @@ import frc.robot.Subsystem.DrivetrainSubsystem;
 import frc.robot.k.DRIVETRAIN;
 
 public class DrivetrainDefaultCommand extends CommandBase {
-    // Slew rate limiters to make joystick inputs more gentle; 1/3 sec from 0 to 1.
-    private final SlewRateLimiter m_xspeedLimiter = new SlewRateLimiter(5);
-    private final SlewRateLimiter m_yspeedLimiter = new SlewRateLimiter(5);
-    private final SlewRateLimiter m_rotLimiter = new SlewRateLimiter(5);
+    // Slew rate limiters to make joystick inputs more gentle; 1/2 sec from 0 to 1.
+    private final SlewRateLimiter m_xspeedLimiter = new SlewRateLimiter(2);
+    private final SlewRateLimiter m_yspeedLimiter = new SlewRateLimiter(2);
+    private final SlewRateLimiter m_rotLimiter = new SlewRateLimiter(2);
 
     PIDController m_rotationPIDController = new PIDController(k.DRIVETRAIN.rotKp, k.DRIVETRAIN.rotKi, k.DRIVETRAIN.rotKd);
 
@@ -42,14 +42,14 @@ public class DrivetrainDefaultCommand extends CommandBase {
         // Get the x speed. We are inverting this because Xbox controllers return
     // negative values when we push forward.
      var xSpeed =
-        -m_xspeedLimiter.calculate(MathUtil.applyDeadband(RobotContainer.driverController.getLeftY(), 0.2))
+        -m_xspeedLimiter.calculate(MathUtil.applyDeadband(RobotContainer.driverController.getLeftY(), k.DRIVETRAIN.stickDeadband))
             * DRIVETRAIN.maxSpeed;
 
     // Get the y speed or sideways/strafe speed. We are inverting this because
     // we want a positive value when we pull to the left. Xbox controllers
     // return positive values when you pull to the right by default.
      var ySpeed =
-        -m_yspeedLimiter.calculate(MathUtil.applyDeadband(RobotContainer.driverController.getLeftX(), 0.2))
+        -m_yspeedLimiter.calculate(MathUtil.applyDeadband(RobotContainer.driverController.getLeftX(), k.DRIVETRAIN.stickDeadband))
             * DRIVETRAIN.maxSpeed;
 
     // Get the rate of angular rotation. We are inverting this because we want a
@@ -57,15 +57,15 @@ public class DrivetrainDefaultCommand extends CommandBase {
     // mathematics). Xbox controllers return positive values when you pull to
     // the right by default.
      var rot =
-        -m_rotLimiter.calculate(MathUtil.applyDeadband(RobotContainer.driverController.getRightX(), 0.2))
+        -m_rotLimiter.calculate(MathUtil.applyDeadband(RobotContainer.driverController.getRightX(), k.DRIVETRAIN.stickDeadband))
             * DRIVETRAIN.maxAngularSpeed;
 
     // If angle PID driving then set rotation to the PID value 
     double rotPID = m_rotationPIDController.calculate(RobotContainer.drivetrainSubsystem.getRobotAngle(),getRotationAngle());
     if(RobotContainer.drivetrainSubsystem.gRotationMode() == RotationMode.PIDAngle){
-      rot = rotPID;
+      rot = rotPID * k.DRIVETRAIN.maxAngularSpeed;
     }
-    RobotContainer.drivetrainSubsystem.drive(xSpeed, ySpeed, rot, false);
+    RobotContainer.drivetrainSubsystem.drive(xSpeed * k.DRIVETRAIN.speedScale, ySpeed * k.DRIVETRAIN.speedScale, rot*k.DRIVETRAIN.rotationScale, false);
   }
   /** Using the Right Thumb stick find the requested angle
    * 
