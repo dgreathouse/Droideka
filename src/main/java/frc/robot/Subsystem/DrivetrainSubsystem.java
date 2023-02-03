@@ -65,13 +65,33 @@ public class DrivetrainSubsystem extends SubsystemBase {
     return dis;
   }
   public double getRobotAngle(){
+    if(currentGyro == GyroEnum.AHRS){
+      return m_gyro.getAngle();
+    }else if(currentGyro == GyroEnum.PIGEON2){
+      return m_PGyro.getYaw();
+    }
     return m_gyro.getAngle();
   }
+  public double getRobotPitch(){
+    if(currentGyro == GyroEnum.AHRS){
+      return m_gyro.getPitch();
+    }else if(currentGyro == GyroEnum.PIGEON2){
+      return m_PGyro.getPitch();
+    }
+    return m_gyro.getPitch();
+  }
   public Rotation2d getRobotRotation2D(){
+    if(currentGyro == GyroEnum.AHRS){
+      return m_gyro.getRotation2d();
+    }else if(currentGyro == GyroEnum.PIGEON2){
+      Rotation2d r2d = new Rotation2d(m_PGyro.getYaw());
+      return r2d;
+    }
     return m_gyro.getRotation2d();
   }
   public void resetGyro(){
     m_gyro.reset();
+    m_PGyro.setYaw(0);
   }
   public void switchGyro(){
     if(currentGyro == GyroEnum.AHRS){
@@ -102,7 +122,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     updateOdometry();
-    SmartDashboard.putNumber("PigeonAngle", m_PGyro.getAbsoluteCompassHeading());
+    SmartDashboard.putNumber("PigeonAngle", m_PGyro.getYaw());
     SmartDashboard.putNumber("NavXAngle", m_gyro.getAngle());
     m_b.sendData();
     m_fl.sendData();

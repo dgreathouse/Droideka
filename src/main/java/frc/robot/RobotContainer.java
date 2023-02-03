@@ -11,11 +11,11 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Command.ArmDefaultCommand;
 import frc.robot.Command.ArmSetCommand;
 import frc.robot.Command.AutoDoNothingCommandGroup;
-import frc.robot.Command.AutoLeftConeCubeCommandGroup;
 import frc.robot.Command.DrivetrainDefaultCommand;
 
 import frc.robot.Command.SwitchGyroCommand;
 import frc.robot.Command.SwitchRotationMode;
+import frc.robot.CommandGroups.AutoLeftConeCubeCommandGroup;
 import frc.robot.Lib.ArmPosEnum;
 import frc.robot.Subsystem.ArmSubsystem;
 import frc.robot.Subsystem.DrivetrainSubsystem;
@@ -45,20 +45,28 @@ public class RobotContainer {
 
     autoChooser.addOption("Left Cone, Get Cube, Balance", new AutoLeftConeCubeCommandGroup());
     autoChooser.setDefaultOption("Do Nothing", new AutoDoNothingCommandGroup());
-    // Add more auto options here
     
+    // Add more auto options here 
     SmartDashboard.putData(autoChooser);
 
   }
   /** Configure the XBOX controller bindings from buttons/axis to Commands */
   private void configureBindings() {
     // Driver Controller bindings
-    driverController.start().onTrue(new SwitchGyroCommand());
+    driverController.y().onTrue(new SwitchGyroCommand());
     driverController.a().onTrue(new SwitchRotationMode());
 
     // Operator Controller Bindings
-  //  operatorController.leftBumper().and(operatorController.rightBumper()).onTrue(new ArmSetCommand(ArmPosEnum.HOME));
-  //  operatorController.leftBumper().and(operatorController.a()).onTrue(new ArmSetCommand(ArmPosEnum.WALL_CONE));
+    // operatorController.leftBumper().and(operatorController.rightBumper()).onTrue(new ArmSetCommand(ArmPosEnum.HOME));
+    // operatorController.leftBumper().and(operatorController.x()).onTrue(new ArmSetCommand(ArmPosEnum.WALL_CONE));
+    // operatorController.leftBumper().and(operatorController.y()).onTrue(new ArmSetCommand(ArmPosEnum.FAR_CONE));
+    // operatorController.leftBumper().and(operatorController.b()).onTrue(new ArmSetCommand(ArmPosEnum.MID_CONE));
+    // operatorController.leftBumper().and(operatorController.a()).onTrue(new ArmSetCommand(ArmPosEnum.LOW_CONE));
+    // operatorController.rightBumper().and(operatorController.x()).onTrue(new ArmSetCommand(ArmPosEnum.WALL_CUBE));
+    // operatorController.rightBumper().and(operatorController.y()).onTrue(new ArmSetCommand(ArmPosEnum.FAR_CUBE));
+    // operatorController.rightBumper().and(operatorController.b()).onTrue(new ArmSetCommand(ArmPosEnum.MID_CUBE));
+    // operatorController.rightBumper().and(operatorController.a()).onTrue(new ArmSetCommand(ArmPosEnum.LOW_CUBE));
+    // operatorController.start().onTrue(new ArmSetCommand(ArmPosEnum.FLOOR_FRONT_CUBE));
 
   }
   /** Return the selected command from the smartdashboard on the drivestation */

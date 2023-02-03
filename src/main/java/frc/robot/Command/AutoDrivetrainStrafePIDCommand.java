@@ -22,10 +22,10 @@ public class AutoDrivetrainStrafePIDCommand extends PIDCommand {
         // This should return the setpoint (can also be a constant)
         () -> _distance,
         // This uses the output
-        output -> {
-          RobotContainer.drivetrainSubsystem.drive(0, output, 0, false);
-        });
-        addRequirements(RobotContainer.drivetrainSubsystem);
+        output -> {RobotContainer.drivetrainSubsystem.drive(0, output, 0, false);},
+        RobotContainer.drivetrainSubsystem
+        );
+        
         m_controller.setTolerance(1);
   }
 

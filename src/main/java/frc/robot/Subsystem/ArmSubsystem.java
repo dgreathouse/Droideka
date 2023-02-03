@@ -157,17 +157,17 @@ public class ArmSubsystem extends SubsystemBase {
     // }
     
     // if(angleOnTarget || timeoutDone){
-    //   return true;
+       return true;
     // }else {
-       return false;
+    //   return false;
     // }
   }
   private boolean atAngle(double _target, double _actual, double _percent){
     // double actualPercent = Math.abs(_target * _percent/100);
     // if(Math.abs(_target - _actual) < Math.abs(actualPercent) ){
-    //   return true;
+       return true;
     // }
-     return false;
+     //return false;
   }
 
   @Override
