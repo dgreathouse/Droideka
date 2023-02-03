@@ -45,7 +45,8 @@ public class AutoLeftConeCubeCommandGroup extends SequentialCommandGroup {
       new ArmIntakeVelCommand(1),
       new ArmSetCommand(ArmPosEnum.HOME),
       new AutoDrivetrainDrivePIDCommand(20, 0),
-      new AutoDrivetrainBalancePIDCommand()
+      new AutoDrivetrainBalancePIDCommand(),
+      new WaitCommand(1)
 
     );
   }
