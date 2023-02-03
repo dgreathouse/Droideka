@@ -52,56 +52,56 @@ public class ArmSubsystem extends SubsystemBase {
   /** Creates a new Arm. */
   public ArmSubsystem() {
     /************************ Shoulder ****************************/
-    // Create new instance of motor control classes 
-    m_leftShoulderMotCtrl = new WPI_TalonFX(k.SHOULDER.leftCANId);
-    m_rightShoulderMotCtrl = new WPI_TalonFX(k.SHOULDER.rightCANId);
+    // // Create new instance of motor control classes 
+    // m_leftShoulderMotCtrl = new WPI_TalonFX(k.SHOULDER.leftCANId);
+    // m_rightShoulderMotCtrl = new WPI_TalonFX(k.SHOULDER.rightCANId);
 
-    // Invert the other controller that is going to follow
-    m_rightShoulderMotCtrl.setInverted(InvertType.InvertMotorOutput);
-    m_rightShoulderMotCtrl.follow(m_leftShoulderMotCtrl);
+    // // Invert the other controller that is going to follow
+    // m_rightShoulderMotCtrl.setInverted(InvertType.InvertMotorOutput);
+    // m_rightShoulderMotCtrl.follow(m_leftShoulderMotCtrl);
 
-    // Configure the closedloop gain values
-    m_leftShoulderMotCtrl.config_kP(0, 0.5);
-    m_leftShoulderMotCtrl.config_kI(0, 0.0);
-    m_leftShoulderMotCtrl.config_kD(0, 0.0);
-    m_leftShoulderMotCtrl.configClosedLoopPeakOutput(0, 0.75);
-    m_leftShoulderMotCtrl.configClosedloopRamp(1);
+    // // Configure the closedloop gain values
+    // m_leftShoulderMotCtrl.config_kP(0, 0.5);
+    // m_leftShoulderMotCtrl.config_kI(0, 0.0);
+    // m_leftShoulderMotCtrl.config_kD(0, 0.0);
+    // m_leftShoulderMotCtrl.configClosedLoopPeakOutput(0, 0.75);
+    // m_leftShoulderMotCtrl.configClosedloopRamp(1);
 
-    /************************ ELBOW ****************************/
-    // Create new instance of motor control classes 
-    m_leftElbowMotCtrl = new WPI_TalonSRX(k.ELBOW.leftCANId);
-    m_rightElbowMotCtrl = new WPI_TalonSRX(k.ELBOW.rightCANId);
+    // /************************ ELBOW ****************************/
+    // // Create new instance of motor control classes 
+    // m_leftElbowMotCtrl = new WPI_TalonSRX(k.ELBOW.leftCANId);
+    // m_rightElbowMotCtrl = new WPI_TalonSRX(k.ELBOW.rightCANId);
 
-    // Invert the other controller that is going to follow
-    m_rightElbowMotCtrl.setInverted(InvertType.InvertMotorOutput);
-    m_rightElbowMotCtrl.follow(m_leftShoulderMotCtrl);
+    // // Invert the other controller that is going to follow
+    // m_rightElbowMotCtrl.setInverted(InvertType.InvertMotorOutput);
+    // m_rightElbowMotCtrl.follow(m_leftShoulderMotCtrl);
 
-    // Configure the closedloop gain values
-    m_leftElbowMotCtrl.config_kP(0, 0.5);
-    m_leftElbowMotCtrl.config_kI(0, 0.0);
-    m_leftElbowMotCtrl.config_kD(0, 0.0);
-    m_leftElbowMotCtrl.configClosedLoopPeakOutput(0, 0.75);
-    m_leftElbowMotCtrl.configClosedloopRamp(1);
+    // // Configure the closedloop gain values
+    // m_leftElbowMotCtrl.config_kP(0, 0.5);
+    // m_leftElbowMotCtrl.config_kI(0, 0.0);
+    // m_leftElbowMotCtrl.config_kD(0, 0.0);
+    // m_leftElbowMotCtrl.configClosedLoopPeakOutput(0, 0.75);
+    // m_leftElbowMotCtrl.configClosedloopRamp(1);
 
-    /************************ INTAKE ****************************/
-    // Create new instance of motor control classes 
-    m_intakeRotateMotCtrl = new WPI_TalonSRX(k.INTAKE.leftRotateCANId);
-    m_intakeSpinnerMotCtrl = new WPI_TalonSRX(k.INTAKE.rightSpinnerCANId);
+    // /************************ INTAKE ****************************/
+    // // Create new instance of motor control classes 
+    // m_intakeRotateMotCtrl = new WPI_TalonSRX(k.INTAKE.leftRotateCANId);
+    // m_intakeSpinnerMotCtrl = new WPI_TalonSRX(k.INTAKE.rightSpinnerCANId);
 
-    // Invert output if needed
-    m_intakeRotateMotCtrl.setInverted(InvertType.None);
+    // // Invert output if needed
+    // m_intakeRotateMotCtrl.setInverted(InvertType.None);
     
 
-    // Configure the closedloop gain values
-    m_intakeRotateMotCtrl.config_kP(0, 0.5);
-    m_intakeRotateMotCtrl.config_kI(0, 0.0);
-    m_intakeRotateMotCtrl.config_kD(0, 0.0);
-    m_intakeRotateMotCtrl.configClosedLoopPeakOutput(0, 0.75);
-    m_intakeRotateMotCtrl.configClosedloopRamp(1);
+    // // Configure the closedloop gain values
+    // m_intakeRotateMotCtrl.config_kP(0, 0.5);
+    // m_intakeRotateMotCtrl.config_kI(0, 0.0);
+    // m_intakeRotateMotCtrl.config_kD(0, 0.0);
+    // m_intakeRotateMotCtrl.configClosedLoopPeakOutput(0, 0.75);
+    // m_intakeRotateMotCtrl.configClosedloopRamp(1);
 
-    shoulderMoveTimer = new Timer();
-    elbowMoveTimer = new Timer();
-    intakeMoveTimer = new Timer();
+    // shoulderMoveTimer = new Timer();
+    // elbowMoveTimer = new Timer();
+    // intakeMoveTimer = new Timer();
     
 
   }
@@ -111,63 +111,63 @@ public class ArmSubsystem extends SubsystemBase {
     intakeMoveTimer.reset();
   }
   public void rotateShoulder(double _angle){
-    double angle = _angle * k.SHOULDER.CntsPDeg;
-    m_leftShoulderMotCtrl.set(ControlMode.Position, angle);
+    // double angle = _angle * k.SHOULDER.CntsPDeg;
+    // m_leftShoulderMotCtrl.set(ControlMode.Position, angle);
 
   }
   public void rotateElbow(double _angle){
-    double angle = _angle * k.ELBOW.CntsPDeg;
-    m_leftElbowMotCtrl.set(ControlMode.Position, angle);
+    // double angle = _angle * k.ELBOW.CntsPDeg;
+    // m_leftElbowMotCtrl.set(ControlMode.Position, angle);
   }
   public void rotateIntake(double _angle){
-    double angle = _angle * k.INTAKE.CntsPDeg;
-    m_intakeRotateMotCtrl.set(ControlMode.Position, angle);
+    // double angle = _angle * k.INTAKE.CntsPDeg;
+    // m_intakeRotateMotCtrl.set(ControlMode.Position, angle);
   }
   public void spinIntake(double _velocity){
-    m_intakeSpinnerMotCtrl.set(ControlMode.PercentOutput, _velocity);
+    // m_intakeSpinnerMotCtrl.set(ControlMode.PercentOutput, _velocity);
   }
   public void setShoulderAngle(double _angle){
-    m_shoulderAngle = _angle;
+    // m_shoulderAngle = _angle;
   }
   public void setElbowAngle(double _angle){
-    m_elbowAngle = _angle;
+    // m_elbowAngle = _angle;
   }
   public void setIntakeAngle(double _angle){
-    m_intakeAngle = _angle;
+    // m_intakeAngle = _angle;
   }
   public void setIntakeVelocity(double _velocity){
-    m_intakeVelocity = _velocity;
+    // m_intakeVelocity = _velocity;
   }
   /** Return true if all motors are within target range or timeouts have happened */
   public boolean onTarget(){
-    double shoulderAngle = m_leftShoulderMotCtrl.getSelectedSensorPosition() / k.SHOULDER.CntsPDeg;
-    double elbowAngle = m_leftElbowMotCtrl.getSelectedSensorPosition() / k.ELBOW.CntsPDeg;
-    double intakeAngle = m_intakeRotateMotCtrl.getSelectedSensorPosition() / k.INTAKE.CntsPDeg;
-    boolean angleOnTarget = false;
-    boolean timeoutDone = false;
-    if(atAngle(m_shoulderAngle, shoulderAngle, k.SHOULDER.PercentOnTarget) &&
-        atAngle(m_elbowAngle, elbowAngle, k.ELBOW.PercentOnTarget) &&
-        atAngle(m_intakeAngle, intakeAngle, k.INTAKE.PercentOnTarget)){
-          angleOnTarget = true;
-        }
-    if(shoulderMoveTimer.hasElapsed(k.SHOULDER.TimeoutOnTarget) && 
-        elbowMoveTimer.hasElapsed(k.ELBOW.TimeoutOnTarget)&&
-        intakeMoveTimer.hasElapsed(k.INTAKE.TimeoutOnTarget)){
-          timeoutDone = true;
-    }
+    // double shoulderAngle = m_leftShoulderMotCtrl.getSelectedSensorPosition() / k.SHOULDER.CntsPDeg;
+    // double elbowAngle = m_leftElbowMotCtrl.getSelectedSensorPosition() / k.ELBOW.CntsPDeg;
+    // double intakeAngle = m_intakeRotateMotCtrl.getSelectedSensorPosition() / k.INTAKE.CntsPDeg;
+    // boolean angleOnTarget = false;
+    // boolean timeoutDone = false;
+    // if(atAngle(m_shoulderAngle, shoulderAngle, k.SHOULDER.PercentOnTarget) &&
+    //     atAngle(m_elbowAngle, elbowAngle, k.ELBOW.PercentOnTarget) &&
+    //     atAngle(m_intakeAngle, intakeAngle, k.INTAKE.PercentOnTarget)){
+    //       angleOnTarget = true;
+    //     }
+    // if(shoulderMoveTimer.hasElapsed(k.SHOULDER.TimeoutOnTarget) && 
+    //     elbowMoveTimer.hasElapsed(k.ELBOW.TimeoutOnTarget)&&
+    //     intakeMoveTimer.hasElapsed(k.INTAKE.TimeoutOnTarget)){
+    //       timeoutDone = true;
+    // }
     
-    if(angleOnTarget || timeoutDone){
-      return true;
-    }else {
-      return false;
-    }
+    // if(angleOnTarget || timeoutDone){
+    //   return true;
+    // }else {
+       return false;
+    // }
   }
   private boolean atAngle(double _target, double _actual, double _percent){
-    double actualPercent = Math.abs(_target * _percent/100);
-    if(Math.abs(_target - _actual) < Math.abs(actualPercent) ){
-      return true;
-    }
-    return false;
+    // double actualPercent = Math.abs(_target * _percent/100);
+    // if(Math.abs(_target - _actual) < Math.abs(actualPercent) ){
+    //   return true;
+    // }
+     return false;
   }
 
   @Override

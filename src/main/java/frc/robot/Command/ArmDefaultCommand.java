@@ -57,78 +57,78 @@ public class ArmDefaultCommand extends CommandBase {
   public void execute() {
 
 
-    // Set the values for where to move based on the selected arm position.
-    switch(RobotContainer.armSubsystem.m_armPos){
-      case FAR_CONE:
-      RobotContainer.armSubsystem.setShoulderAngle(0);
-      RobotContainer.armSubsystem.setElbowAngle(0);
-      RobotContainer.armSubsystem.setIntakeAngle(0);
-        break;
-      case FAR_CUBE:
-      RobotContainer.armSubsystem.setShoulderAngle(0);
-      RobotContainer.armSubsystem.setElbowAngle(0);
-      RobotContainer.armSubsystem.setIntakeAngle(0);
-        break;
-      case FLOOR_FRONT_CUBE:
-      RobotContainer.armSubsystem.setShoulderAngle(0);
-      RobotContainer.armSubsystem.setElbowAngle(0);
-      RobotContainer.armSubsystem.setIntakeAngle(0);
-        break;
-      case HOME:
-      RobotContainer.armSubsystem.setShoulderAngle(0);
-      RobotContainer.armSubsystem.setElbowAngle(0);
-      RobotContainer.armSubsystem.setIntakeAngle(0);
-        break;
-      case LOW_CONE:
-      RobotContainer.armSubsystem.setShoulderAngle(0);
-      RobotContainer.armSubsystem.setElbowAngle(0);
-      RobotContainer.armSubsystem.setIntakeAngle(0);
-        break;
-      case LOW_CUBE:
-      RobotContainer.armSubsystem.setShoulderAngle(0);
-      RobotContainer.armSubsystem.setElbowAngle(0);
-      RobotContainer.armSubsystem.setIntakeAngle(0);
-        break;
-      case MID_CONE:
-      RobotContainer.armSubsystem.setShoulderAngle(0);
-      RobotContainer.armSubsystem.setElbowAngle(0);
-      RobotContainer.armSubsystem.setIntakeAngle(0);
-        break;
-      case MID_CUBE:
-      RobotContainer.armSubsystem.setShoulderAngle(0);
-      RobotContainer.armSubsystem.setElbowAngle(0);
-      RobotContainer.armSubsystem.setIntakeAngle(0);
-        break;
-      case WALL_CONE:
-      RobotContainer.armSubsystem.setShoulderAngle(0);
-      RobotContainer.armSubsystem.setElbowAngle(0);
-      RobotContainer.armSubsystem.setIntakeAngle(0);
-        break;
-      case WALL_CUBE:
-      RobotContainer.armSubsystem.setShoulderAngle(0);
-      RobotContainer.armSubsystem.setElbowAngle(0);
-      RobotContainer.armSubsystem.setIntakeAngle(0);
-        break;
-      default:
-      RobotContainer.armSubsystem.setShoulderAngle(0);
-      RobotContainer.armSubsystem.setElbowAngle(0);
-      RobotContainer.armSubsystem.setIntakeAngle(0);
-        break;
-      }
-      // Call the arm methods to make the arm motors move
-      RobotContainer.armSubsystem.rotateShoulder(RobotContainer.armSubsystem.m_shoulderAngle);
-      RobotContainer.armSubsystem.rotateElbow(RobotContainer.armSubsystem.m_elbowAngle);
-      RobotContainer.armSubsystem.rotateIntake(RobotContainer.armSubsystem.m_intakeAngle);
-      // Set the intake velocity based on teleop or auto
-      if(DriverStation.isTeleop()){
-        intakeVel = RobotContainer.operatorController.getLeftTriggerAxis() - RobotContainer.operatorController.getRightTriggerAxis();
-        RobotContainer.armSubsystem.spinIntake(intakeVel);
-      }else if(DriverStation.isAutonomous()){
-        intakeVel = RobotContainer.armSubsystem.m_intakeVelocity;
-        if(RobotContainer.armSubsystem.onTarget()){
-          RobotContainer.armSubsystem.spinIntake(intakeVel);
-        }
-      }
+    // // Set the values for where to move based on the selected arm position.
+    // switch(RobotContainer.armSubsystem.m_armPos){
+    //   case FAR_CONE:
+    //   RobotContainer.armSubsystem.setShoulderAngle(0);
+    //   RobotContainer.armSubsystem.setElbowAngle(0);
+    //   RobotContainer.armSubsystem.setIntakeAngle(0);
+    //     break;
+    //   case FAR_CUBE:
+    //   RobotContainer.armSubsystem.setShoulderAngle(0);
+    //   RobotContainer.armSubsystem.setElbowAngle(0);
+    //   RobotContainer.armSubsystem.setIntakeAngle(0);
+    //     break;
+    //   case FLOOR_FRONT_CUBE:
+    //   RobotContainer.armSubsystem.setShoulderAngle(0);
+    //   RobotContainer.armSubsystem.setElbowAngle(0);
+    //   RobotContainer.armSubsystem.setIntakeAngle(0);
+    //     break;
+    //   case HOME:
+    //   RobotContainer.armSubsystem.setShoulderAngle(0);
+    //   RobotContainer.armSubsystem.setElbowAngle(0);
+    //   RobotContainer.armSubsystem.setIntakeAngle(0);
+    //     break;
+    //   case LOW_CONE:
+    //   RobotContainer.armSubsystem.setShoulderAngle(0);
+    //   RobotContainer.armSubsystem.setElbowAngle(0);
+    //   RobotContainer.armSubsystem.setIntakeAngle(0);
+    //     break;
+    //   case LOW_CUBE:
+    //   RobotContainer.armSubsystem.setShoulderAngle(0);
+    //   RobotContainer.armSubsystem.setElbowAngle(0);
+    //   RobotContainer.armSubsystem.setIntakeAngle(0);
+    //     break;
+    //   case MID_CONE:
+    //   RobotContainer.armSubsystem.setShoulderAngle(0);
+    //   RobotContainer.armSubsystem.setElbowAngle(0);
+    //   RobotContainer.armSubsystem.setIntakeAngle(0);
+    //     break;
+    //   case MID_CUBE:
+    //   RobotContainer.armSubsystem.setShoulderAngle(0);
+    //   RobotContainer.armSubsystem.setElbowAngle(0);
+    //   RobotContainer.armSubsystem.setIntakeAngle(0);
+    //     break;
+    //   case WALL_CONE:
+    //   RobotContainer.armSubsystem.setShoulderAngle(0);
+    //   RobotContainer.armSubsystem.setElbowAngle(0);
+    //   RobotContainer.armSubsystem.setIntakeAngle(0);
+    //     break;
+    //   case WALL_CUBE:
+    //   RobotContainer.armSubsystem.setShoulderAngle(0);
+    //   RobotContainer.armSubsystem.setElbowAngle(0);
+    //   RobotContainer.armSubsystem.setIntakeAngle(0);
+    //     break;
+    //   default:
+    //   RobotContainer.armSubsystem.setShoulderAngle(0);
+    //   RobotContainer.armSubsystem.setElbowAngle(0);
+    //   RobotContainer.armSubsystem.setIntakeAngle(0);
+    //     break;
+    //   }
+    //   // Call the arm methods to make the arm motors move
+    //   RobotContainer.armSubsystem.rotateShoulder(RobotContainer.armSubsystem.m_shoulderAngle);
+    //   RobotContainer.armSubsystem.rotateElbow(RobotContainer.armSubsystem.m_elbowAngle);
+    //   RobotContainer.armSubsystem.rotateIntake(RobotContainer.armSubsystem.m_intakeAngle);
+    //   // Set the intake velocity based on teleop or auto
+    //   if(DriverStation.isTeleop()){
+    //     intakeVel = RobotContainer.operatorController.getLeftTriggerAxis() - RobotContainer.operatorController.getRightTriggerAxis();
+    //     RobotContainer.armSubsystem.spinIntake(intakeVel);
+    //   }else if(DriverStation.isAutonomous()){
+    //     intakeVel = RobotContainer.armSubsystem.m_intakeVelocity;
+    //     if(RobotContainer.armSubsystem.onTarget()){
+    //       RobotContainer.armSubsystem.spinIntake(intakeVel);
+    //     }
+    //   }
 
 
   }

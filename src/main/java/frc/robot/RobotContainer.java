@@ -30,7 +30,7 @@ public class RobotContainer {
   private ArmDefaultCommand armDefaultCommand = new ArmDefaultCommand(armSubsystem);
 
   public static CommandXboxController driverController = new CommandXboxController(0);
-  public static CommandXboxController operatorController = new CommandXboxController(1);
+ // public static CommandXboxController operatorController = new CommandXboxController(1);
   SendableChooser<Command> autoChooser = new SendableChooser<>();
 
   /** RobotContainer holds all the static data for references to the subsystems.
@@ -57,8 +57,8 @@ public class RobotContainer {
     driverController.a().onTrue(new SwitchRotationMode());
 
     // Operator Controller Bindings
-    operatorController.leftBumper().and(operatorController.rightBumper()).onTrue(new ArmSetCommand(ArmPosEnum.HOME));
-    operatorController.leftBumper().and(operatorController.a()).onTrue(new ArmSetCommand(ArmPosEnum.WALL_CONE));
+  //  operatorController.leftBumper().and(operatorController.rightBumper()).onTrue(new ArmSetCommand(ArmPosEnum.HOME));
+  //  operatorController.leftBumper().and(operatorController.a()).onTrue(new ArmSetCommand(ArmPosEnum.WALL_CONE));
 
   }
   /** Return the selected command from the smartdashboard on the drivestation */

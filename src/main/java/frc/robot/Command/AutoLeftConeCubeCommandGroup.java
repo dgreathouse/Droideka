@@ -20,12 +20,12 @@ public class AutoLeftConeCubeCommandGroup extends SequentialCommandGroup {
       new ArmOnTargetCommand(),
       new ArmIntakeVelCommand(1),
       new WaitCommand(1),
-      new ArmIntakeVelCommand(0),
-      new ParallelCommandGroup(
-        new ArmSetCommand(ArmPosEnum.HOME),
-        new AutoDrivetrainPIDCommand(48, 5),
-        new AutoDrivetrainRotatePIDCommand(20, 2)
-      )
+      new ArmIntakeVelCommand(0)
+      // new ParallelCommandGroup(
+      //   new ArmSetCommand(ArmPosEnum.HOME),
+      //   new AutoDrivetrainPIDCommand(48, 5),
+      //   new AutoDrivetrainRotatePIDCommand(20, 2)
+      // )
       /**
        * Place Cone on high level
        * Drive back to cube

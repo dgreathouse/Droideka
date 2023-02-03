@@ -72,7 +72,7 @@ public class DrivetrainDefaultCommand extends CommandBase {
    * @return the angle requested by the thumbstick
    */
   private double getRotationAngle(){
-    double ang = Util.getAngle(RobotContainer.operatorController.getLeftX(), RobotContainer.operatorController.getLeftY());
+    double ang = Util.getAngle(RobotContainer.driverController.getLeftX(), RobotContainer.driverController.getLeftY());
     SmartDashboard.putNumber("RotationAngle", ang);
     return ang;
   }

@@ -25,9 +25,9 @@ public class k {
         public static double rotToleranceVel = 10; // Deg/sec
     }
     public static class SWERVE {
-        public static SwerveData SDBack = new SwerveData("Back", 10, InvertType.None, 20, InvertType.InvertMotorOutput, 1, 14);
-        public static SwerveData SDFrontLeft = new SwerveData("FLeft",11, InvertType.None, 21, InvertType.InvertMotorOutput, 2, 163.5);
-        public static SwerveData SDFrontRight = new SwerveData("FRight",12, InvertType.InvertMotorOutput,22, InvertType.InvertMotorOutput, 3, 282);
+        public static SwerveData SDBack = new SwerveData("Back", 10, InvertType.None, 20, InvertType.InvertMotorOutput, 1, 14.15);
+        public static SwerveData SDFrontLeft = new SwerveData("FLeft",11, InvertType.None, 21, InvertType.InvertMotorOutput, 2, 167.7);
+        public static SwerveData SDFrontRight = new SwerveData("FRight",12, InvertType.InvertMotorOutput,22, InvertType.InvertMotorOutput, 3, 280);
 
 
 
