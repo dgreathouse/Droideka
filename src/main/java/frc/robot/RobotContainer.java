@@ -12,7 +12,7 @@ import frc.robot.Command.ArmDefaultCommand;
 import frc.robot.Command.ArmSetCommand;
 import frc.robot.Command.AutoDoNothingCommandGroup;
 import frc.robot.Command.DrivetrainDefaultCommand;
-
+import frc.robot.Command.SwitchFieldDriveMode;
 import frc.robot.Command.SwitchGyroCommand;
 import frc.robot.Command.SwitchRotationMode;
 import frc.robot.CommandGroups.AutoLeftConeCubeCommandGroup;
@@ -55,6 +55,7 @@ public class RobotContainer {
     // Driver Controller bindings
     driverController.y().onTrue(new SwitchGyroCommand());
     driverController.a().onTrue(new SwitchRotationMode());
+    driverController.b().onTrue(new SwitchFieldDriveMode());
 
     // Operator Controller Bindings
     // operatorController.leftBumper().and(operatorController.rightBumper()).onTrue(new ArmSetCommand(ArmPosEnum.HOME));
