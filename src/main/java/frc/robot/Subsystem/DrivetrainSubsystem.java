@@ -29,6 +29,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   AHRS m_gyro = new AHRS(Port.kMXP);
   Pigeon2 m_PGyro = new Pigeon2(5);
   RotationMode m_rotationMode = RotationMode.AxisSpeed;
+  public boolean isFieldRelative = true;
 
   private final SwerveDriveOdometry m_odometry = 
     new SwerveDriveOdometry(
@@ -43,10 +44,14 @@ public class DrivetrainSubsystem extends SubsystemBase {
     resetGyro();
     
   }
-  public void drive(double _xSpeed, double _ySpeed, double _rot, boolean _fieldRelative){
+  public void drive(double _xSpeed, double _ySpeed, double _rot, boolean _fieldRelativeMode){
+    isFieldRelative = _fieldRelativeMode;
+    drive(_xSpeed,_ySpeed,_rot);
+  }
+  public void drive(double _xSpeed, double _ySpeed, double _rot){
     var swerveModuleStates =
         DRIVETRAIN.kinematics.toSwerveModuleStates(
-            _fieldRelative
+            isFieldRelative
             ? ChassisSpeeds.fromFieldRelativeSpeeds(_xSpeed, _ySpeed, _rot, getRobotRotation2D())
             : new ChassisSpeeds(_xSpeed, _ySpeed, _rot));
     SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, DRIVETRAIN.maxSpeed);
@@ -119,10 +124,13 @@ public class DrivetrainSubsystem extends SubsystemBase {
           m_b.getPosition()
         });
   }
+  public void setFieldRelative(boolean _frm){
+    isFieldRelative = _frm;
+  }
   @Override
   public void periodic() {
     updateOdometry();
-    SmartDashboard.putNumber("PigeonAngle", m_PGyro.getYaw());
+    SmartDashboard.putNumber("PigeonAngle", -m_PGyro.getYaw());
     SmartDashboard.putNumber("NavXAngle", m_gyro.getAngle());
     m_b.sendData();
     m_fl.sendData();

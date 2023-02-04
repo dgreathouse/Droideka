@@ -65,7 +65,7 @@ public class DrivetrainDefaultCommand extends CommandBase {
     if(RobotContainer.drivetrainSubsystem.gRotationMode() == RotationMode.PIDAngle){
       rot = rotPID * k.DRIVETRAIN.maxAngularSpeed;
     }
-    RobotContainer.drivetrainSubsystem.drive(xSpeed * k.DRIVETRAIN.speedScale, ySpeed * k.DRIVETRAIN.speedScale, rot*k.DRIVETRAIN.rotationScale, false);
+    RobotContainer.drivetrainSubsystem.drive(xSpeed * k.DRIVETRAIN.speedScale, ySpeed * k.DRIVETRAIN.speedScale, rot*k.DRIVETRAIN.rotationScale);
   }
   /** Using the Right Thumb stick find the requested angle
    * 

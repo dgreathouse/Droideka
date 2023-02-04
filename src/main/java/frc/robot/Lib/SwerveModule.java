@@ -123,8 +123,8 @@ public class SwerveModule {
         
     }
     public void sendData(){
-        SmartDashboard.putNumber(m_data.name+"SteerMotorAngle", getSteerMotorAngle());
-        SmartDashboard.putNumber(m_data.name+"CANCoderAngle", getSwerveAngle());
-        SmartDashboard.putNumber(m_data.name + "DriveCounts", getDriveDistance());
+        SmartDashboard.putNumber(m_data.name+"SteerMotorAngle", Math.toDegrees(getSteerMotorAngle()));
+        SmartDashboard.putNumber(m_data.name+"CANCoderAngle", Math.toDegrees(getSwerveAngle()));
+        SmartDashboard.putNumber(m_data.name + "DriveCounts", Math.toDegrees(getDriveDistance()));
     }
 }
