@@ -16,6 +16,6 @@ All code is written in JAVA using the command based methodology.
 ### Drivetrain (Subsystem)
 The drivetrains is responsible for moving the robot around the field. 
 ## Arm (Subsystem)
-The arm is responsible for picking up
+The arm is responsible for picking up and dropping off the cones and cubes.
 
 
