@@ -12,12 +12,12 @@ import frc.robot.RobotContainer;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class SwitchRotationMode extends InstantCommand {
   public SwitchRotationMode() {
-    
+    addRequirements(RobotContainer.drivetrainSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    RobotContainer.drivetrainSubsystem.switchRotMode();
+    RobotContainer.drivetrainSubsystem.switchRotationMode();
   }
 }

@@ -30,7 +30,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   Pigeon2 m_PGyro = new Pigeon2(5);
   RotationMode m_rotationMode = RotationMode.AxisSpeed;
   public boolean isFieldRelative = true;
-
+  double rotationPIDAngle = 0;
   private final SwerveDriveOdometry m_odometry = 
     new SwerveDriveOdometry(
       DRIVETRAIN.kinematics, getRobotRotation2D(), 
@@ -60,7 +60,12 @@ public class DrivetrainSubsystem extends SubsystemBase {
     m_fr.setDesiredState(swerveModuleStates[1]);
     m_b.setDesiredState(swerveModuleStates[2]);
   }
-
+  public void setRotationPIDAngle(double _val) {
+    rotationPIDAngle = _val;
+  }
+  public double getRotationPIDAngle(){
+    return rotationPIDAngle;
+  }
   /**
    * 
    * @return Distance in Meters
@@ -105,14 +110,14 @@ public class DrivetrainSubsystem extends SubsystemBase {
       currentGyro = GyroEnum.AHRS;
     }
   }
-  public void switchRotMode(){
+  public void switchRotationMode(){
     if(m_rotationMode == RotationMode.PIDAngle){
       m_rotationMode = RotationMode.AxisSpeed;
     }else if(m_rotationMode == RotationMode.AxisSpeed){
       m_rotationMode = RotationMode.PIDAngle;
     }
   }
-  public RotationMode gRotationMode(){
+  public RotationMode getRotationMode(){
     return m_rotationMode;
   }
   public void updateOdometry() {

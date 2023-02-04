@@ -12,6 +12,7 @@ import frc.robot.Command.ArmDefaultCommand;
 import frc.robot.Command.ArmSetCommand;
 import frc.robot.Command.AutoDoNothingCommandGroup;
 import frc.robot.Command.DrivetrainDefaultCommand;
+import frc.robot.Command.SetRotationAngleCommand;
 import frc.robot.Command.SwitchFieldDriveMode;
 import frc.robot.Command.SwitchGyroCommand;
 import frc.robot.Command.SwitchRotationMode;
@@ -53,9 +54,11 @@ public class RobotContainer {
   /** Configure the XBOX controller bindings from buttons/axis to Commands */
   private void configureBindings() {
     // Driver Controller bindings
-    driverController.y().onTrue(new SwitchGyroCommand());
-    driverController.a().onTrue(new SwitchRotationMode());
+    driverController.start().onTrue(new SwitchGyroCommand());
+    driverController.x().onTrue(new SwitchRotationMode());
     driverController.b().onTrue(new SwitchFieldDriveMode());
+    driverController.a().onTrue(new SetRotationAngleCommand(0));
+    driverController.y().onTrue(new SetRotationAngleCommand(180));
 
     // Operator Controller Bindings
     // operatorController.leftBumper().and(operatorController.rightBumper()).onTrue(new ArmSetCommand(ArmPosEnum.HOME));
