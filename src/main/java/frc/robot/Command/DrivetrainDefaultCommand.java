@@ -61,9 +61,10 @@ public class DrivetrainDefaultCommand extends CommandBase {
             * DRIVETRAIN.maxAngularSpeed;
 
     // If angle PID driving then set rotation to the PID value 
-    double rotPID = m_rotationPIDController.calculate(RobotContainer.drivetrainSubsystem.getRobotAngle(),getRotationAngle());
-    if(RobotContainer.drivetrainSubsystem.gRotationMode() == RotationMode.PIDAngle){
-      rot = rotPID * k.DRIVETRAIN.maxAngularSpeed;
+    double rotPID = m_rotationPIDController.calculate(RobotContainer.drivetrainSubsystem.getRobotAngle(),RobotContainer.drivetrainSubsystem.getRotationPIDAngle());
+    if(RobotContainer.drivetrainSubsystem.getRotationMode() == RotationMode.PIDAngle){
+      rot = -rotPID * k.DRIVETRAIN.maxAngularSpeed;
+      SmartDashboard.putNumber("RotationPID", -rotPID);
     }
     RobotContainer.drivetrainSubsystem.drive(xSpeed * k.DRIVETRAIN.speedScale, ySpeed * k.DRIVETRAIN.speedScale, rot*k.DRIVETRAIN.rotationScale);
   }

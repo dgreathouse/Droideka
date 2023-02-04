@@ -18,8 +18,8 @@ public class k {
             new Translation2d(-0.3035, 0.0)
         );
         public static double maxVoltage = 12.0;
-        public static double rotKp = 0.1;
-        public static double rotKi = 0.0;
+        public static double rotKp = 0.03;
+        public static double rotKi = 0.03;
         public static double rotKd = 0.0;
         public static double rotToleranceDeg = 1;
         public static double rotToleranceVel = 10; // Deg/sec
