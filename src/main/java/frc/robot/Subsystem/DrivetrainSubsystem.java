@@ -12,6 +12,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
+import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -57,9 +58,30 @@ public class DrivetrainSubsystem extends SubsystemBase {
             : new ChassisSpeeds(_xSpeed, _ySpeed, _rot));
     SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, DRIVETRAIN.maxSpeed);
 
-    m_fl.setDesiredState(swerveModuleStates[0],_optimize);
-    m_fr.setDesiredState(swerveModuleStates[1],_optimize);
-    m_b.setDesiredState(swerveModuleStates[2],_optimize);
+    m_fl.setDesiredState(swerveModuleStates[0],_optimize, false, false);
+    m_fr.setDesiredState(swerveModuleStates[1],_optimize, false, false);
+    m_b.setDesiredState(swerveModuleStates[2],_optimize, false, false);
+  }
+  // Line up the wheels with the direction requested from x,y.
+  // Drive to the distance
+  public void driveAuto(double _xSpeed, double _ySpeed, double _rot,  boolean _optimize){
+    
+    SwerveModuleState[] swerveModuleStates = DRIVETRAIN.kinematics.toSwerveModuleStates(new ChassisSpeeds(_xSpeed, _ySpeed, _rot));
+    SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, DRIVETRAIN.maxSpeed);
+
+    m_fl.setDesiredState(swerveModuleStates[0],_optimize, false, false);
+    m_fr.setDesiredState(swerveModuleStates[1],_optimize, false, false);
+    m_b.setDesiredState(swerveModuleStates[2],_optimize, false, false);
+  }
+
+  public void steerAuto(double _xSpeed, double _ySpeed){
+    SwerveModuleState[] swerveModuleStates = DRIVETRAIN.kinematics.toSwerveModuleStates(new ChassisSpeeds(_xSpeed, _ySpeed, 0));
+    SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, DRIVETRAIN.maxSpeed);
+
+    m_fl.setDesiredState(swerveModuleStates[0],false, true, false);
+    m_fr.setDesiredState(swerveModuleStates[1],false, true, false);
+    m_b.setDesiredState(swerveModuleStates[2],false, true, false);
+
   }
   public void setRotationPIDAngle(double _val) {
     rotationPIDAngle = _val;

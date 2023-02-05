@@ -5,6 +5,7 @@
 package frc.robot.Command;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.RobotContainer;
@@ -18,10 +19,18 @@ public class AutoDrivetrainDrivePIDCommand extends CommandBase {
   double distance = 0;
   double timeOut = 0;
   double angle = 0;
+  double steerTime = 1;
+  Timer steerTimer = new Timer();
+  Timer driveTimeOut = new Timer();
+  double x = 0;
+  double y = 0;
+  boolean resetDone = false;
   /** Creates a new AutoDrivePIDCommand. */
-  public AutoDrivetrainDrivePIDCommand(double _distance, double _timeOut) {
+  public AutoDrivetrainDrivePIDCommand(double _x, double _y, double _distance, double _timeOut) {
     distance = _distance;
     timeOut = _timeOut;
+    x = _x;
+    y = _y;
     // Drive
     drivePIDController.setTolerance(1);
     drivePIDController.setIntegratorRange(0, 1);
@@ -39,15 +48,31 @@ public class AutoDrivetrainDrivePIDCommand extends CommandBase {
   public void initialize() {
     angle = RobotContainer.drivetrainSubsystem.getRobotAngle();
     RobotContainer.drivetrainSubsystem.resetDriveEncoders();
+    steerTimer.reset();
+    driveTimeOut.reset();
+    rotPIDController.reset();
+    drivePIDController.reset();
   }
+
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    // Steer
+    if(!steerTimer.hasElapsed(steerTime)){
+      RobotContainer.drivetrainSubsystem.steerAuto(x,y);
+    }else{
+
+      if(!resetDone){
+        RobotContainer.drivetrainSubsystem.resetDriveEncoders();
+        resetDone = true;
+      }else {
     // Drive
-    double drv = drivePIDController.calculate(RobotContainer.drivetrainSubsystem.getDriveDistanceInches(),distance);
-    double rot = rotPIDController.calculate(RobotContainer.drivetrainSubsystem.getRobotAngle(),angle);
-    RobotContainer.drivetrainSubsystem.drive(drv, 0, rot,false,true);
+        double drv = drivePIDController.calculate(RobotContainer.drivetrainSubsystem.getDriveDistanceInches(),distance);
+        double rot = rotPIDController.calculate(RobotContainer.drivetrainSubsystem.getRobotAngle(),angle);
+        RobotContainer.drivetrainSubsystem.drive(drv, 0, rot,false,true);
+      }
+    }
   }
 
   // Called once the command ends or is interrupted.
@@ -59,6 +84,9 @@ public class AutoDrivetrainDrivePIDCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return drivePIDController.atSetpoint();
+    if(drivePIDController.atSetpoint() || driveTimeOut.hasElapsed(timeOut)){
+      return true;
+    }
+    return false;
   }
 }

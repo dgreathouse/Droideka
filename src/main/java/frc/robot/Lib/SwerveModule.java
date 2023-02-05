@@ -100,7 +100,12 @@ public class SwerveModule {
     public SwerveModulePosition getPosition() {
         return new SwerveModulePosition(getDriveDistanceMeters(), new Rotation2d(getSteerMotorAngle()));
     }
-    public void setDesiredState(SwerveModuleState _desiredState, boolean _optimize){
+    public void setDesiredState(SwerveModuleState _desiredState, boolean _optimize, boolean _disableDrive, boolean _disableSteer){
+        double driveOutput = 0; 
+        double driveFeedforward = 0;
+        double steerOutput = 0;
+        double steerFeedforward = 0;
+
         // Optimize the reference state to avoid spinning further than 90 degrees
         SwerveModuleState state;
         if(_optimize){
@@ -109,13 +114,18 @@ public class SwerveModule {
             state = _desiredState;
         }
         // Calculate the drive output from the drive PID controller.
-        double driveOutput = m_drivePidController.calculate(getDriveVelocity(), state.speedMetersPerSecond);
-        double driveFeedforward = m_driveFeedforward.calculate(state.speedMetersPerSecond);
-
+        if(!_disableDrive){
+            driveOutput = m_drivePidController.calculate(getDriveVelocity(), state.speedMetersPerSecond);
+            driveFeedforward = m_driveFeedforward.calculate(state.speedMetersPerSecond);
+            m_driveFx.setVoltage(driveOutput + driveFeedforward);
+        }
         // Calculate the turning motor output from the turning PID controller.
-        double steerOutput = m_steerPIDController.calculate(getSteerMotorAngle(), state.angle.getRadians());
-        double steerFeedforward = m_steerFeedforward.calculate(m_steerPIDController.getSetpoint().velocity);
-
+        if(!_disableSteer){
+            steerOutput = m_steerPIDController.calculate(getSteerMotorAngle(), state.angle.getRadians());
+            steerFeedforward = m_steerFeedforward.calculate(m_steerPIDController.getSetpoint().velocity);
+            m_steerFx.setVoltage(steerOutput + steerFeedforward);
+        }
+        // SmartDashboard
         SmartDashboard.putNumber(m_data.name + "_SFF",steerFeedforward);
         SmartDashboard.putNumber(m_data.name + "_DFF",driveFeedforward);
         SmartDashboard.putNumber(m_data.name + "_SPIDOut",steerOutput);
@@ -125,8 +135,9 @@ public class SwerveModule {
         SmartDashboard.putNumber(m_data.name + "StateAngle", state.angle.getRadians());
         SmartDashboard.putNumber(m_data.name + "StateSTVel", m_steerPIDController.getSetpoint().velocity);
         
-        m_driveFx.setVoltage(driveOutput + driveFeedforward);
-        m_steerFx.setVoltage(steerOutput + steerFeedforward);
+
+        
+        
         
     }
     public void sendData(){
