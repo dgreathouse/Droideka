@@ -33,7 +33,7 @@ public class DrivetrainDefaultCommand extends CommandBase {
   @Override
   public void initialize() {
     m_rotationPIDController.setTolerance(k.DRIVETRAIN.rotToleranceDeg, k.DRIVETRAIN.rotToleranceVel);
-
+    m_rotationPIDController.setIntegratorRange(0, .5);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -66,7 +66,7 @@ public class DrivetrainDefaultCommand extends CommandBase {
       rot = -rotPID * k.DRIVETRAIN.maxAngularSpeed;
       SmartDashboard.putNumber("RotationPID", -rotPID);
     }
-    RobotContainer.drivetrainSubsystem.drive(xSpeed * k.DRIVETRAIN.speedScale, ySpeed * k.DRIVETRAIN.speedScale, rot*k.DRIVETRAIN.rotationScale);
+    RobotContainer.drivetrainSubsystem.drive(xSpeed * k.DRIVETRAIN.speedScale, ySpeed * k.DRIVETRAIN.speedScale, rot*k.DRIVETRAIN.rotationScale,RobotContainer.drivetrainSubsystem.isFieldRelative,true);
   }
   /** Using the Right Thumb stick find the requested angle
    * 

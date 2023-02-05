@@ -24,7 +24,7 @@ public class AutoDrivetrainRotatePIDCommand extends PIDCommand {
         // This should return the setpoint (can also be a constant)
         () -> Math.toRadians(_angle),
         // This uses the output
-        output -> {RobotContainer.drivetrainSubsystem.drive(0, 0, output * k.DRIVETRAIN.autoRotateOutScale, false);},
+        output -> {RobotContainer.drivetrainSubsystem.drive(0, 0, output * k.DRIVETRAIN.autoRotateOutScale, false,false);},
         RobotContainer.drivetrainSubsystem
         );
         

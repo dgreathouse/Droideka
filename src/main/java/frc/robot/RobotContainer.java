@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Command.ArmDefaultCommand;
 import frc.robot.Command.ArmSetCommand;
 import frc.robot.Command.AutoDoNothingCommandGroup;
+import frc.robot.Command.AutoTest;
 import frc.robot.Command.DrivetrainDefaultCommand;
 import frc.robot.Command.SetRotationAngleCommand;
 import frc.robot.Command.SwitchFieldDriveMode;
@@ -45,6 +46,7 @@ public class RobotContainer {
     configureBindings();
 
     autoChooser.addOption("Left Cone, Get Cube, Balance", new AutoLeftConeCubeCommandGroup());
+    autoChooser.addOption("Test", new AutoTest());
     autoChooser.setDefaultOption("Do Nothing", new AutoDoNothingCommandGroup());
     
     // Add more auto options here 

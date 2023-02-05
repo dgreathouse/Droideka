@@ -18,11 +18,12 @@ public class k {
             new Translation2d(-0.3035, 0.0)
         );
         public static double maxVoltage = 12.0;
-        public static double rotKp = 0.03;
-        public static double rotKi = 0.03;
+        public static double rotKp = 0.01;
+        public static double rotKi = 0.02;
         public static double rotKd = 0.0;
         public static double rotToleranceDeg = 1;
         public static double rotToleranceVel = 10; // Deg/sec
+        public static double rotMaxOutput  = .5;
         public static double stickDeadband = 0.1;
         public static double speedScale = 1.0;
         public static double rotationScale = 1.0;
@@ -55,7 +56,7 @@ public class k {
         public static double driveSMFKv = 3.2;
         public static double driveSMFKa = 0;
 
-        public static double driveDistanceCntsPMeter = 1;
+        public static double driveDistanceCntsPMeter = 49907;
         public static double driveRawVelocityToMPS = 4990.68;
     }
     public static class OI {
