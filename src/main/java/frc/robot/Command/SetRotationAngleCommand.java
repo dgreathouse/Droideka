@@ -6,6 +6,7 @@ package frc.robot.Command;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.RobotContainer;
 
 public class SetRotationAngleCommand extends InstantCommand {
   double angle = 0;
@@ -18,7 +19,7 @@ public class SetRotationAngleCommand extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    
+    RobotContainer.drivetrainSubsystem.setRotationPIDAngle(angle);
   }
 
 
