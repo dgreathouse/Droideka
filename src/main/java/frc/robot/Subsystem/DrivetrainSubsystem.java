@@ -44,21 +44,22 @@ public class DrivetrainSubsystem extends SubsystemBase {
     resetGyro();
     
   }
-  public void drive(double _xSpeed, double _ySpeed, double _rot, boolean _fieldRelativeMode){
-    isFieldRelative = _fieldRelativeMode;
-    drive(_xSpeed,_ySpeed,_rot);
-  }
-  public void drive(double _xSpeed, double _ySpeed, double _rot){
+  // public void drive(double _xSpeed, double _ySpeed, double _rot, boolean _fieldRelativeMode){
+  //   isFieldRelative = _fieldRelativeMode;
+  //   drive(_xSpeed,_ySpeed,_rot);
+  // }
+  public void drive(double _xSpeed, double _ySpeed, double _rot, boolean _isFieldRelative, boolean _optimize){
+    isFieldRelative = _isFieldRelative;
     var swerveModuleStates =
         DRIVETRAIN.kinematics.toSwerveModuleStates(
-            isFieldRelative
+          isFieldRelative
             ? ChassisSpeeds.fromFieldRelativeSpeeds(_xSpeed, _ySpeed, _rot, getRobotRotation2D())
             : new ChassisSpeeds(_xSpeed, _ySpeed, _rot));
     SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, DRIVETRAIN.maxSpeed);
 
-    m_fl.setDesiredState(swerveModuleStates[0]);
-    m_fr.setDesiredState(swerveModuleStates[1]);
-    m_b.setDesiredState(swerveModuleStates[2]);
+    m_fl.setDesiredState(swerveModuleStates[0],_optimize);
+    m_fr.setDesiredState(swerveModuleStates[1],_optimize);
+    m_b.setDesiredState(swerveModuleStates[2],_optimize);
   }
   public void setRotationPIDAngle(double _val) {
     rotationPIDAngle = _val;
@@ -68,11 +69,14 @@ public class DrivetrainSubsystem extends SubsystemBase {
   }
   /**
    * 
-   * @return Distance in Meters
+   * @return Distance in Inches
    */
-  public double getDriveDistance(){
-    double dis = (m_fl.getDriveDistance() + m_fr.getDriveDistance() + m_b.getDriveDistance())/3.0;
+  public double getDriveDistanceMeters(){
+    double dis = (m_fl.getDriveDistanceMeters() + m_fr.getDriveDistanceMeters() + m_b.getDriveDistanceMeters())/3.0;
     return dis;
+  }
+  public double getDriveDistanceInches(){
+    return getDriveDistanceMeters() * 39.37;
   }
   public double getRobotAngle(){
     if(currentGyro == GyroEnum.AHRS){
@@ -102,6 +106,11 @@ public class DrivetrainSubsystem extends SubsystemBase {
   public void resetGyro(){
     m_gyro.reset();
     m_PGyro.setYaw(0);
+  }
+  public void resetDriveEncoders(){
+    m_b.resetDriveEncoders();
+    m_fl.resetDriveEncoders();
+    m_fr.resetDriveEncoders();
   }
   public void switchGyro(){
     if(currentGyro == GyroEnum.AHRS){
@@ -135,6 +144,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     updateOdometry();
+    SmartDashboard.putNumber("DriveInches", getDriveDistanceInches());
     SmartDashboard.putNumber("PigeonAngle", -m_PGyro.getYaw());
     SmartDashboard.putNumber("NavXAngle", m_gyro.getAngle());
     m_b.sendData();

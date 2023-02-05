@@ -18,11 +18,11 @@ public class AutoDrivetrainStrafePIDCommand extends PIDCommand {
         // The controller that the command will use
         new PIDController(1, 0, 0),
         // This should return the measurement
-        () -> RobotContainer.drivetrainSubsystem.getDriveDistance(),
+        () -> RobotContainer.drivetrainSubsystem.getDriveDistanceMeters(),
         // This should return the setpoint (can also be a constant)
         () -> _distance,
         // This uses the output
-        output -> {RobotContainer.drivetrainSubsystem.drive(0, output, 0, false);},
+        output -> {RobotContainer.drivetrainSubsystem.drive(0, output, 0, false,false);},
         RobotContainer.drivetrainSubsystem
         );
         

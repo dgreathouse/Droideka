@@ -65,16 +65,19 @@ public class SwerveModule {
 
         m_steerPIDController.setTolerance(0.01);
     }
-    
+    public void resetDriveEncoders(){
+        m_driveFx.setSelectedSensorPosition(0);
+    }
     /**
      * 
      * @return Disitance in Meters
      */
-    public double getDriveDistance(){
+    public double getDriveDistanceMeters(){
         final double dis = m_driveFx.getSelectedSensorPosition();
         final double meters = dis / k.SWERVE.driveDistanceCntsPMeter;
         return meters;
     }
+
     public double getDriveVelocity(){
         // Get the FalconFX velocity in raw units /100 ms
         double vel1 = m_driveFx.getSelectedSensorVelocity();
@@ -95,12 +98,16 @@ public class SwerveModule {
     }
    
     public SwerveModulePosition getPosition() {
-        return new SwerveModulePosition(getDriveDistance(), new Rotation2d(getSteerMotorAngle()));
+        return new SwerveModulePosition(getDriveDistanceMeters(), new Rotation2d(getSteerMotorAngle()));
     }
-    public void setDesiredState(SwerveModuleState _desiredState){
+    public void setDesiredState(SwerveModuleState _desiredState, boolean _optimize){
         // Optimize the reference state to avoid spinning further than 90 degrees
-        SwerveModuleState state = SwerveModuleState.optimize(_desiredState, new Rotation2d(getSteerMotorAngle()));
-        //SwerveModuleState state = _desiredState;
+        SwerveModuleState state;
+        if(_optimize){
+            state = SwerveModuleState.optimize(_desiredState, new Rotation2d(getSteerMotorAngle()));
+        }else{
+            state = _desiredState;
+        }
         // Calculate the drive output from the drive PID controller.
         double driveOutput = m_drivePidController.calculate(getDriveVelocity(), state.speedMetersPerSecond);
         double driveFeedforward = m_driveFeedforward.calculate(state.speedMetersPerSecond);
@@ -125,6 +132,6 @@ public class SwerveModule {
     public void sendData(){
         SmartDashboard.putNumber(m_data.name+"SteerMotorAngle", Math.toDegrees(getSteerMotorAngle()));
         SmartDashboard.putNumber(m_data.name+"CANCoderAngle", Math.toDegrees(getSwerveAngle()));
-        SmartDashboard.putNumber(m_data.name + "DriveCounts", Math.toDegrees(getDriveDistance()));
+        SmartDashboard.putNumber(m_data.name + "DriveCounts", Math.toDegrees(getDriveDistanceMeters()));
     }
 }

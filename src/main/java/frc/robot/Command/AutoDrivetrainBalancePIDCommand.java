@@ -23,7 +23,7 @@ public class AutoDrivetrainBalancePIDCommand extends PIDCommand {
         () -> 0,
         // This uses the output
         output -> {
-          RobotContainer.drivetrainSubsystem.drive(output, 0, 0, false);
+          RobotContainer.drivetrainSubsystem.drive(output, 0, 0, false,false);
         },
         RobotContainer.drivetrainSubsystem
         );
