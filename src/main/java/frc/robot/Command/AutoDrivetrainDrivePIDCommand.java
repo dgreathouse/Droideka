@@ -70,7 +70,7 @@ public class AutoDrivetrainDrivePIDCommand extends CommandBase {
     // Drive
         double drv = drivePIDController.calculate(RobotContainer.drivetrainSubsystem.getDriveDistanceInches(),distance);
         double rot = rotPIDController.calculate(RobotContainer.drivetrainSubsystem.getRobotAngle(),angle);
-        RobotContainer.drivetrainSubsystem.drive(drv, 0, rot,false,true);
+        RobotContainer.drivetrainSubsystem.driveAuto(drv, 0, rot,false);
       }
     }
   }
