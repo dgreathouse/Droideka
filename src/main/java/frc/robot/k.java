@@ -11,11 +11,18 @@ public class k {
     public static class DRIVETRAIN {
        public static double maxSpeed = 4.36; // m/s
        public static double maxAngularSpeed = Math.PI; // 1/2 Rotation/Sec
+        // public static SwerveDriveKinematics kinematics = new SwerveDriveKinematics(
+        //     // Front to back 607mm, Side to side 640mm
+        //     new Translation2d(0.3035, 0.320), // Front Left
+        //     new Translation2d(0.3035, -0.320),
+        //     new Translation2d(-0.3035, 0.0)
+        // );
         public static SwerveDriveKinematics kinematics = new SwerveDriveKinematics(
             // Front to back 607mm, Side to side 640mm
-            new Translation2d(0.3035, 0.320), // Front Left
-            new Translation2d(0.3035, -0.320),
-            new Translation2d(-0.3035, 0.0)
+            new Translation2d(0.3035, 0.0),   // Front        B
+            new Translation2d(-0.3035, -0.320), // Back Right   FL
+            new Translation2d(-0.3035, 0.320)    // Back Left   FR
+            
         );
         public static double maxVoltage = 12.0;
         public static double rotKp = 0.01;
@@ -30,9 +37,9 @@ public class k {
         public static double autoRotateOutScale = 1.0;
     }
     public static class SWERVE {
-        public static SwerveData SDBack = new SwerveData("Back", 10, InvertType.None, 20, InvertType.InvertMotorOutput, 1, 14.15);
-        public static SwerveData SDFrontLeft = new SwerveData("FLeft",11, InvertType.None, 21, InvertType.InvertMotorOutput, 2, 167.7);
-        public static SwerveData SDFrontRight = new SwerveData("FRight",12, InvertType.InvertMotorOutput,22, InvertType.InvertMotorOutput, 3, 280);
+        public static SwerveData SDFront = new SwerveData("Front", 10, InvertType.None, 20, InvertType.InvertMotorOutput, 1, 14.15);
+        public static SwerveData SDBackRight = new SwerveData("BRight",11, InvertType.None, 21, InvertType.InvertMotorOutput, 2, 167.7);
+        public static SwerveData SDBackLeft = new SwerveData("BLeft",12, InvertType.InvertMotorOutput,22, InvertType.InvertMotorOutput, 3, 280);
 
 
 
