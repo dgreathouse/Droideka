@@ -41,8 +41,6 @@ public class k {
         public static SwerveData SDBackRight = new SwerveData("BRight",11, InvertType.None, 21, InvertType.None, 2, 167.7);
         public static SwerveData SDBackLeft = new SwerveData("BLeft",12, InvertType.InvertMotorOutput,22, InvertType.None, 3, 280);
 
-
-
         public static double steerKp = 3;
         public static double steerKi = 6;
         public static double steerKd = 0;
