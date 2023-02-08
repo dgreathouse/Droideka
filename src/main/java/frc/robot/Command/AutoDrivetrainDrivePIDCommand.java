@@ -17,18 +17,18 @@ public class AutoDrivetrainDrivePIDCommand extends CommandBase {
   PIDController rotPIDController = new PIDController(2.75, .5, 0);
   PIDController drivePIDController = new PIDController(1, .1, 0);
   double distance = 0;
-  double timeOut = 0;
+  double drriveTimeOut = 0;
   double angle = 0;
   double steerTime = 1;
   Timer steerTimer = new Timer();
-  Timer driveTimeOut = new Timer();
+  Timer driveTimer = new Timer();
   double x = 0;
   double y = 0;
   boolean resetDone = false;
   /** Creates a new AutoDrivePIDCommand. */
   public AutoDrivetrainDrivePIDCommand(double _x, double _y, double _distance, double _timeOut) {
     distance = _distance;
-    timeOut = _timeOut;
+    drriveTimeOut = _timeOut;
     x = _x;
     y = _y;
     // Drive
@@ -49,9 +49,10 @@ public class AutoDrivetrainDrivePIDCommand extends CommandBase {
     angle = RobotContainer.drivetrainSubsystem.getRobotAngle();
     RobotContainer.drivetrainSubsystem.resetDriveEncoders();
     steerTimer.reset();
-    driveTimeOut.reset();
+    driveTimer.reset();
     rotPIDController.reset();
     drivePIDController.reset();
+    steerTimer.start();
   }
 
 
@@ -66,6 +67,7 @@ public class AutoDrivetrainDrivePIDCommand extends CommandBase {
       if(!resetDone){
         RobotContainer.drivetrainSubsystem.resetDriveEncoders();
         resetDone = true;
+        driveTimer.start();
       }else {
     // Drive
         double drv = drivePIDController.calculate(RobotContainer.drivetrainSubsystem.getDriveDistanceInches(),distance);
@@ -84,7 +86,7 @@ public class AutoDrivetrainDrivePIDCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(drivePIDController.atSetpoint() || driveTimeOut.hasElapsed(timeOut)){
+    if(drivePIDController.atSetpoint() || driveTimer.hasElapsed(drriveTimeOut)){
       return true;
     }
     return false;
