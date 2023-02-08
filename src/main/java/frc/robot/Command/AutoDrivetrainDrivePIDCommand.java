@@ -4,8 +4,12 @@
 
 package frc.robot.Command;
 
+import java.io.Console;
+
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.RobotContainer;
@@ -25,8 +29,10 @@ public class AutoDrivetrainDrivePIDCommand extends CommandBase {
   double x = 0;
   double y = 0;
   boolean resetDone = false;
+  int cnt = 0;
   /** Creates a new AutoDrivePIDCommand. */
   public AutoDrivetrainDrivePIDCommand(double _x, double _y, double _distance, double _timeOut) {
+    addRequirements(RobotContainer.drivetrainSubsystem);
     distance = _distance;
     timeOut = _timeOut;
     x = _x;
@@ -58,8 +64,10 @@ public class AutoDrivetrainDrivePIDCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+  
     // Steer
     if(!steerTimer.hasElapsed(steerTime)){
+      SmartDashboard.putNumber("Test", cnt++);
       RobotContainer.drivetrainSubsystem.steerAuto(x,y);
     }else{
 
@@ -70,7 +78,7 @@ public class AutoDrivetrainDrivePIDCommand extends CommandBase {
     // Drive
         double drv = drivePIDController.calculate(RobotContainer.drivetrainSubsystem.getDriveDistanceInches(),distance);
         double rot = rotPIDController.calculate(RobotContainer.drivetrainSubsystem.getRobotAngle(),angle);
-        RobotContainer.drivetrainSubsystem.driveAuto(drv, 0, rot,false);
+        RobotContainer.drivetrainSubsystem.driveAuto(drv, 0, rot,true);
       }
     }
   }
