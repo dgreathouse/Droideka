@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -11,13 +12,13 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Command.ArmDefaultCommand;
 import frc.robot.Command.ArmSetCommand;
 import frc.robot.Command.AutoDoNothingCommandGroup;
-import frc.robot.Command.AutoTest;
 import frc.robot.Command.DrivetrainDefaultCommand;
 import frc.robot.Command.SetRotationAngleCommand;
 import frc.robot.Command.SwitchFieldDriveMode;
 import frc.robot.Command.SwitchGyroCommand;
 import frc.robot.Command.SwitchRotationMode;
 import frc.robot.CommandGroups.AutoLeftConeCubeCommandGroup;
+import frc.robot.CommandGroups.AutoTest;
 import frc.robot.Lib.ArmPosEnum;
 import frc.robot.Subsystem.ArmSubsystem;
 import frc.robot.Subsystem.DrivetrainSubsystem;
@@ -51,6 +52,7 @@ public class RobotContainer {
     
     // Add more auto options here 
     SmartDashboard.putData(autoChooser);
+   // LiveWindow.enableAllTelemetry();
 
   }
   /** Configure the XBOX controller bindings from buttons/axis to Commands */
