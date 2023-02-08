@@ -171,6 +171,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     updateOdometry();
+    SmartDashboard.putData("DRIVETRAIN", this);
     SmartDashboard.putNumber("DriveInches", getDriveDistanceInches());
     SmartDashboard.putNumber("PigeonAngle", -m_PGyro.getYaw());
     SmartDashboard.putNumber("NavXAngle", m_gyro.getAngle());

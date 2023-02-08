@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -51,6 +52,7 @@ public class RobotContainer {
     
     // Add more auto options here 
     SmartDashboard.putData(autoChooser);
+   // LiveWindow.enableAllTelemetry();
 
   }
   /** Configure the XBOX controller bindings from buttons/axis to Commands */
