@@ -57,8 +57,8 @@ public class k {
         public static double driveKi = 1.5;
         public static double driveKd = 0;
 
-        public static double driveSMFKs = 0.025;
-        public static double driveSMFKv = 3.2;
+        public static double driveSMFKs = 0.0;
+        public static double driveSMFKv = DRIVETRAIN.maxVoltage/DRIVETRAIN.maxSpeed;
         public static double driveSMFKa = 0;
 
         public static double driveDistanceCntsPMeter = 49907;
