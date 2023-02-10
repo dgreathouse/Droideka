@@ -2,30 +2,7 @@
   "NTProvider": {
     "types": {
       "/FMSInfo": "FMSInfo",
-<<<<<<< HEAD
-=======
-      "/SmartDashboard/DRIVETRAIN": "Subsystem",
->>>>>>> b088720ce032229b1b82bc624c5ec593489495bb
       "/SmartDashboard/SendableChooser[0]": "String Chooser"
-    }
-  },
-  "NetworkTables": {
-    "transitory": {
-<<<<<<< HEAD
-      "LiveWindow": {
-        "open": true
-      },
-=======
->>>>>>> b088720ce032229b1b82bc624c5ec593489495bb
-      "Shuffleboard": {
-        "open": true
-      },
-      "SmartDashboard": {
-        "SendableChooser[0]": {
-          "open": true
-        },
-        "open": true
-      }
     }
   }
 }
