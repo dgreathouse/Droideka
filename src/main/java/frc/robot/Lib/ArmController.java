@@ -4,24 +4,28 @@
 
 package frc.robot.Lib;
 
-import edu.wpi.first.math.controller.PIDController;
-import frc.robot.Subsystem.ArmSubsystem;
+
+import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import frc.robot.Subsystem.Arm;
+
 
 /** Arm Controller
  * kV controls the feedforward gain for velocity
  * Or
  * PID controls the Velocity with max output being the set velocity
+ * The PID uses the profile to come up with a velocity
  */
 public class ArmController {
 
-    PIDController pid;
+    ProfiledPIDController pid;
     double kS;
     double kG;
     double kV;
     double kP;
     double kI;
     double maxVelocity = 0;
-    ArmSubsystem arm;
+    Arm arm;
 
     /**
      * 
@@ -29,23 +33,25 @@ public class ArmController {
      * @param kG Units (Volts) Gravity gain to maintain postion at angle
      * @param kV Units (Radians/Sec)
      */
-    public ArmController(double _kS, double _kG, double _kV, double _kP, double _kI, ArmSubsystem _arm){
+    public ArmController(double _kS, double _kG, double _kV, double _kP, double _kI, double _maxVelocity, Arm _arm){
         this.kS = _kS;
         this.kG = _kG;
         this.kV = _kV;
         this.kP = _kP;
         this.kI = _kI;
         arm = _arm;
-        pid = new PIDController(kP, kI, 0);
+        maxVelocity = _maxVelocity;
+        pid = new ProfiledPIDController(kP, kI, 0,
+        new TrapezoidProfile.Constraints(maxVelocity, 0));
+        
     }
-    public double calculate(double _position, double _velocity, double _elbowPosition, double _intakeAngle){
-        maxVelocity = _velocity;
+    public double calculate(double _position, double _elbowPosition, double _intakeAngle){
+        
+        
         // getVelocity of motor
         // get Angle of arm segments
-        //
-        // PID calculate based on position
-        // Max PID is _Velocity
-        // Set velocity must become 0 at target because position error is 0
+        // kG must change based on the angle of the shoulder, forearm and intake
+
         return 0;
     }
     public void setKS(double _k){

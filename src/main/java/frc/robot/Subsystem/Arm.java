@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 /**
  * The Arm consists of a Shoulder, Elbow and Intake 
- * 2 Shoulder motor working in parallel
+ * 2 Shoulder motors working in parallel
  * 2 Elbow motors working in parallel
  * 1 Intake Spin motor
  * 1 Intake Rotate motor

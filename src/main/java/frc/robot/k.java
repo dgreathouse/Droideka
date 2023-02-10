@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.InvertType;
 
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import frc.robot.Lib.ArmData;
 import frc.robot.Lib.SwerveData;
 
 /** Add your docs here. */
@@ -75,6 +76,7 @@ public class k {
         public static double CntsPDeg = 1;
         public static double PercentOnTarget = 1;
         public static double TimeoutOnTarget = 2;
+        public static ArmData shoulderData = new ArmData(0,0,0,0,0,0,0);
     }
     public static class ELBOW {
         public static int leftCANId = 32;
