@@ -117,6 +117,7 @@ public class SwerveModule {
         if(!_disableDrive){
             driveOutput = m_drivePidController.calculate(getDriveVelocity(), state.speedMetersPerSecond);
             driveFeedforward = m_driveFeedforward.calculate(state.speedMetersPerSecond);
+            
             m_driveFx.setVoltage(driveOutput + driveFeedforward);
         }
         // Calculate the turning motor output from the turning PID controller.
