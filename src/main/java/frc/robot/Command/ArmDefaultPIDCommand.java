@@ -24,9 +24,9 @@ import frc.robot.Subsystem.Arm;
  */
 public class ArmDefaultPIDCommand extends CommandBase {
   Arm m_arm;
-  ArmController m_shouldController = new ArmController(0,0,0,0,0,m_arm);
-  ArmController m_elbowController = new ArmController(0,0,0,0,0,m_arm);
-  ArmController m_intakController = new ArmController(0,0,0,0,0,m_arm);
+  // ArmController m_shouldController = new ArmController(0,0,0,0,0,m_arm);
+  // ArmController m_elbowController = new ArmController(0,0,0,0,0,m_arm);
+  // ArmController m_intakController = new ArmController(0,0,0,0,0,m_arm);
 
 
 

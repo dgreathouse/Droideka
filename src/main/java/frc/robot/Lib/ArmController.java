@@ -5,6 +5,8 @@
 package frc.robot.Lib;
 
 
+import javax.swing.text.Position;
+
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import frc.robot.Subsystem.Arm;
@@ -27,6 +29,7 @@ public class ArmController {
     double maxVelocity = 0;
     Arm arm;
 
+
     /**
      * 
      * @param kS Units (Volts) static value to overcome friction
@@ -46,11 +49,18 @@ public class ArmController {
         
     }
     public double calculate(double _position, double _elbowPosition, double _intakeAngle){
-        
-        
+        double pidOut = pid.calculate(_position); // Fixme
+        double vel = pid.getSetpoint().velocity;
+        double staticVolts = kS * Math.signum(vel);
+        double gravityVolts = kG * Math.cos(_position);  // Fixme for radians and SinVsCos and Intake-Elbow
+        double setVelVolts = kV * vel;
         // getVelocity of motor
         // get Angle of arm segments
         // kG must change based on the angle of the shoulder, forearm and intake
+        // PID on actual position and set velocity
+        // out = pid.calculate(actualPos, setPoint);
+        // velocity = out * kV;
+
 
         return 0;
     }
