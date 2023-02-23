@@ -6,9 +6,13 @@ package frc.robot.Subsystem;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Lib.ArmController;
+import frc.robot.Lib.ArmPosEnum;
 
 /**
  * The Arm consists of a Shoulder, Elbow and Intake 
@@ -27,21 +31,41 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
  * Profilled PID controls the velocity and acceleration.
  */
 public class Arm extends SubsystemBase {
-  public WPI_TalonFX m_leftShoulderMotCtrl;
-  public WPI_TalonFX m_rightShoulderMotCtrl;
-  public WPI_TalonSRX m_leftElbowMotCtrl;
-  public WPI_TalonSRX m_rightElbowMotCtrl;
+  public CANSparkMax m_leftShoulderMotCtrl;
+  public CANSparkMax m_rightShoulderMotCtrl;
+  public WPI_TalonSRX m_elbowMotCtrl;
   public WPI_TalonSRX m_intakeRotateMotCtrl;
   public WPI_TalonSRX m_intakeSpinnerMotCtrl;
+  public ArmController m_armController;
 
   
 
 
   /** Creates a new Arm. */
   public Arm() {
-    
-  }
+    m_leftShoulderMotCtrl = new CANSparkMax(25, MotorType.kBrushless);
+    m_rightShoulderMotCtrl = new CANSparkMax(26, MotorType.kBrushless);
+    m_leftShoulderMotCtrl.restoreFactoryDefaults();
+    m_rightShoulderMotCtrl.restoreFactoryDefaults();
+    m_rightShoulderMotCtrl.follow(m_leftShoulderMotCtrl,true);
 
+
+  }
+  public void moveShoulder(double _volts){
+    m_leftShoulderMotCtrl.setVoltage(_volts);
+  }
+  public void moveElbow(double _volts){
+    m_elbowMotCtrl.setVoltage(_volts);
+  }
+  public void moveHand(double _volts){
+    m_intakeRotateMotCtrl.setVoltage(_volts);
+  }
+  public void spinHand(double _volts){
+    m_intakeSpinnerMotCtrl.setVoltage(_volts);
+  }
+  public void moveToPos(ArmPosEnum _pos){
+    m_armController.moveToPosition(_pos);
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

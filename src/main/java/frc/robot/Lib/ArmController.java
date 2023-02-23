@@ -7,7 +7,9 @@ package frc.robot.Lib;
 
 import javax.swing.text.Position;
 
+import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import frc.robot.Subsystem.Arm;
 
@@ -20,57 +22,41 @@ import frc.robot.Subsystem.Arm;
  */
 public class ArmController {
 
-    ProfiledPIDController pid;
-    double kS;
-    double kG;
-    double kV;
-    double kP;
-    double kI;
-    double maxVelocity = 0;
-    Arm arm;
+    ProfiledPIDController m_shoulderPID;
+    ProfiledPIDController m_elbowPID;
+    ProfiledPIDController m_handPID;
+
+    ArmFeedforward m_shoulderFF;
+    ArmFeedforward m_elbowFF;
+    ArmFeedforward m_handFF;
+
+    public ArmController(){
+        m_shoulderPID = new ProfiledPIDController(0, 0, 0, new TrapezoidProfile.Constraints(0, 0));
+        m_elbowPID = new ProfiledPIDController(0, 0, 0, new TrapezoidProfile.Constraints(0, 0));
+        m_handPID = new ProfiledPIDController(0, 0, 0, new TrapezoidProfile.Constraints(0, 0));
+
+        m_shoulderFF = new ArmFeedforward(0, 0, 0);
+        m_elbowFF = new ArmFeedforward(0, 0, 0);
+        m_handFF = new ArmFeedforward(0, 0, 0);
+
+    }
+    public void moveToPosition(ArmPosEnum pos){
+
+        m_shoulderPID.calculate(0);
+        m_elbowPID.calculate(0);
+        m_handPID.calculate(0);
+        /**
+         * Calculate the PID value
+         * Use the expected velocity as a FF velocity
+         * Command each motor
+         * Adjust shoulder kG based on elbow and intake angle, then intake angle for elbow
+         */
+    }
+
+    
 
 
-    /**
-     * 
-     * @param kS Units (Volts) static value to overcome friction
-     * @param kG Units (Volts) Gravity gain to maintain postion at angle
-     * @param kV Units (Radians/Sec)
-     */
-    public ArmController(double _kS, double _kG, double _kV, double _kP, double _kI, double _maxVelocity, Arm _arm){
-        this.kS = _kS;
-        this.kG = _kG;
-        this.kV = _kV;
-        this.kP = _kP;
-        this.kI = _kI;
-        arm = _arm;
-        maxVelocity = _maxVelocity;
-        pid = new ProfiledPIDController(kP, kI, 0,
-        new TrapezoidProfile.Constraints(maxVelocity, 0));
-        
-    }
-    public double calculate(double _position, double _elbowPosition, double _intakeAngle){
-        double pidOut = pid.calculate(_position); // Fixme
-        double vel = pid.getSetpoint().velocity;
-        double staticVolts = kS * Math.signum(vel);
-        double gravityVolts = kG * Math.cos(_position);  // Fixme for radians and SinVsCos and Intake-Elbow
-        double setVelVolts = kV * vel;
-        // getVelocity of motor
-        // get Angle of arm segments
-        // kG must change based on the angle of the shoulder, forearm and intake
-        // PID on actual position and set velocity
-        // out = pid.calculate(actualPos, setPoint);
-        // velocity = out * kV;
 
+  
 
-        return 0;
-    }
-    public void setKS(double _k){
-        kS = _k;
-    }
-    public void setKG(double _k){
-        kG = _k;
-    }
-    public void setKV(double _k){
-        kV = _k;
-    }
 }
