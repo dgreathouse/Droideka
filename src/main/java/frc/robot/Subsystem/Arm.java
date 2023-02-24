@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.SparkMaxRelativeEncoder.Type;
 
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -31,11 +32,15 @@ import frc.robot.Lib.ArmPosEnum;
  * Profilled PID controls the velocity and acceleration.
  */
 public class Arm extends SubsystemBase {
+
+  public static double kShoulderDegPerCnt = 1;
+  public static double kElbowDegPerCnt = 1;
+
   public CANSparkMax m_leftShoulderMotCtrl;
   public CANSparkMax m_rightShoulderMotCtrl;
   public WPI_TalonSRX m_elbowMotCtrl;
-  public WPI_TalonSRX m_intakeRotateMotCtrl;
-  public WPI_TalonSRX m_intakeSpinnerMotCtrl;
+  //public WPI_TalonSRX m_intakeRotateMotCtrl;
+  //public WPI_TalonSRX m_intakeSpinnerMotCtrl;
   public ArmController m_armController;
 
   
@@ -48,20 +53,28 @@ public class Arm extends SubsystemBase {
     m_leftShoulderMotCtrl.restoreFactoryDefaults();
     m_rightShoulderMotCtrl.restoreFactoryDefaults();
     m_rightShoulderMotCtrl.follow(m_leftShoulderMotCtrl,true);
+    m_elbowMotCtrl = new WPI_TalonSRX(50);
 
+    m_armController = new ArmController(this);
 
   }
   public void moveShoulder(double _volts){
     m_leftShoulderMotCtrl.setVoltage(_volts);
   }
+  public double getShoulderAngle(){
+    return m_leftShoulderMotCtrl.getEncoder().getPosition() * kShoulderDegPerCnt;
+  }
   public void moveElbow(double _volts){
     m_elbowMotCtrl.setVoltage(_volts);
   }
+  public double getElbowAngle(){
+    return m_elbowMotCtrl.getSelectedSensorPosition() * kElbowDegPerCnt;
+  }
   public void moveHand(double _volts){
-    m_intakeRotateMotCtrl.setVoltage(_volts);
+  //  m_intakeRotateMotCtrl.setVoltage(_volts);
   }
   public void spinHand(double _volts){
-    m_intakeSpinnerMotCtrl.setVoltage(_volts);
+  //  m_intakeSpinnerMotCtrl.setVoltage(_volts);
   }
   public void moveToPos(ArmPosEnum _pos){
     m_armController.moveToPosition(_pos);

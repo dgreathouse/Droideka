@@ -4,25 +4,33 @@
 
 package frc.robot.Lib;
 
+import java.util.HashMap;
+
 /** Add your docs here. */
 public class ArmData {
-    double kS;
-    double kG;
-    double kV;
-    double kP;
-    double kI;
-    double kD;
-    double maxVelocity;
-    double maxAccel;
 
-    public ArmData(double _kS, double _kG, double _kV, double _kP, double _kI, double _maxVelocity, double _maxAccel)
-    {
-        kS = _kS;
-        kG = _kG;
-        kV = _kV;
-        kP = _kP;
-        kI = _kI;
-        maxVelocity = _maxVelocity;
-        maxAccel = _maxAccel;
+    ArmPosEnum armPosEnum = ArmPosEnum.HOME;
+    double angle = 0;
+
+    HashMap<String, ArmInfo> data = new HashMap<String, ArmInfo>();
+    public ArmData(){
+        data.put(ArmPosEnum.HOME.toString(), new ArmInfo(0,1));
+        
     }
+    public double getAngle(ArmPosEnum _posString){
+        return data.get(_posString.toString()).angle;
+    }
+    public double getWeight(ArmPosEnum _posString){
+        return data.get(_posString.toString()).weight;
+
+    }
+public class ArmInfo{
+    public double angle;
+    public double weight;
+    public ArmInfo(double _angle, double _weight){
+        angle = _angle;
+        weight = _weight;
+    }
+}
+
 }
