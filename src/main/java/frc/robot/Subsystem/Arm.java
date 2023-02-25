@@ -4,6 +4,8 @@
 
 package frc.robot.Subsystem;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.RemoteFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
@@ -11,6 +13,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxRelativeEncoder.Type;
 
 import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Lib.ArmController;
 import frc.robot.Lib.ArmPosEnum;
@@ -33,7 +36,8 @@ import frc.robot.Lib.ArmPosEnum;
  */
 public class Arm extends SubsystemBase {
 
-  public static double kShoulderDegPerCnt = 1;
+ // 4096 * Rev = 124536 for 90Deg
+  public static double kShoulderDegPerCnt = 90/30.53;
   public static double kElbowDegPerCnt = 1;
 
   public CANSparkMax m_leftShoulderMotCtrl;
@@ -53,8 +57,10 @@ public class Arm extends SubsystemBase {
     m_leftShoulderMotCtrl.restoreFactoryDefaults();
     m_rightShoulderMotCtrl.restoreFactoryDefaults();
     m_rightShoulderMotCtrl.follow(m_leftShoulderMotCtrl,true);
-    m_elbowMotCtrl = new WPI_TalonSRX(50);
-
+    m_elbowMotCtrl = new WPI_TalonSRX(48);
+   // m_leftShoulderMotCtrl.getEncoder().setPositionConversionFactor(4096);
+    m_elbowMotCtrl.configFactoryDefault();
+    m_elbowMotCtrl.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
     m_armController = new ArmController(this);
 
   }
@@ -62,7 +68,7 @@ public class Arm extends SubsystemBase {
     m_leftShoulderMotCtrl.setVoltage(_volts);
   }
   public double getShoulderAngle(){
-    return m_leftShoulderMotCtrl.getEncoder().getPosition() * kShoulderDegPerCnt;
+    return m_leftShoulderMotCtrl.getEncoder().getPosition()* kShoulderDegPerCnt;
   }
   public void moveElbow(double _volts){
     m_elbowMotCtrl.setVoltage(_volts);
@@ -81,6 +87,10 @@ public class Arm extends SubsystemBase {
   }
   @Override
   public void periodic() {
+    SmartDashboard.putNumber("SHMotCnts", getShoulderAngle());
+    SmartDashboard.putNumber("ELMotCnts", getElbowAngle());
+    SmartDashboard.putNumber("SHMotConv", m_leftShoulderMotCtrl.getEncoder().getPositionConversionFactor());
+    SmartDashboard.putNumber("SHMotConn", m_leftShoulderMotCtrl.getEncoder().getCountsPerRevolution());
     // This method will be called once per scheduler run
   }
 }

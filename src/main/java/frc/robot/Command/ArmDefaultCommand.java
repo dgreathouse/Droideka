@@ -7,6 +7,8 @@ package frc.robot.Command;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
+import frc.robot.Lib.ArmPosEnum;
+import frc.robot.Subsystem.Arm;
 import frc.robot.Subsystem.ArmSubsystem;
 
 /**
@@ -39,7 +41,7 @@ public class ArmDefaultCommand extends CommandBase {
   double intakeVel = 0;
 
   /** Creates a new ArmDefaultCommand. */
-  public ArmDefaultCommand(ArmSubsystem _subsystem) {
+  public ArmDefaultCommand(Arm _subsystem) {
     addRequirements(_subsystem);
   }
 
@@ -55,8 +57,8 @@ public class ArmDefaultCommand extends CommandBase {
    */
   @Override
   public void execute() {
-
-
+      RobotContainer.armSubsystem.m_armController.moveToPosition(ArmPosEnum.FAR_CONE);
+    
     // // Set the values for where to move based on the selected arm position.
     // switch(RobotContainer.armSubsystem.m_armPos){
     //   case FAR_CONE:

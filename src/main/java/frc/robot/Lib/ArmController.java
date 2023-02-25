@@ -5,12 +5,16 @@
 package frc.robot.Lib;
 
 
+import javax.swing.plaf.synth.SynthPasswordFieldUI;
 import javax.swing.text.Position;
 
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.math.trajectory.TrapezoidProfile.State;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.RobotContainer;
 import frc.robot.Subsystem.Arm;
 
 
@@ -32,21 +36,29 @@ public class ArmController {
     ArmFeedforward m_handFF;
 
     public ArmController(Arm _arm){
-        m_shoulderPID = new ProfiledPIDController(0, 0, 0, new TrapezoidProfile.Constraints(0, 0));
+        // 45 Deg/sec 1.5 Rad/Sec^2
+        m_shoulderPID = new ProfiledPIDController(6, 1, 0, new TrapezoidProfile.Constraints(.7854, 1.5));
         m_elbowPID = new ProfiledPIDController(0, 0, 0, new TrapezoidProfile.Constraints(0, 0));
         m_handPID = new ProfiledPIDController(0, 0, 0, new TrapezoidProfile.Constraints(0, 0));
 
         m_shoulderFF = new ArmFeedforward(0.125, 0.33, 0.1);
         m_elbowFF = new ArmFeedforward(0.1, 0.2, 0.1);
         m_handFF = new ArmFeedforward(0, 0, 0);
-
+        SmartDashboard.putData(m_shoulderPID);
         arm = _arm;
     }
-    public void moveToPosition(ArmPosEnum pos){
+    public void moveToPosition(ArmPosEnum _pos){
 
-        m_shoulderPID.calculate(arm.getShoulderAngle());
-        m_elbowPID.calculate(arm.getElbowAngle());
-        m_handPID.calculate(0);
+        double angle = Math.toRadians(RobotContainer.armData.getAngle(_pos));
+        m_shoulderPID.setGoal(angle);
+        double shPID = m_shoulderPID.calculate(Math.toRadians(arm.getShoulderAngle()));
+      //  m_elbowPID.calculate(arm.getElbowAngle());
+     //   m_handPID.calculate(0);
+
+        double shVel = m_shoulderPID.getGoal().velocity;
+        double shFF = m_shoulderFF.calculate(arm.getShoulderAngle(), shVel);
+
+        arm.moveShoulder(shPID + shFF);
 
 
         /**

@@ -24,7 +24,7 @@ public class ArmSetCommand extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    RobotContainer.armSubsystem.m_armPos = m_pos;
-    RobotContainer.armSubsystem.resetMoveTimers();
+   // RobotContainer.armSubsystem.m_armPos = m_pos;
+   // RobotContainer.armSubsystem.resetMoveTimers();
   }
 }

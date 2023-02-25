@@ -19,7 +19,9 @@ import frc.robot.Command.SwitchGyroCommand;
 import frc.robot.Command.SwitchRotationMode;
 import frc.robot.CommandGroups.AutoLeftConeCubeCommandGroup;
 import frc.robot.CommandGroups.AutoTest;
+import frc.robot.Lib.ArmData;
 import frc.robot.Lib.ArmPosEnum;
+import frc.robot.Subsystem.Arm;
 import frc.robot.Subsystem.ArmSubsystem;
 import frc.robot.Subsystem.DrivetrainSubsystem;
 
@@ -29,8 +31,10 @@ public class RobotContainer {
   public static DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
   private DrivetrainDefaultCommand drivetrainDefaultCommand = new DrivetrainDefaultCommand(drivetrainSubsystem);
 
-  public static ArmSubsystem armSubsystem = new ArmSubsystem();
+  public static Arm armSubsystem = new Arm();
   private ArmDefaultCommand armDefaultCommand = new ArmDefaultCommand(armSubsystem);
+
+  public static ArmData armData = new ArmData();
 
   public static CommandXboxController driverController = new CommandXboxController(0);
  // public static CommandXboxController operatorController = new CommandXboxController(1);

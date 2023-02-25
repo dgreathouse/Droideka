@@ -15,6 +15,7 @@ public class ArmData {
     HashMap<String, ArmInfo> data = new HashMap<String, ArmInfo>();
     public ArmData(){
         data.put(ArmPosEnum.HOME.toString(), new ArmInfo(0,1));
+        data.put(ArmPosEnum.FAR_CONE.toString(), new ArmInfo(45, 5));
         
     }
     public double getAngle(ArmPosEnum _posString){
