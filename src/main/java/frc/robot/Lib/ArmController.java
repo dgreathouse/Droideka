@@ -27,6 +27,8 @@ import frc.robot.Subsystem.Arm;
 public class ArmController {
     
     Arm arm;
+    public ArmPosEnum m_armPos = ArmPosEnum.HOME;
+
     ProfiledPIDController m_shoulderPID;
     ProfiledPIDController m_elbowPID;
     ProfiledPIDController m_handPID;
@@ -35,6 +37,7 @@ public class ArmController {
     ArmFeedforward m_elbowFF;
     ArmFeedforward m_handFF;
 
+    
     public ArmController(Arm _arm){
         // 45 Deg/sec 1.5 Rad/Sec^2
         m_shoulderPID = new ProfiledPIDController(6, 1, 0, new TrapezoidProfile.Constraints(.7854, 1.5));
@@ -45,11 +48,14 @@ public class ArmController {
         m_elbowFF = new ArmFeedforward(0.1, 0.2, 0.1);
         m_handFF = new ArmFeedforward(0, 0, 0);
         SmartDashboard.putData(m_shoulderPID);
+        SmartDashboard.putData(m_elbowPID);
+        SmartDashboard.putData(m_handPID);
+        
         arm = _arm;
     }
-    public void moveToPosition(ArmPosEnum _pos){
+    public void moveToPosition(){
 
-        double angle = Math.toRadians(RobotContainer.armData.getAngle(_pos));
+        double angle = Math.toRadians(RobotContainer.armData.getBicepAngle(m_armPos));
         m_shoulderPID.setGoal(angle);
         double shPID = m_shoulderPID.calculate(Math.toRadians(arm.getShoulderAngle()));
       //  m_elbowPID.calculate(arm.getElbowAngle());

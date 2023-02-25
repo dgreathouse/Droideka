@@ -19,7 +19,7 @@ public class ArmIntakeVelCommand extends InstantCommand {
    * @param _vel The Velocity from +/- 1
    */
   public ArmIntakeVelCommand(double _vel) {
-    addRequirements(RobotContainer.armSubsystem);
+    addRequirements(RobotContainer.arm);
     m_vel = 0;
     // Use addRequirements() here to declare subsystem dependencies.
   }

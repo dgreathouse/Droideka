@@ -9,28 +9,37 @@ import java.util.HashMap;
 /** Add your docs here. */
 public class ArmData {
 
-    ArmPosEnum armPosEnum = ArmPosEnum.HOME;
-    double angle = 0;
+
+
 
     HashMap<String, ArmInfo> data = new HashMap<String, ArmInfo>();
     public ArmData(){
-        data.put(ArmPosEnum.HOME.toString(), new ArmInfo(0,1));
-        data.put(ArmPosEnum.FAR_CONE.toString(), new ArmInfo(45, 5));
-        
-    }
-    public double getAngle(ArmPosEnum _posString){
-        return data.get(_posString.toString()).angle;
-    }
-    public double getWeight(ArmPosEnum _posString){
-        return data.get(_posString.toString()).weight;
+        data.put(ArmPosEnum.HOME.toString(), new ArmInfo(0,0,0));
+        data.put(ArmPosEnum.FAR_CONE.toString(), new ArmInfo(80, 180, 0));
+        data.put(ArmPosEnum.FAR_CUBE.toString(), new ArmInfo(75, 170, -5));
+        data.put(ArmPosEnum.MID_CONE.toString(), new ArmInfo(50, 90, 0));
+        data.put(ArmPosEnum.MID_CUBE.toString(), new ArmInfo(45, 75, 0));
+        data.put(ArmPosEnum.LOW_CONE.toString(), new ArmInfo(5, 150, 10));
+        data.put(ArmPosEnum.LOW_CUBE.toString(), new ArmInfo(5, 155, 20));
+        data.put(ArmPosEnum.WALL_CONE.toString(), new ArmInfo(-5, 25, -10));
+        data.put(ArmPosEnum.WALL_CUBE.toString(), new ArmInfo(-5, 25, -20));
+        data.put(ArmPosEnum.FLOOR_BACK_CUBE.toString(), new ArmInfo(-20, 75, 0));
 
     }
+    public double getBicepAngle(ArmPosEnum _posString){
+        return data.get(_posString.toString()).bAngle;
+    }
+
 public class ArmInfo{
-    public double angle;
-    public double weight;
-    public ArmInfo(double _angle, double _weight){
-        angle = _angle;
-        weight = _weight;
+
+   public double bAngle = 0;
+   public double fAngle = 0;
+   public double hAngle = 0;
+
+    public ArmInfo(double _bAngle, double _fAngle, double _hAngle){
+        bAngle = _bAngle;
+        fAngle = _fAngle;
+        hAngle = _hAngle;
     }
 }
 

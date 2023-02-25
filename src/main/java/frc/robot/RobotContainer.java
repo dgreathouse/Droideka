@@ -31,8 +31,8 @@ public class RobotContainer {
   public static DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
   private DrivetrainDefaultCommand drivetrainDefaultCommand = new DrivetrainDefaultCommand(drivetrainSubsystem);
 
-  public static Arm armSubsystem = new Arm();
-  private ArmDefaultCommand armDefaultCommand = new ArmDefaultCommand(armSubsystem);
+  public static Arm arm = new Arm();
+  private ArmDefaultCommand armDefaultCommand = new ArmDefaultCommand(arm);
 
   public static ArmData armData = new ArmData();
 
@@ -46,7 +46,7 @@ public class RobotContainer {
    */
   public RobotContainer() {
     drivetrainSubsystem.setDefaultCommand(drivetrainDefaultCommand);
-    armSubsystem.setDefaultCommand(armDefaultCommand);
+    arm.setDefaultCommand(armDefaultCommand);
 
     configureBindings();
 

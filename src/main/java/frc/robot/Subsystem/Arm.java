@@ -46,10 +46,8 @@ public class Arm extends SubsystemBase {
   //public WPI_TalonSRX m_intakeRotateMotCtrl;
   //public WPI_TalonSRX m_intakeSpinnerMotCtrl;
   public ArmController m_armController;
-
+  public ArmPosEnum m_armPos = ArmPosEnum.HOME;
   
-
-
   /** Creates a new Arm. */
   public Arm() {
     m_leftShoulderMotCtrl = new CANSparkMax(25, MotorType.kBrushless);
@@ -82,9 +80,10 @@ public class Arm extends SubsystemBase {
   public void spinHand(double _volts){
   //  m_intakeSpinnerMotCtrl.setVoltage(_volts);
   }
-  public void moveToPos(ArmPosEnum _pos){
-    m_armController.moveToPosition(_pos);
+  public void setArmPos(ArmPosEnum _pos){
+    m_armController.m_armPos = _pos;
   }
+
   @Override
   public void periodic() {
     SmartDashboard.putNumber("SHMotCnts", getShoulderAngle());
