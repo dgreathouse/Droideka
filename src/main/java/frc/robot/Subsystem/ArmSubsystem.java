@@ -51,6 +51,7 @@ public class ArmSubsystem extends SubsystemBase {
    */
   /** Creates a new Arm. */
   public ArmSubsystem() {
+    
     /************************ Shoulder ****************************/
     // // Create new instance of motor control classes 
     // m_leftShoulderMotCtrl = new WPI_TalonFX(k.SHOULDER.leftCANId);
