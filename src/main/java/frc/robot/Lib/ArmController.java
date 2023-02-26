@@ -40,8 +40,8 @@ public class ArmController {
     
     public ArmController(Arm _arm){
         // 45 Deg/sec 1.5 Rad/Sec^2
-        m_shoulderPID = new ProfiledPIDController(6, 1, 0, new TrapezoidProfile.Constraints(.7854, 1.5));
-        m_elbowPID = new ProfiledPIDController(0, 0, 0, new TrapezoidProfile.Constraints(0, 0));
+        m_shoulderPID = new ProfiledPIDController(10, 3, 0, new TrapezoidProfile.Constraints(1.7854, 10.5));
+        m_elbowPID = new ProfiledPIDController(10, 4, 0, new TrapezoidProfile.Constraints(4, 10));
         m_handPID = new ProfiledPIDController(0, 0, 0, new TrapezoidProfile.Constraints(0, 0));
 
         m_shoulderFF = new ArmFeedforward(0.125, 0.33, 0.1);
@@ -58,21 +58,18 @@ public class ArmController {
         double angle = Math.toRadians(RobotContainer.armData.getBicepAngle(m_armPos));
         m_shoulderPID.setGoal(angle);
         double shPID = m_shoulderPID.calculate(Math.toRadians(arm.getShoulderAngle()));
-      //  m_elbowPID.calculate(arm.getElbowAngle());
-     //   m_handPID.calculate(0);
-
         double shVel = m_shoulderPID.getGoal().velocity;
-        double shFF = m_shoulderFF.calculate(arm.getShoulderAngle(), shVel);
-
+        double shFF = m_shoulderFF.calculate(Math.toRadians(arm.getShoulderAngle()-90), shVel);
         arm.moveShoulder(shPID + shFF);
 
 
-        /**
-         * Calculate the PID value
-         * Use the expected velocity as a FF velocity
-         * Command each motor
-         * Adjust shoulder kG based on elbow and intake angle, then intake angle for elbow
-         */
+        double fAngle = Math.toRadians(RobotContainer.armData.getForearmAngle(m_armPos));
+        m_elbowPID.setGoal(fAngle);
+        double elPID = m_elbowPID.calculate(Math.toRadians(arm.getElbowAngle()));
+        double elVel = m_elbowPID.getGoal().velocity;
+        double elFF = m_elbowFF.calculate(Math.toRadians(arm.getElbowAngle()+90), elVel);
+        arm.moveElbow(elPID + elFF);
+
     }
 
     

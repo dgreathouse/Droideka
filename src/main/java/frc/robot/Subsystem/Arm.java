@@ -37,8 +37,8 @@ import frc.robot.Lib.ArmPosEnum;
 public class Arm extends SubsystemBase {
 
  // 4096 * Rev = 124536 for 90Deg
-  public static double kShoulderDegPerCnt = 90/30.53;
-  public static double kElbowDegPerCnt = 1;
+  public static double kShoulderDegPerCnt = 90.0/30.53;
+  public static double kElbowDegPerCnt = 90.0/110.0;
 
   public CANSparkMax m_leftShoulderMotCtrl;
   public CANSparkMax m_rightShoulderMotCtrl;
@@ -46,7 +46,7 @@ public class Arm extends SubsystemBase {
   //public WPI_TalonSRX m_intakeRotateMotCtrl;
   //public WPI_TalonSRX m_intakeSpinnerMotCtrl;
   public ArmController m_armController;
-  public ArmPosEnum m_armPos = ArmPosEnum.HOME;
+
   
   /** Creates a new Arm. */
   public Arm() {
@@ -69,7 +69,7 @@ public class Arm extends SubsystemBase {
     return m_leftShoulderMotCtrl.getEncoder().getPosition()* kShoulderDegPerCnt;
   }
   public void moveElbow(double _volts){
-    m_elbowMotCtrl.setVoltage(_volts);
+    m_elbowMotCtrl.setVoltage(-_volts);
   }
   public double getElbowAngle(){
     return m_elbowMotCtrl.getSelectedSensorPosition() * kElbowDegPerCnt;
@@ -88,8 +88,8 @@ public class Arm extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putNumber("SHMotCnts", getShoulderAngle());
     SmartDashboard.putNumber("ELMotCnts", getElbowAngle());
-    SmartDashboard.putNumber("SHMotConv", m_leftShoulderMotCtrl.getEncoder().getPositionConversionFactor());
-    SmartDashboard.putNumber("SHMotConn", m_leftShoulderMotCtrl.getEncoder().getCountsPerRevolution());
+    SmartDashboard.putString("Arm Pos", m_armController.m_armPos.toString());
+
     // This method will be called once per scheduler run
   }
 }

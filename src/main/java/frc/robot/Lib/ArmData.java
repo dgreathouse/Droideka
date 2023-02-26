@@ -19,7 +19,7 @@ public class ArmData {
         data.put(ArmPosEnum.FAR_CUBE.toString(), new ArmInfo(75, 170, -5));
         data.put(ArmPosEnum.MID_CONE.toString(), new ArmInfo(50, 90, 0));
         data.put(ArmPosEnum.MID_CUBE.toString(), new ArmInfo(45, 75, 0));
-        data.put(ArmPosEnum.LOW_CONE.toString(), new ArmInfo(5, 150, 10));
+        data.put(ArmPosEnum.LOW_CONE.toString(), new ArmInfo(5, 100, 10));
         data.put(ArmPosEnum.LOW_CUBE.toString(), new ArmInfo(5, 155, 20));
         data.put(ArmPosEnum.WALL_CONE.toString(), new ArmInfo(-5, 25, -10));
         data.put(ArmPosEnum.WALL_CUBE.toString(), new ArmInfo(-5, 25, -20));
@@ -28,6 +28,9 @@ public class ArmData {
     }
     public double getBicepAngle(ArmPosEnum _posString){
         return data.get(_posString.toString()).bAngle;
+    }
+    public double getForearmAngle(ArmPosEnum _posString){
+        return data.get(_posString.toString()).fAngle;
     }
 
 public class ArmInfo{

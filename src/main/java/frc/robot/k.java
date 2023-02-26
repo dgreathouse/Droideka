@@ -38,12 +38,12 @@ public class k {
         public static double autoRotateOutScale = 1.0;
     }
     public static class SWERVE {
-        public static SwerveData SDFront = new SwerveData("Front", 10, InvertType.None, 20, InvertType.InvertMotorOutput, 1, 193.3);
+        public static SwerveData SDFront = new SwerveData("Front", 10, InvertType.None, 20, InvertType.InvertMotorOutput, 1, 191.7);
         public static SwerveData SDBackRight = new SwerveData("BRight",11, InvertType.InvertMotorOutput, 21, InvertType.InvertMotorOutput, 2, 167.7);
         public static SwerveData SDBackLeft = new SwerveData("BLeft",12, InvertType.None,22, InvertType.InvertMotorOutput, 3, 283);
 
-        public static double steerKp = 3;
-        public static double steerKi = 6;
+        public static double steerKp = 3.5;
+        public static double steerKi = 8;
         public static double steerKd = 0;
 
         public static double steerSMFKs = 0.0;
