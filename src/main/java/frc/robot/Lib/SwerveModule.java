@@ -10,10 +10,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.sensors.AbsoluteSensorRange;
 import com.ctre.phoenix.sensors.CANCoder;
-
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
-import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
@@ -31,14 +28,13 @@ public class SwerveModule {
     CANCoder m_steerEnc;
     SwerveData m_data;
    
-    private PIDController m_drivePidController = new PIDController(k.SWERVE.driveKp, k.SWERVE.driveKi, k.SWERVE.driveKd);
+
 
     private ProfiledPIDController m_steerPIDController = 
         new ProfiledPIDController(k.SWERVE.steerKp, k.SWERVE.steerKi, k.SWERVE.steerKd, 
         new TrapezoidProfile.Constraints(k.SWERVE.steerMax_RadPS*DRIVETRAIN.maxVoltage, k.SWERVE.steerMax_RadPSSq*DRIVETRAIN.maxVoltage));
 
-    private SimpleMotorFeedforward m_driveFeedforward = new SimpleMotorFeedforward(k.SWERVE.driveSMFKs, k.SWERVE.driveSMFKv, k.SWERVE.driveSMFKa);
-    private SimpleMotorFeedforward m_steerFeedforward = new SimpleMotorFeedforward(k.SWERVE.steerSMFKs, k.SWERVE.steerSMFKv,k.SWERVE.steerSMFKa);
+
 
     public SwerveModule(SwerveData _data){
         m_data = _data;
@@ -61,12 +57,6 @@ public class SwerveModule {
         m_steerFx.setNeutralMode(NeutralMode.Brake);
 
         m_steerPIDController.enableContinuousInput(-Math.PI, Math.PI);
-        //m_steerPIDController.enableContinuousInput(0, Math.PI*2);
-        //m_steerEnc.configAbsoluteSensorRange(AbsoluteSensorRange.Unsigned_0_to_360);
-        //m_steerFx.setSelectedSensorPosition((Math.toDegrees(getSwerveAngle())- m_data.angleOffset_Deg)*k.SWERVE.kSteerMotCntsPerWheelDeg);
-
-        
-
         m_steerPIDController.setTolerance(0.01);
     }
     public void resetDriveEncoders(){

@@ -4,7 +4,6 @@ import com.ctre.phoenix.motorcontrol.InvertType;
 
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
-import frc.robot.Lib.ArmData;
 import frc.robot.Lib.SwerveData;
 
 /** Add your docs here. */

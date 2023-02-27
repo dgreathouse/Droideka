@@ -4,12 +4,9 @@
 
 package frc.robot.Command;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
-import frc.robot.Lib.ArmPosEnum;
 import frc.robot.Subsystem.Arm;
-import frc.robot.Subsystem.ArmSubsystem;
 
 /**
  * Default Arm command controls the two motors by using a PID command.

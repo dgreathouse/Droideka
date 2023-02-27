@@ -4,7 +4,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -22,7 +21,7 @@ import frc.robot.CommandGroups.AutoTest;
 import frc.robot.Lib.ArmData;
 import frc.robot.Lib.ArmPosEnum;
 import frc.robot.Subsystem.Arm;
-import frc.robot.Subsystem.ArmSubsystem;
+
 import frc.robot.Subsystem.DrivetrainSubsystem;
 
 
