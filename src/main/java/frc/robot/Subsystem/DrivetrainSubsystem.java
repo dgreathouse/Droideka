@@ -168,6 +168,11 @@ public class DrivetrainSubsystem extends SubsystemBase {
   public void setFieldRelative(boolean _frm){
     isFieldRelative = _frm;
   }
+  public void resetSteerEncoders(){
+    m_f.resetSteerSensors();
+    m_bl.resetSteerSensors();
+    m_br.resetSteerSensors();
+  }
   @Override
   public void periodic() {
     updateOdometry();

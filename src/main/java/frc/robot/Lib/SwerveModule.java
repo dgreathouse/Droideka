@@ -5,6 +5,7 @@
 package frc.robot.Lib;
 
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.sensors.AbsoluteSensorRange;
@@ -45,28 +46,34 @@ public class SwerveModule {
         m_steerFx = new WPI_TalonFX(_data.steerCANID);
         m_steerEnc = new CANCoder(_data.canCoderCANID);
         
+        m_steerEnc.configAbsoluteSensorRange(AbsoluteSensorRange.Unsigned_0_to_360);
+
         m_driveFx.setInverted(_data.driveInvert);
         m_steerFx.setInverted(_data.steerInvert);
         
         m_driveFx.configVoltageCompSaturation(DRIVETRAIN.maxVoltage, 20);
-        m_driveFx.enableVoltageCompensation(false);
-        m_driveFx.setNeutralMode(NeutralMode.Brake);
+        m_driveFx.enableVoltageCompensation(true);
+        m_driveFx.setNeutralMode(NeutralMode.Coast);
         m_driveFx.setSelectedSensorPosition(0);
 
         m_steerFx.configVoltageCompSaturation(DRIVETRAIN.maxVoltage, 20);
-        m_steerFx.enableVoltageCompensation(false);
+        m_steerFx.enableVoltageCompensation(true);
         m_steerFx.setNeutralMode(NeutralMode.Brake);
 
         m_steerPIDController.enableContinuousInput(-Math.PI, Math.PI);
-        
-        m_steerFx.setSelectedSensorPosition((Math.toRadians(m_data.angleOffset_Deg)-getSwerveAngle())*k.SWERVE.steer_CntsPRad);
+        //m_steerPIDController.enableContinuousInput(0, Math.PI*2);
+        //m_steerEnc.configAbsoluteSensorRange(AbsoluteSensorRange.Unsigned_0_to_360);
+        //m_steerFx.setSelectedSensorPosition((Math.toDegrees(getSwerveAngle())- m_data.angleOffset_Deg)*k.SWERVE.kSteerMotCntsPerWheelDeg);
 
-        m_steerEnc.configAbsoluteSensorRange(AbsoluteSensorRange.Unsigned_0_to_360);
+        
 
         m_steerPIDController.setTolerance(0.01);
     }
     public void resetDriveEncoders(){
         m_driveFx.setSelectedSensorPosition(0);
+    }
+    public void resetSteerSensors(){
+        m_steerFx.setSelectedSensorPosition((Math.toDegrees(getSwerveAngle())- m_data.angleOffset_Deg)*k.SWERVE.kSteerMotCntsPerWheelDeg);
     }
     /**
      * 
@@ -101,10 +108,8 @@ public class SwerveModule {
         return new SwerveModulePosition(getDriveDistanceMeters(), new Rotation2d(getSteerMotorAngle()));
     }
     public void setDesiredState(SwerveModuleState _desiredState, boolean _optimize, boolean _disableDrive, boolean _disableSteer){
-        double driveOutput = 0; 
-        double driveFeedforward = 0;
+
         double steerOutput = 0;
-        double steerFeedforward = 0;
 
         // Optimize the reference state to avoid spinning further than 90 degrees
         SwerveModuleState state;
@@ -113,37 +118,27 @@ public class SwerveModule {
         }else{
             state = _desiredState;
         }
-        // Calculate the drive output from the drive PID controller.
+
         if(!_disableDrive){
-            driveOutput = m_drivePidController.calculate(getDriveVelocity(), state.speedMetersPerSecond);
-            driveFeedforward = m_driveFeedforward.calculate(state.speedMetersPerSecond);
-            
-            m_driveFx.setVoltage(driveOutput + driveFeedforward);
+           m_driveFx.set(ControlMode.PercentOutput, state.speedMetersPerSecond / DRIVETRAIN.maxSpeed);
         }
         // Calculate the turning motor output from the turning PID controller.
         if(!_disableSteer){
             steerOutput = m_steerPIDController.calculate(getSteerMotorAngle(), state.angle.getRadians());
-            steerFeedforward = m_steerFeedforward.calculate(m_steerPIDController.getSetpoint().velocity);
-            m_steerFx.setVoltage(steerOutput + steerFeedforward);
+            m_steerFx.set(ControlMode.PercentOutput,steerOutput);
         }
         // SmartDashboard
-        SmartDashboard.putNumber(m_data.name + "_SFF",steerFeedforward);
-        SmartDashboard.putNumber(m_data.name + "_DFF",driveFeedforward);
+
         SmartDashboard.putNumber(m_data.name + "_SPIDOut",steerOutput);
-        SmartDashboard.putNumber(m_data.name + "_DPIDOut",driveOutput);
-        SmartDashboard.putNumber(m_data.name + "_DVel",getDriveVelocity());
+
         SmartDashboard.putNumber(m_data.name + "StateSpeed", state.speedMetersPerSecond);
         SmartDashboard.putNumber(m_data.name + "StateAngle", state.angle.getRadians());
-        SmartDashboard.putNumber(m_data.name + "StateSTVel", m_steerPIDController.getSetpoint().velocity);
-        
 
-        
-        
         
     }
     public void sendData(){
-        SmartDashboard.putNumber(m_data.name+"SteerMotorAngle", Math.toDegrees(getSteerMotorAngle()));
-        SmartDashboard.putNumber(m_data.name+"CANCoderAngle", Math.toDegrees(getSwerveAngle()));
-        SmartDashboard.putNumber(m_data.name + "DriveCounts", Math.toDegrees(getDriveDistanceMeters()));
+        SmartDashboard.putNumber(m_data.name+ "SteerMotorAngle", Math.toDegrees(getSteerMotorAngle()));
+        SmartDashboard.putNumber(m_data.name+ "CANCoderAngle", Math.toDegrees(getSwerveAngle()));
+        SmartDashboard.putNumber(m_data.name + "DriveCounts",getDriveDistanceMeters());
     }
 }
