@@ -10,6 +10,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.RobotContainer;
+import frc.robot.Lib.Util;
+import frc.robot.k.DRIVETRAIN;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -27,13 +29,23 @@ public class AutoDrivetrainDrivePIDCommand extends CommandBase {
   double y = 0;
   boolean resetDone = false;
   int cnt = 0;
+  double maxSpeed = 0;
   /** Creates a new AutoDrivePIDCommand. */
-  public AutoDrivetrainDrivePIDCommand(double _x, double _y, double _distance, double _timeOut) {
+  /**
+   * 
+   * @param _maxSpeed The Speed in MPS 4.36 is the max speed
+   * @param _x X Direction +/-1 
+   * @param _y Y Direction +/-1
+   * @param _distance Distance in inches
+   * @param _timeOut Time to stop trying to reach goal
+   */
+  public AutoDrivetrainDrivePIDCommand(double _maxSpeed, double _x, double _y, double _distance, double _timeOut) {
     addRequirements(RobotContainer.drivetrainSubsystem);
     distance = _distance;
     driveTimeOut = _timeOut;
-    x = _x;
-    y = _y;
+    x = _x * DRIVETRAIN.maxSpeed;
+    y = _y * DRIVETRAIN.maxSpeed;
+    maxSpeed = _maxSpeed;
     // Drive
     drivePIDController.setTolerance(1);
     drivePIDController.setIntegratorRange(0, 1);
@@ -77,6 +89,7 @@ public class AutoDrivetrainDrivePIDCommand extends CommandBase {
     // Drive
         double drv = drivePIDController.calculate(RobotContainer.drivetrainSubsystem.getDriveDistanceInches(),distance);
         double rot = rotPIDController.calculate(RobotContainer.drivetrainSubsystem.getRobotAngle(),angle);
+        drv = Util.limit(drv, -maxSpeed, maxSpeed);
         RobotContainer.drivetrainSubsystem.driveAuto(drv, 0, rot,true);
       }
     }

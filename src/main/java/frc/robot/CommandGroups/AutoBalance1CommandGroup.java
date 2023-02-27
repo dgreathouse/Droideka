@@ -28,7 +28,7 @@ public class AutoBalance1CommandGroup extends SequentialCommandGroup {
       new ArmIntakeVelCommand(0),
       new ArmSetCommand(ArmPosEnum.HOME),
       new WaitCommand(1),
-      new AutoDrivetrainDrivePIDCommand(0, 0, 48, 4)
+      new AutoDrivetrainDrivePIDCommand(20,0, 0, 72, 4)
     );
   }
 }
