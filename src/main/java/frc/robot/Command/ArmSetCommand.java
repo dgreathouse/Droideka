@@ -17,14 +17,13 @@ public class ArmSetCommand extends InstantCommand {
  * This is an InstantCommand which means it will run once and exit
  */
   public ArmSetCommand(ArmPosEnum _pos) {
-    addRequirements(RobotContainer.arm);
+    //addRequirements(RobotContainer.arm);
     m_pos = _pos;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-   RobotContainer.arm.setArmPos(m_pos);
-   
+    RobotContainer.arm.setArmPos(m_pos);
   }
 }

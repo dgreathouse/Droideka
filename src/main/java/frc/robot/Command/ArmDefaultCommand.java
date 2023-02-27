@@ -8,28 +8,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.Subsystem.Arm;
 
-/**
- * Default Arm command controls the two motors by using a PID command.
- * Buttons:
- * 1. In robot and straiht up
- * 2. Wall Cone
- * 3. Wall Blob
- * 4. Floor front Blob
- * 5. Level Far Cone
- * 6. Level Mid Cone
- * 7. Level Low Cone
- * 8. Level Far Blob
- * 9. Level Mid Blob
- * 10. Level Low Blob
- * 
- * How will the cone be dropped on the post?
- * Option 1: Have a button move the postion ~10 lower than it is currently and release the cone
- * Option 2: Disable the PID and the weight of the arm will lower it while releasing the cone.
- * Option 3: ?
- * 
- * Currently this is only controlling one bicep motor. The other bicep motor is set to follow the Left motor.
- * The Forearm motor is not yet done in the ArmSubsystem. How the arm bicep and forearm motors are controlled together is to be determined
- */
+
 public class ArmDefaultCommand extends CommandBase {
 
   double bicepPos = 0;
@@ -54,13 +33,22 @@ public class ArmDefaultCommand extends CommandBase {
    */
   @Override
   public void execute() {
+      // Move to position. Buttons change enum in arm
       RobotContainer.arm.m_armController.moveToPosition();
+
+      // Spin the intake based on the L/R trigger
+      double lAxis = RobotContainer.operatorController.getLeftTriggerAxis();
+      double rAxis = RobotContainer.operatorController.getRightTriggerAxis();
+      double speed = lAxis - rAxis;
+      RobotContainer.arm.spinHand(speed);
    }
  
   
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    
+  }
 
   // Returns true when the command should end.
   @Override

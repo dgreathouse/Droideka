@@ -19,14 +19,14 @@ public class ArmIntakeVelCommand extends InstantCommand {
    * @param _vel The Velocity from +/- 1
    */
   public ArmIntakeVelCommand(double _vel) {
-    addRequirements(RobotContainer.arm);
-    m_vel = 0;
+    //addRequirements(RobotContainer.arm);
+    m_vel = _vel;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    //RobotContainer.armSubsystem.m_intakeVelocity = m_vel;
+    RobotContainer.arm.spinHand(m_vel);
   }
 }

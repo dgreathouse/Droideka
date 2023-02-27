@@ -8,6 +8,7 @@ import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.Subsystem.Arm;
 
@@ -31,6 +32,8 @@ public class ArmController {
     ArmFeedforward m_elbowFF;
     ArmFeedforward m_handFF;
 
+    double m_intakeSpeed = 0;
+
     
     public ArmController(Arm _arm){
         // 45 Deg/sec 1.5 Rad/Sec^2
@@ -40,15 +43,13 @@ public class ArmController {
 
         m_shoulderFF = new ArmFeedforward(0.125, 0.33, 0.1);
         m_elbowFF = new ArmFeedforward(0.1, 0.2, 0.1);
-        m_handFF = new ArmFeedforward(0, 0, 0);
-        SmartDashboard.putData(m_shoulderPID);
-        SmartDashboard.putData(m_elbowPID);
-        SmartDashboard.putData(m_handPID);
+        m_handFF = new ArmFeedforward(0.1, 0.2, 0.1);
         
         arm = _arm;
     }
     public void moveToPosition(){
 
+        // Shoulder
         double angle = Math.toRadians(RobotContainer.armData.getBicepAngle(m_armPos));
         m_shoulderPID.setGoal(angle);
         double shPID = m_shoulderPID.calculate(Math.toRadians(arm.getShoulderAngle()));
@@ -57,6 +58,7 @@ public class ArmController {
         arm.moveShoulder(shPID + shFF);
 
 
+        // Elbow
         double fAngle = Math.toRadians(RobotContainer.armData.getForearmAngle(m_armPos));
         m_elbowPID.setGoal(fAngle);
         double elPID = m_elbowPID.calculate(Math.toRadians(arm.getElbowAngle()));
@@ -64,7 +66,17 @@ public class ArmController {
         double elFF = m_elbowFF.calculate(Math.toRadians(arm.getElbowAngle()+90), elVel);
         arm.moveElbow(elPID + elFF);
 
+        
+        // Hand
+        double hAngle = Math.toRadians((RobotContainer.armData.getHandAngle(m_armPos)));
+        m_handPID.setGoal(hAngle);
+        double hPID = m_handPID.calculate(Math.toRadians(arm.getHandAngle()));
+        double hVel = m_handPID.getGoal().velocity;
+        double hFF = m_handFF.calculate(Math.toRadians((arm.getHandAngle())), hVel);
+        arm.moveHand(hPID + hFF);
+
     }
+
 
     
 
