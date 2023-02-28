@@ -28,27 +28,10 @@ public class AutoLeftConeCubeCommandGroup extends SequentialCommandGroup {
        new WaitCommand(1),
        new ArmIntakeVelCommand(0),
        new ArmSetCommand(ArmPosEnum.HOME),
-       new WaitCommand(1)
-      // new AutoDrivetrainDrivePIDCommand(0,0,-48, 4),
-      // new AutoDrivetrainStrafePIDCommand(-10, 0),
-      // new ArmSetCommand(ArmPosEnum.FLOOR_FRONT_CUBE),
-      // new ArmOnTargetCommand(),
-      // new ArmOnTargetCommand(),
-      // new ArmIntakeVelCommand(1),
-      // new WaitCommand(1),
-      // new ArmIntakeVelCommand(0),
-      // new ArmSetCommand(ArmPosEnum.HOME),
-      // new AutoDrivetrainStrafePIDCommand(10, 0),
-      // new AutoDrivetrainDrivePIDCommand(0,0,-48, 4),
-      // new AutoDrivetrainStrafePIDCommand(10, 0),
-      // new ArmSetCommand(ArmPosEnum.FAR_CUBE),
-      // new ArmOnTargetCommand(),
-      // new ArmIntakeVelCommand(1),
-      // new ArmSetCommand(ArmPosEnum.HOME),
-      // new AutoDrivetrainDrivePIDCommand(0,0,20, 0),
-      // new AutoDrivetrainBalancePIDCommand(),
-      // new WaitCommand(1),
-      // new WaitCommand(1)
+       new WaitCommand(1),
+       new AutoDrivetrainStrafePIDCommand(-7, 0),
+       new AutoDrivetrainDrivePIDCommand(1,0,1,-7, 2)
+
 
     );
   }
