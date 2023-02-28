@@ -35,7 +35,7 @@ public class DrivetrainDefaultCommand extends CommandBase {
   public void initialize() {
     m_rotationPIDController.setTolerance(k.DRIVETRAIN.rotToleranceDeg, k.DRIVETRAIN.rotToleranceVel);
     m_rotationPIDController.setIntegratorRange(0, .5);
-    drive.resetSteerEncoders();
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.

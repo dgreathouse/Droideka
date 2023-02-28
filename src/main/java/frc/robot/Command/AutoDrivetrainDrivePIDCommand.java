@@ -17,8 +17,8 @@ import frc.robot.k.DRIVETRAIN;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class AutoDrivetrainDrivePIDCommand extends CommandBase {
-  PIDController rotPIDController = new PIDController(2.75, .5, 0);
-  PIDController drivePIDController = new PIDController(1, .1, 0);
+  PIDController rotPIDController = new PIDController(0, 0, 0);
+  PIDController drivePIDController = new PIDController(.1, 0.01, 0);
   double distance = 0;
   double driveTimeOut = 0;
   double angle = 0;
@@ -68,6 +68,7 @@ public class AutoDrivetrainDrivePIDCommand extends CommandBase {
     rotPIDController.reset();
     drivePIDController.reset();
     steerTimer.start();
+    
   }
 
 

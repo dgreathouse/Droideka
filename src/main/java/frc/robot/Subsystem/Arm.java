@@ -62,25 +62,26 @@ public class Arm extends SubsystemBase {
 
   }
   public void moveShoulder(double _volts){
-    m_leftShoulderMotCtrl.setVoltage(_volts);
+   // m_leftShoulderMotCtrl.setVoltage(_volts);
   }
   public double getShoulderAngle(){
     return m_leftShoulderMotCtrl.getEncoder().getPosition()* kShoulderDegPerCnt;
   }
   public void moveElbow(double _volts){
-    m_elbowMotCtrl.setVoltage(-_volts);
+  //  m_elbowMotCtrl.setVoltage(-_volts);
   }
   public double getElbowAngle(){
     return m_elbowMotCtrl.getSelectedSensorPosition() * kElbowDegPerCnt;
   }
   public void moveHand(double _volts){
-    m_intakeRotateMotCtrl.setVoltage(_volts);
+  //  m_intakeRotateMotCtrl.setVoltage(_volts);
   }
   public void spinHand(double _speed){
-    m_intakeSpinnerMotCtrl.set(_speed);
+   // m_intakeSpinnerMotCtrl.set(_speed);
   }
   public double getHandAngle(){
-    return m_intakeRotateMotCtrl.getEncoder().getPosition() * kHandDegPerCnt;
+   // return m_intakeRotateMotCtrl.getEncoder().getPosition() * kHandDegPerCnt;
+   return 0;
   }
   public void setArmPos(ArmPosEnum _pos){
     m_armController.m_armPos = _pos;

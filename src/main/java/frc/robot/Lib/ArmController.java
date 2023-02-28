@@ -7,8 +7,7 @@ package frc.robot.Lib;
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Robot;
+
 import frc.robot.RobotContainer;
 import frc.robot.Subsystem.Arm;
 

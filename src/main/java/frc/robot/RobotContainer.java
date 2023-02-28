@@ -78,6 +78,7 @@ public class RobotContainer {
     operatorController.rightBumper().and(operatorController.b()).onTrue(new ArmSetCommand(ArmPosEnum.MID_CUBE));
     operatorController.rightBumper().and(operatorController.a()).onTrue(new ArmSetCommand(ArmPosEnum.LOW_CUBE));
     operatorController.start().onTrue(new ArmSetCommand(ArmPosEnum.FLOOR_BACK_CUBE));
+    drivetrainSubsystem.resetSteerEncoders();
 
   }
   /** Return the selected command from the smartdashboard on the drivestation */

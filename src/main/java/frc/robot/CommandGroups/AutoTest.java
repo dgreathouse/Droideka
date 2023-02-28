@@ -16,7 +16,7 @@ public class AutoTest extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new AutoDrivetrainDrivePIDCommand(0,0,24, 5)
+      new AutoDrivetrainDrivePIDCommand(2.0,0,0,-72, 5)
     );
   }
 }
