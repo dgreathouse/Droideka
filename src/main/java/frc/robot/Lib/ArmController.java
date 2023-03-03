@@ -38,7 +38,7 @@ public class ArmController {
         // 45 Deg/sec 1.5 Rad/Sec^2
         m_shoulderPID = new ProfiledPIDController(10, 3, 0, new TrapezoidProfile.Constraints(1.7854, 10.5));
         m_elbowPID = new ProfiledPIDController(10, 4, 0, new TrapezoidProfile.Constraints(4, 10));
-        m_handPID = new ProfiledPIDController(0, 0, 0, new TrapezoidProfile.Constraints(0, 0));
+        m_handPID = new ProfiledPIDController(1, 2, 0, new TrapezoidProfile.Constraints(2, 1));
 
         m_shoulderFF = new ArmFeedforward(0.125, 0.33, 0.1);
         m_elbowFF = new ArmFeedforward(0.1, 0.2, 0.1);
@@ -75,12 +75,4 @@ public class ArmController {
         arm.moveHand(hPID + hFF);
 
     }
-
-
-    
-
-
-
-  
-
 }
