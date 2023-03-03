@@ -53,4 +53,13 @@ public class Util {
         }
         return ang;
     }
+    public static enum Direction {
+        LEFT,
+        RIGHT,
+        FORWARD,
+        BACKWARD,
+        UP,
+        DOWN,
+
+    }
 }

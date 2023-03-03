@@ -4,7 +4,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -19,8 +18,10 @@ import frc.robot.Command.SwitchGyroCommand;
 import frc.robot.Command.SwitchRotationMode;
 import frc.robot.CommandGroups.AutoLeftConeCubeCommandGroup;
 import frc.robot.CommandGroups.AutoTest;
+import frc.robot.Lib.ArmData;
 import frc.robot.Lib.ArmPosEnum;
-import frc.robot.Subsystem.ArmSubsystem;
+import frc.robot.Subsystem.Arm;
+
 import frc.robot.Subsystem.DrivetrainSubsystem;
 
 
@@ -29,11 +30,13 @@ public class RobotContainer {
   public static DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
   private DrivetrainDefaultCommand drivetrainDefaultCommand = new DrivetrainDefaultCommand(drivetrainSubsystem);
 
-  public static ArmSubsystem armSubsystem = new ArmSubsystem();
-  private ArmDefaultCommand armDefaultCommand = new ArmDefaultCommand(armSubsystem);
+  public static Arm arm = new Arm();
+  private ArmDefaultCommand armDefaultCommand = new ArmDefaultCommand(arm);
+
+  public static ArmData armData = new ArmData();
 
   public static CommandXboxController driverController = new CommandXboxController(0);
- // public static CommandXboxController operatorController = new CommandXboxController(1);
+  public static CommandXboxController operatorController = new CommandXboxController(1);
   SendableChooser<Command> autoChooser = new SendableChooser<>();
 
   /** RobotContainer holds all the static data for references to the subsystems.
@@ -42,7 +45,7 @@ public class RobotContainer {
    */
   public RobotContainer() {
     drivetrainSubsystem.setDefaultCommand(drivetrainDefaultCommand);
-    armSubsystem.setDefaultCommand(armDefaultCommand);
+    arm.setDefaultCommand(armDefaultCommand);
 
     configureBindings();
 
@@ -65,16 +68,17 @@ public class RobotContainer {
     driverController.y().onTrue(new SetRotationAngleCommand(180));
 
     // Operator Controller Bindings
-    // operatorController.leftBumper().and(operatorController.rightBumper()).onTrue(new ArmSetCommand(ArmPosEnum.HOME));
-    // operatorController.leftBumper().and(operatorController.x()).onTrue(new ArmSetCommand(ArmPosEnum.WALL_CONE));
-    // operatorController.leftBumper().and(operatorController.y()).onTrue(new ArmSetCommand(ArmPosEnum.FAR_CONE));
-    // operatorController.leftBumper().and(operatorController.b()).onTrue(new ArmSetCommand(ArmPosEnum.MID_CONE));
-    // operatorController.leftBumper().and(operatorController.a()).onTrue(new ArmSetCommand(ArmPosEnum.LOW_CONE));
-    // operatorController.rightBumper().and(operatorController.x()).onTrue(new ArmSetCommand(ArmPosEnum.WALL_CUBE));
-    // operatorController.rightBumper().and(operatorController.y()).onTrue(new ArmSetCommand(ArmPosEnum.FAR_CUBE));
-    // operatorController.rightBumper().and(operatorController.b()).onTrue(new ArmSetCommand(ArmPosEnum.MID_CUBE));
-    // operatorController.rightBumper().and(operatorController.a()).onTrue(new ArmSetCommand(ArmPosEnum.LOW_CUBE));
-    // operatorController.start().onTrue(new ArmSetCommand(ArmPosEnum.FLOOR_FRONT_CUBE));
+    operatorController.leftBumper().and(operatorController.rightBumper()).onTrue(new ArmSetCommand(ArmPosEnum.HOME));
+    operatorController.leftBumper().and(operatorController.x()).onTrue(new ArmSetCommand(ArmPosEnum.WALL_CONE));
+    operatorController.leftBumper().and(operatorController.y()).onTrue(new ArmSetCommand(ArmPosEnum.FAR_CONE));
+    operatorController.leftBumper().and(operatorController.b()).onTrue(new ArmSetCommand(ArmPosEnum.MID_CONE));
+    operatorController.leftBumper().and(operatorController.a()).onTrue(new ArmSetCommand(ArmPosEnum.LOW_CONE));
+    operatorController.rightBumper().and(operatorController.x()).onTrue(new ArmSetCommand(ArmPosEnum.WALL_CUBE));
+    operatorController.rightBumper().and(operatorController.y()).onTrue(new ArmSetCommand(ArmPosEnum.FAR_CUBE));
+    operatorController.rightBumper().and(operatorController.b()).onTrue(new ArmSetCommand(ArmPosEnum.MID_CUBE));
+    operatorController.rightBumper().and(operatorController.a()).onTrue(new ArmSetCommand(ArmPosEnum.LOW_CUBE));
+    operatorController.start().onTrue(new ArmSetCommand(ArmPosEnum.FLOOR_BACK_CUBE));
+    drivetrainSubsystem.resetSteerEncoders();
 
   }
   /** Return the selected command from the smartdashboard on the drivestation */

@@ -8,9 +8,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.RobotContainer;
 
-// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
-// information, see:
-// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
+
 public class AutoDrivetrainBalancePIDCommand extends PIDCommand {
   /** Creates a new AutoDrivetrainBalancePIDCommand. */
   public AutoDrivetrainBalancePIDCommand() {
@@ -27,7 +25,7 @@ public class AutoDrivetrainBalancePIDCommand extends PIDCommand {
         },
         RobotContainer.drivetrainSubsystem
         );
-    m_controller.setTolerance(.1);
+    m_controller.setTolerance(0.1);
     // Configure additional PID options by calling `getController` here.
   }
 

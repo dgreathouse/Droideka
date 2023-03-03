@@ -37,12 +37,12 @@ public class k {
         public static double autoRotateOutScale = 1.0;
     }
     public static class SWERVE {
-        public static SwerveData SDFront = new SwerveData("Front", 10, InvertType.None, 20, InvertType.InvertMotorOutput, 1, 193.3);
-        public static SwerveData SDBackRight = new SwerveData("BRight",11, InvertType.InvertMotorOutput, 21, InvertType.InvertMotorOutput, 2, 167.7);
-        public static SwerveData SDBackLeft = new SwerveData("BLeft",12, InvertType.None,22, InvertType.InvertMotorOutput, 3, 283);
+        public static SwerveData SDFront = new SwerveData("Front", 10, InvertType.None, 20, InvertType.InvertMotorOutput, 1, 193);
+        public static SwerveData SDBackRight = new SwerveData("BRight",11, InvertType.InvertMotorOutput, 21, InvertType.InvertMotorOutput, 2, 166.70);
+        public static SwerveData SDBackLeft = new SwerveData("BLeft",12, InvertType.None,22, InvertType.InvertMotorOutput, 3, 281.3);
 
-        public static double steerKp = 3;
-        public static double steerKi = 6;
+        public static double steerKp = .55;
+        public static double steerKi = 0.15;
         public static double steerKd = 0;
 
         public static double steerSMFKs = 0.0;
@@ -52,6 +52,8 @@ public class k {
         public static double steerMax_RadPS = Math.PI;
         public static double steerMax_RadPSSq = Math.pow(steerMax_RadPS,2);
         public static double steer_CntsPRad = 5028.932;
+
+
 
         public static double driveKp = 0.5;
         public static double driveKi = 1.5;
@@ -63,6 +65,13 @@ public class k {
 
         public static double driveDistanceCntsPMeter = 49907;
         public static double driveRawVelocityToMPS = 4990.68;
+
+        public static final double kSteerMotEncoderCountsPerRev = 2048.0;
+        public static final double kSteerRatio = 15.43;
+        public static final double kSteerMotCntsPerWheelDeg = (kSteerMotEncoderCountsPerRev * kSteerRatio) / 360;
+        public static final double kSteerMotCountsPerWheelRadian = (kSteerMotEncoderCountsPerRev / (2 * Math.PI)) * kSteerRatio;
+        public static final double kSteerEncoderCountsPerRev = 4096.0;
+        public static final double kSteerCountsPerRadian = kSteerEncoderCountsPerRev / 2 * Math.PI;
     }
     public static class OI {
         public static double stickAngleMax = 0.9;
@@ -75,6 +84,7 @@ public class k {
         public static double CntsPDeg = 1;
         public static double PercentOnTarget = 1;
         public static double TimeoutOnTarget = 2;
+        
     }
     public static class ELBOW {
         public static int leftCANId = 32;

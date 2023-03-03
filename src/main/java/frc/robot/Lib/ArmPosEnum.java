@@ -22,7 +22,7 @@ public enum ArmPosEnum {
     HOME,
     WALL_CONE,
     WALL_CUBE,
-    FLOOR_FRONT_CUBE,
+    FLOOR_BACK_CUBE,
     FAR_CONE,
     FAR_CUBE,
     MID_CONE,
