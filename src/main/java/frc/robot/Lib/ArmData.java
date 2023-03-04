@@ -15,7 +15,7 @@ public class ArmData {
     HashMap<String, ArmInfo> data = new HashMap<String, ArmInfo>();
     public ArmData(){
         data.put(ArmPosEnum.HOME.toString(), new ArmInfo(0,0,0));
-        data.put(ArmPosEnum.FAR_CONE.toString(), new ArmInfo(80, 180, 0));
+        data.put(ArmPosEnum.FAR_CONE.toString(), new ArmInfo(75, 70, 0));
         data.put(ArmPosEnum.FAR_CUBE.toString(), new ArmInfo(75, 170, 0));
         data.put(ArmPosEnum.MID_CONE.toString(), new ArmInfo(50, 90, 0));
         data.put(ArmPosEnum.MID_CUBE.toString(), new ArmInfo(45, 75, 0));

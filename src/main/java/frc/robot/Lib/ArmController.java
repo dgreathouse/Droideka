@@ -37,11 +37,11 @@ public class ArmController {
     public ArmController(Arm _arm){
         // 45 Deg/sec 1.5 Rad/Sec^2
         m_shoulderPID = new ProfiledPIDController(10, 3, 0, new TrapezoidProfile.Constraints(1.7854, 10.5));
-        m_elbowPID = new ProfiledPIDController(10, 4, 0, new TrapezoidProfile.Constraints(4, 10));
-        m_handPID = new ProfiledPIDController(1, 2, 0, new TrapezoidProfile.Constraints(2, 1));
+        m_elbowPID = new ProfiledPIDController(20, 8, 0, new TrapezoidProfile.Constraints(4, 10));
+        m_handPID = new ProfiledPIDController(10, 2, 0, new TrapezoidProfile.Constraints(5, 10));
 
         m_shoulderFF = new ArmFeedforward(0.125, 0.33, 0.1);
-        m_elbowFF = new ArmFeedforward(0.1, 0.2, 0.1);
+        m_elbowFF = new ArmFeedforward(0.1, 0.2, 0.3);
         m_handFF = new ArmFeedforward(0.1, 0.2, 0.1);
         
         arm = _arm;
@@ -71,7 +71,7 @@ public class ArmController {
         m_handPID.setGoal(hAngle);
         double hPID = m_handPID.calculate(Math.toRadians(arm.getHandAngle()));
         double hVel = m_handPID.getGoal().velocity;
-        double hFF = m_handFF.calculate(Math.toRadians((arm.getHandAngle())), hVel);
+        double hFF = m_handFF.calculate(Math.toRadians((arm.getHandAngle()+90)), hVel);
         arm.moveHand(hPID + hFF);
 
     }

@@ -5,8 +5,10 @@
 package frc.robot.Subsystem;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -34,7 +36,7 @@ public class Arm extends SubsystemBase {
  // 4096 * Rev = 124536 for 90Deg
   public static double kShoulderDegPerCnt = 90.0/30.53;
   public static double kElbowDegPerCnt = 90.0/110.0;
-  public static double kHandDegPerCnt = 0;
+  public static double kHandDegPerCnt = 90/8.59;
   public CANSparkMax m_leftShoulderMotCtrl;
   public CANSparkMax m_rightShoulderMotCtrl;
   public WPI_TalonSRX m_elbowMotCtrl;
@@ -50,14 +52,21 @@ public class Arm extends SubsystemBase {
     m_leftShoulderMotCtrl.restoreFactoryDefaults();
     m_rightShoulderMotCtrl.restoreFactoryDefaults();
     m_rightShoulderMotCtrl.follow(m_leftShoulderMotCtrl,true);
+    m_rightShoulderMotCtrl.getEncoder().setPosition(0);
+    m_leftShoulderMotCtrl.getEncoder().setPosition(0);
    
     m_elbowMotCtrl = new WPI_TalonSRX(48);
     m_elbowMotCtrl.configFactoryDefault();
     m_elbowMotCtrl.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
-   
+    m_elbowMotCtrl.setNeutralMode(NeutralMode.Brake);
+    m_elbowMotCtrl.setSelectedSensorPosition(0);
+
     m_intakeRotateMotCtrl = new CANSparkMax(27, MotorType.kBrushless);
     m_intakeSpinnerMotCtrl = new CANSparkMax(28, MotorType.kBrushless);
-
+    m_intakeRotateMotCtrl.restoreFactoryDefaults();
+    m_intakeRotateMotCtrl.setIdleMode(IdleMode.kBrake);
+    m_intakeSpinnerMotCtrl.setIdleMode(IdleMode.kBrake);
+    m_rightShoulderMotCtrl.getEncoder().setPosition(0.0);
     m_armController = new ArmController(this);
 
   }
@@ -90,6 +99,7 @@ public class Arm extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putNumber("SHMotCnts", getShoulderAngle());
     SmartDashboard.putNumber("ELMotCnts", getElbowAngle());
+    SmartDashboard.putNumber("HAAngle", getHandAngle());
     SmartDashboard.putString("Arm Pos", m_armController.m_armPos.toString());
 
     // This method will be called once per scheduler run
