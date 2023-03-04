@@ -36,10 +36,11 @@ public class Arm extends SubsystemBase {
  // 4096 * Rev = 124536 for 90Deg
   public static double kShoulderDegPerCnt = 90.0/30.53;
   public static double kElbowDegPerCnt = 90.0/110.0;
-  public static double kHandDegPerCnt = 90/8.59;
+  public static double kHandDegPerCnt = 90/10;
   public CANSparkMax m_leftShoulderMotCtrl;
   public CANSparkMax m_rightShoulderMotCtrl;
-  public WPI_TalonSRX m_elbowMotCtrl;
+  public WPI_TalonSRX m_leftElbowMotCtrl;
+  public WPI_TalonSRX m_rightElbowMotCtrl;
   public CANSparkMax m_intakeRotateMotCtrl;
   public CANSparkMax m_intakeSpinnerMotCtrl;
   public ArmController m_armController;
@@ -55,11 +56,17 @@ public class Arm extends SubsystemBase {
     m_rightShoulderMotCtrl.getEncoder().setPosition(0);
     m_leftShoulderMotCtrl.getEncoder().setPosition(0);
    
-    m_elbowMotCtrl = new WPI_TalonSRX(48);
-    m_elbowMotCtrl.configFactoryDefault();
-    m_elbowMotCtrl.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
-    m_elbowMotCtrl.setNeutralMode(NeutralMode.Brake);
-    m_elbowMotCtrl.setSelectedSensorPosition(0);
+    m_leftElbowMotCtrl = new WPI_TalonSRX(48);
+    m_leftElbowMotCtrl.configFactoryDefault();
+    m_leftElbowMotCtrl.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+    m_leftElbowMotCtrl.setNeutralMode(NeutralMode.Brake);
+    m_leftElbowMotCtrl.setSelectedSensorPosition(0);
+
+    m_rightElbowMotCtrl = new WPI_TalonSRX(49);
+    m_rightElbowMotCtrl.configFactoryDefault();
+    m_rightElbowMotCtrl.setNeutralMode(NeutralMode.Brake);
+    m_rightElbowMotCtrl.setSelectedSensorPosition(0);
+    m_rightElbowMotCtrl.follow(m_leftElbowMotCtrl);
 
     m_intakeRotateMotCtrl = new CANSparkMax(27, MotorType.kBrushless);
     m_intakeSpinnerMotCtrl = new CANSparkMax(28, MotorType.kBrushless);
@@ -77,10 +84,10 @@ public class Arm extends SubsystemBase {
     return m_leftShoulderMotCtrl.getEncoder().getPosition()* kShoulderDegPerCnt;
   }
   public void moveElbow(double _volts){
-    m_elbowMotCtrl.setVoltage(-_volts);
+    m_leftElbowMotCtrl.setVoltage(-_volts);
   }
   public double getElbowAngle(){
-    return m_elbowMotCtrl.getSelectedSensorPosition() * kElbowDegPerCnt;
+    return m_leftElbowMotCtrl.getSelectedSensorPosition() * kElbowDegPerCnt;
   }
   public void moveHand(double _volts){
     m_intakeRotateMotCtrl.setVoltage(_volts);
