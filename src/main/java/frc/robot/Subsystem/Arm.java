@@ -37,7 +37,8 @@ public class Arm extends SubsystemBase {
   public static double kHandDegPerCnt = 0;
   public CANSparkMax m_leftShoulderMotCtrl;
   public CANSparkMax m_rightShoulderMotCtrl;
-  public WPI_TalonSRX m_elbowMotCtrl;
+  public WPI_TalonSRX m_elbowLeftMotCtrl;
+  public WPI_TalonSRX m_elbowRightMotCtrl;
   public CANSparkMax m_intakeRotateMotCtrl;
   public CANSparkMax m_intakeSpinnerMotCtrl;
   public ArmController m_armController;
@@ -51,9 +52,15 @@ public class Arm extends SubsystemBase {
     m_rightShoulderMotCtrl.restoreFactoryDefaults();
     m_rightShoulderMotCtrl.follow(m_leftShoulderMotCtrl,true);
    
-    m_elbowMotCtrl = new WPI_TalonSRX(48);
-    m_elbowMotCtrl.configFactoryDefault();
-    m_elbowMotCtrl.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+    m_elbowLeftMotCtrl = new WPI_TalonSRX(48);
+    m_elbowLeftMotCtrl.configFactoryDefault();
+    m_elbowLeftMotCtrl.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+
+    m_elbowRightMotCtrl = new WPI_TalonSRX(49);
+    m_elbowRightMotCtrl.configFactoryDefault();
+    m_elbowRightMotCtrl.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+    m_elbowRightMotCtrl.follow(m_elbowLeftMotCtrl);
+    
    
     m_intakeRotateMotCtrl = new CANSparkMax(27, MotorType.kBrushless);
     m_intakeSpinnerMotCtrl = new CANSparkMax(28, MotorType.kBrushless);
@@ -68,10 +75,10 @@ public class Arm extends SubsystemBase {
     return m_leftShoulderMotCtrl.getEncoder().getPosition()* kShoulderDegPerCnt;
   }
   public void moveElbow(double _volts){
-    m_elbowMotCtrl.setVoltage(-_volts);
+    m_elbowLeftMotCtrl.setVoltage(-_volts);
   }
   public double getElbowAngle(){
-    return m_elbowMotCtrl.getSelectedSensorPosition() * kElbowDegPerCnt;
+    return m_elbowLeftMotCtrl.getSelectedSensorPosition() * kElbowDegPerCnt;
   }
   public void moveHand(double _volts){
     m_intakeRotateMotCtrl.setVoltage(_volts);
