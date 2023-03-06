@@ -87,6 +87,7 @@ public class Arm extends SubsystemBase {
   }
   public void moveElbow(double _volts){
     m_leftElbowMotCtrl.setVoltage(-_volts);
+    m_leftElbowMotCtrl.setVoltage(-_volts);
   }
   public double getElbowAngle(){
     return m_leftElbowMotCtrl.getSelectedSensorPosition() * kElbowDegPerCnt;
