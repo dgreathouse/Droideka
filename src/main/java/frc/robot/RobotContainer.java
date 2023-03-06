@@ -14,6 +14,7 @@ import frc.robot.Command.ArmDefaultCommand;
 import frc.robot.Command.ArmSetCommand;
 import frc.robot.Command.AutoDoNothingCommandGroup;
 import frc.robot.Command.DrivetrainDefaultCommand;
+import frc.robot.Command.IntakeSpinCommand;
 import frc.robot.Command.SetRotationAngleCommand;
 import frc.robot.Command.SwitchFieldDriveMode;
 import frc.robot.Command.SwitchGyroCommand;
@@ -22,6 +23,7 @@ import frc.robot.CommandGroups.AutoLeftConeCubeCommandGroup;
 import frc.robot.CommandGroups.AutoTest;
 import frc.robot.Lib.ArmData;
 import frc.robot.Lib.ArmPosEnum;
+import frc.robot.Lib.Util.Direction;
 import frc.robot.Subsystem.Arm;
 
 import frc.robot.Subsystem.DrivetrainSubsystem;
@@ -39,6 +41,7 @@ public class RobotContainer {
 
   public static CommandXboxController driverController = new CommandXboxController(0);
   public static CommandXboxController operatorController = new CommandXboxController(1);
+  public static PowerDistribution pd = new PowerDistribution();
   SendableChooser<Command> autoChooser = new SendableChooser<>();
 
   /** RobotContainer holds all the static data for references to the subsystems.
@@ -64,10 +67,11 @@ public class RobotContainer {
   private void configureBindings() {
     // Driver Controller bindings
     driverController.start().onTrue(new SwitchGyroCommand());
-    driverController.x().onTrue(new SwitchRotationMode());
+    //  driverController.x().onTrue(new SwitchRotationMode());
     driverController.b().onTrue(new SwitchFieldDriveMode());
-    driverController.a().onTrue(new SetRotationAngleCommand(0));
-    driverController.y().onTrue(new SetRotationAngleCommand(180));
+    // driverController.a().onTrue(new SetRotationAngleCommand(0));
+    // driverController.y().onTrue(new SetRotationAngleCommand(180));
+
 
     // Operator Controller Bindings
     operatorController.leftBumper().and(operatorController.rightBumper()).onTrue(new ArmSetCommand(ArmPosEnum.HOME));
@@ -83,10 +87,16 @@ public class RobotContainer {
     operatorController.rightBumper().and(operatorController.y()).onTrue(new ArmSetCommand(ArmPosEnum.FAR_CUBE));
     operatorController.rightBumper().and(operatorController.b()).onTrue(new ArmSetCommand(ArmPosEnum.MID_CUBE));
     operatorController.rightBumper().and(operatorController.a()).onTrue(new ArmSetCommand(ArmPosEnum.LOW_CUBE));
+
+
     operatorController.start().onTrue(new ArmSetCommand(ArmPosEnum.FLOOR_BACK_CUBE));
+
+    operatorController.axisLessThan(1, 0.5).and(operatorController.axisGreaterThan(0, 0.5)).onTrue(new IntakeSpinCommand(Direction.IN));
+    operatorController.axisGreaterThan(1, 0.5).and(operatorController.axisLessThan(0, 0.5)).onTrue(new IntakeSpinCommand(Direction.OUT));
+    operatorController.axisGreaterThan(1, 0.5).and(operatorController.axisGreaterThan(0, 0.5)).onTrue(new IntakeSpinCommand(Direction.OFF));
+    
     drivetrainSubsystem.resetSteerEncoders();
-    // PowerDistribution pdh = new PowerDistribution();
-    // SmartDashboard.putData(pdh);
+    SmartDashboard.putData(pd);
     LiveWindow.disableAllTelemetry();
 
   }

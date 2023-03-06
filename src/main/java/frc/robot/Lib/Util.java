@@ -60,6 +60,10 @@ public class Util {
         BACKWARD,
         UP,
         DOWN,
+        IN,
+        OUT,
+        OFF,
+        ON
 
     }
 }

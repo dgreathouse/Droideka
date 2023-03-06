@@ -12,6 +12,7 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.RobotContainer;
 import frc.robot.Lib.ArmController;
 import frc.robot.Lib.ArmPosEnum;
 
@@ -96,8 +97,13 @@ public class Arm extends SubsystemBase {
   public void moveHand(double _volts){
     m_intakeRotateMotCtrl.setVoltage(_volts);
   }
+  
   public void spinHand(double _speed){
-    m_intakeSpinnerMotCtrl.set(_speed);
+    double speed = _speed;
+    if(m_intakeSpinnerMotCtrl.getOutputCurrent() > 10){
+      speed = 0;
+    }
+    m_intakeSpinnerMotCtrl.set(speed);
   }
   public double getHandAngle(){
     return m_intakeRotateMotCtrl.getEncoder().getPosition() * kHandDegPerCnt;
@@ -106,9 +112,14 @@ public class Arm extends SubsystemBase {
   public void setArmPos(ArmPosEnum _pos){
     m_armController.m_armPos = _pos;
   }
-
+  public double getIntakeCurrent(){
+    return m_intakeSpinnerMotCtrl.getOutputCurrent();
+    
+   // return RobotContainer.pd.getCurrent(5);
+  }
   @Override
   public void periodic() {
+    SmartDashboard.putNumber("Spinner Current", m_intakeSpinnerMotCtrl.getOutputCurrent());
     // SmartDashboard.putNumber("SHMotCnts", getShoulderAngle());
     // SmartDashboard.putNumber("ELMotCnts", getElbowAngle());
     // SmartDashboard.putNumber("HAAngle", getHandAngle());
