@@ -44,14 +44,14 @@ public class DrivetrainDefaultCommand extends CommandBase {
         // Get the x speed. We are inverting this because Xbox controllers return
     // negative values when we push forward.
      var xSpeed =
-        -m_xspeedLimiter.calculate(MathUtil.applyDeadband(RobotContainer.driverController.getLeftY(), k.DRIVETRAIN.stickDeadband))
+        m_xspeedLimiter.calculate(MathUtil.applyDeadband(RobotContainer.driverController.getLeftY(), k.DRIVETRAIN.stickDeadband))
             * DRIVETRAIN.maxSpeed;
 
     // Get the y speed or sideways/strafe speed. We are inverting this because
     // we want a positive value when we pull to the left. Xbox controllers
     // return positive values when you pull to the right by default.
      var ySpeed =
-        -m_yspeedLimiter.calculate(MathUtil.applyDeadband(RobotContainer.driverController.getLeftX(), k.DRIVETRAIN.stickDeadband))
+        m_yspeedLimiter.calculate(MathUtil.applyDeadband(RobotContainer.driverController.getLeftX(), k.DRIVETRAIN.stickDeadband))
             * DRIVETRAIN.maxSpeed;
 
     // Get the rate of angular rotation. We are inverting this because we want a
@@ -63,11 +63,12 @@ public class DrivetrainDefaultCommand extends CommandBase {
             * DRIVETRAIN.maxAngularSpeed;
 
     // If angle PID driving then set rotation to the PID value 
-    double rotPID = m_rotationPIDController.calculate(RobotContainer.drivetrainSubsystem.getRobotAngle(),RobotContainer.drivetrainSubsystem.getRotationPIDAngle());
-    if(RobotContainer.drivetrainSubsystem.getRotationMode() == RotationMode.PIDAngle){
-      rot = -rotPID * k.DRIVETRAIN.maxAngularSpeed;
-      SmartDashboard.putNumber("RotationPID", -rotPID);
-    }
+    // double rotPID = m_rotationPIDController.calculate(RobotContainer.drivetrainSubsystem.getRobotAngle(),RobotContainer.drivetrainSubsystem.getRotationPIDAngle());
+    // rotPID = 0;
+    // if(RobotContainer.drivetrainSubsystem.getRotationMode() == RotationMode.PIDAngle){
+    //   rot = rot * k.DRIVETRAIN.maxAngularSpeed;
+    //   //SmartDashboard.putNumber("RotationPID", -rotPID);
+    // }
     RobotContainer.drivetrainSubsystem.drive(xSpeed * k.DRIVETRAIN.speedScale, ySpeed * k.DRIVETRAIN.speedScale, rot*k.DRIVETRAIN.rotationScale,RobotContainer.drivetrainSubsystem.isFieldRelative,true);
   }
   /** Using the Right Thumb stick find the requested angle

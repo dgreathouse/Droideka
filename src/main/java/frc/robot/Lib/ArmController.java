@@ -4,10 +4,10 @@
 
 package frc.robot.Lib;
 
-import edu.wpi.first.math.controller.ArmFeedforward;
+
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotContainer;
 import frc.robot.Subsystem.Arm;
 
@@ -27,9 +27,9 @@ public class ArmController {
     ProfiledPIDController m_elbowPID;
     ProfiledPIDController m_handPID;
 
-    ArmFeedforward m_shoulderFF;
-    ArmFeedforward m_elbowFF;
-    ArmFeedforward m_handFF;
+    ArmDLGFeedForward m_shoulderFF;
+    ArmDLGFeedForward m_elbowFF;
+    ArmDLGFeedForward m_handFF;
 
     double m_intakeSpeed = 0;
 
@@ -37,14 +37,16 @@ public class ArmController {
     public ArmController(Arm _arm){
         // 45 Deg/sec 1.5 Rad/Sec^2
         m_shoulderPID = new ProfiledPIDController(10, 3, 0, new TrapezoidProfile.Constraints(1.7854, 10.5));
-        m_elbowPID = new ProfiledPIDController(20, 8, 0, new TrapezoidProfile.Constraints(4, 10));
+        m_elbowPID = new ProfiledPIDController(9, 2, 0, new TrapezoidProfile.Constraints(9, 5));
         m_handPID = new ProfiledPIDController(10, 2, 0, new TrapezoidProfile.Constraints(5, 10));
 
-        m_shoulderFF = new ArmFeedforward(0.125, 0.33, 0.1);
-        m_elbowFF = new ArmFeedforward(0.1, 0.2, 0.3);
-        m_handFF = new ArmFeedforward(0.1, 0.2, 0.1);
+        m_shoulderFF = new ArmDLGFeedForward(0.125, 0.55, 0.1);
+        m_elbowFF = new ArmDLGFeedForward(1.1, 2.6, 3);
+        m_handFF = new ArmDLGFeedForward(0.165, 0.6, 0.1);
         
         arm = _arm;
+
+        SmartDashboard.putNumber("ArmVolts", 0);
     }
     public void moveToPosition(){
 
@@ -55,15 +57,16 @@ public class ArmController {
         double shVel = m_shoulderPID.getGoal().velocity;
         double shFF = m_shoulderFF.calculate(Math.toRadians(arm.getShoulderAngle()-90), shVel);
         arm.moveShoulder(shPID + shFF);
-
+        //arm.moveShoulder(SmartDashboard.getNumber("ArmVolts", 0));
 
         // Elbow
         double fAngle = Math.toRadians(RobotContainer.armData.getForearmAngle(m_armPos));
         m_elbowPID.setGoal(fAngle);
         double elPID = m_elbowPID.calculate(Math.toRadians(arm.getElbowAngle()));
         double elVel = m_elbowPID.getGoal().velocity;
-        double elFF = m_elbowFF.calculate(Math.toRadians(arm.getElbowAngle()+90), elVel);
+        double elFF = m_elbowFF.calculate(Math.toRadians(arm.getElbowAngle()-90), elVel);
         arm.moveElbow(elPID + elFF);
+        //arm.moveElbow(SmartDashboard.getNumber("ArmVolts", 0));
 
         
         // Hand
@@ -73,6 +76,7 @@ public class ArmController {
         double hVel = m_handPID.getGoal().velocity;
         double hFF = m_handFF.calculate(Math.toRadians((arm.getHandAngle()+90)), hVel);
         arm.moveHand(hPID + hFF);
+        //arm.moveHand(SmartDashboard.getNumber("ArmVolts", 0));
 
     }
 }

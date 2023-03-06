@@ -29,6 +29,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   
   GyroEnum currentGyro = GyroEnum.AHRS;
   AHRS m_gyro = new AHRS(Port.kMXP);
+
   Pigeon2 m_PGyro = new Pigeon2(5);
   RotationMode m_rotationMode = RotationMode.AxisSpeed;
   public boolean isFieldRelative = true;
@@ -44,6 +45,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
       });
   /** Creates a new DrivetrainSubsystem. */
   public DrivetrainSubsystem() {
+    
     resetGyro();
     
   }
@@ -105,29 +107,19 @@ public class DrivetrainSubsystem extends SubsystemBase {
     return getDriveDistanceMeters() * 39.37;
   }
   public double getRobotAngle(){
+    double ang = 0;
     if(currentGyro == GyroEnum.AHRS){
-      return m_gyro.getAngle();
-    }else if(currentGyro == GyroEnum.PIGEON2){
-      return m_PGyro.getYaw();
+      ang = m_gyro.getAngle();
+    }else{
+      ang = m_PGyro.getYaw();
     }
-    return m_gyro.getAngle();
+
+    return -ang;
   }
-  public double getRobotPitch(){
-    if(currentGyro == GyroEnum.AHRS){
-      return m_gyro.getPitch();
-    }else if(currentGyro == GyroEnum.PIGEON2){
-      return m_PGyro.getPitch();
-    }
-    return m_gyro.getPitch();
-  }
+
   public Rotation2d getRobotRotation2D(){
-    if(currentGyro == GyroEnum.AHRS){
-      return m_gyro.getRotation2d();
-    }else if(currentGyro == GyroEnum.PIGEON2){
-      Rotation2d r2d = new Rotation2d(m_PGyro.getYaw());
-      return r2d;
-    }
-    return m_gyro.getRotation2d();
+    double angle = getRobotAngle();
+    return Rotation2d.fromDegrees(angle);
   }
   public void resetGyro(){
     m_gyro.reset();
@@ -176,10 +168,11 @@ public class DrivetrainSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     updateOdometry();
-    SmartDashboard.putData("DRIVETRAIN", this);
+
     SmartDashboard.putNumber("DriveInches", getDriveDistanceInches());
     SmartDashboard.putNumber("PigeonAngle", -m_PGyro.getYaw());
-    SmartDashboard.putNumber("NavXAngle", m_gyro.getAngle());
+    SmartDashboard.putNumber("NavXAngle", -m_gyro.getAngle());
+    SmartDashboard.putNumber("RobotAngle", getRobotAngle());
     m_f.sendData();
     m_br.sendData();
     m_bl.sendData();

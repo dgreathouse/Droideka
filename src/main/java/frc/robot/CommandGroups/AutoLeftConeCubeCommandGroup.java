@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Command.ArmIntakeVelCommand;
 import frc.robot.Command.ArmOnTargetCommand;
 import frc.robot.Command.ArmSetCommand;
-import frc.robot.Command.AutoDrivetrainBalancePIDCommand;
+
 import frc.robot.Command.AutoDrivetrainDrivePIDCommand;
 import frc.robot.Command.AutoDrivetrainStrafePIDCommand;
 import frc.robot.Lib.ArmPosEnum;
