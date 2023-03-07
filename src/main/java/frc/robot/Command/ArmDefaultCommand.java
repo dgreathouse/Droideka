@@ -4,6 +4,7 @@
 
 package frc.robot.Command;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.Lib.ArmPosEnum;
@@ -39,12 +40,14 @@ double intakeTimeLimit = 1;
       
       // Move to position. Buttons change enum in arm
       arm.m_armController.moveToPosition();
-
+      
       // // Get the Left and Right Trigger Axis values
-      // double lAxis = RobotContainer.operatorController.getLeftTriggerAxis();
-      // double rAxis = RobotContainer.operatorController.getRightTriggerAxis();
-      // // Default speed = 0;
-      // double speed = 0;
+      double lAxis = RobotContainer.operatorController.getLeftTriggerAxis();
+      double rAxis = RobotContainer.operatorController.getRightTriggerAxis();
+      double speed = lAxis - rAxis;
+     // Default speed = 0;
+      arm.spinHand(speed);
+      SmartDashboard.putNumber("Intake Current", arm.getIntakeCurrent());
       // // Flags for direction
       // boolean in = false;
       // boolean out = false;

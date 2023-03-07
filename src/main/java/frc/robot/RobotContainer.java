@@ -15,10 +15,8 @@ import frc.robot.Command.ArmSetCommand;
 import frc.robot.Command.AutoDoNothingCommandGroup;
 import frc.robot.Command.DrivetrainDefaultCommand;
 import frc.robot.Command.IntakeSpinCommand;
-import frc.robot.Command.SetRotationAngleCommand;
 import frc.robot.Command.SwitchFieldDriveMode;
 import frc.robot.Command.SwitchGyroCommand;
-import frc.robot.Command.SwitchRotationMode;
 import frc.robot.CommandGroups.AutoLeftConeCubeCommandGroup;
 import frc.robot.CommandGroups.AutoTest;
 import frc.robot.Lib.ArmData;
@@ -91,9 +89,9 @@ public class RobotContainer {
 
     operatorController.start().onTrue(new ArmSetCommand(ArmPosEnum.FLOOR_BACK_CUBE));
 
-    operatorController.axisLessThan(1, 0.5).and(operatorController.axisGreaterThan(0, 0.5)).onTrue(new IntakeSpinCommand(Direction.IN));
-    operatorController.axisGreaterThan(1, 0.5).and(operatorController.axisLessThan(0, 0.5)).onTrue(new IntakeSpinCommand(Direction.OUT));
-    operatorController.axisGreaterThan(1, 0.5).and(operatorController.axisGreaterThan(0, 0.5)).onTrue(new IntakeSpinCommand(Direction.OFF));
+  //  operatorController.axisGreaterThan(2, 0.5).onTrue(new IntakeSpinCommand(Direction.OUT));
+   // operatorController.axisGreaterThan(3, -0.5).onTrue(new IntakeSpinCommand(Direction.IN));
+
     
     drivetrainSubsystem.resetSteerEncoders();
     SmartDashboard.putData(pd);

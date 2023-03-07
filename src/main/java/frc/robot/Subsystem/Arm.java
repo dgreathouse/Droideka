@@ -87,8 +87,8 @@ public class Arm extends SubsystemBase {
   // return 0;
   }
   public void moveElbow(double _volts){
-    m_leftElbowMotCtrl.setVoltage(-_volts);
-    m_leftElbowMotCtrl.setVoltage(-_volts);
+    m_leftElbowMotCtrl.setVoltage(_volts);
+
   }
   public double getElbowAngle(){
     return m_leftElbowMotCtrl.getSelectedSensorPosition() * kElbowDegPerCnt;
@@ -100,10 +100,12 @@ public class Arm extends SubsystemBase {
   
   public void spinHand(double _speed){
     double speed = _speed;
-    if(m_intakeSpinnerMotCtrl.getOutputCurrent() > 10){
-      speed = 0;
-    }
-    m_intakeSpinnerMotCtrl.set(speed);
+    // if(m_intakeSpinnerMotCtrl.getOutputCurrent() > 10){
+    //   speed = 0;
+    // }
+    double volts = speed * 12;
+    SmartDashboard.putNumber("Spinner Volts", volts);
+    m_intakeSpinnerMotCtrl.setVoltage(volts);
   }
   public double getHandAngle(){
     return m_intakeRotateMotCtrl.getEncoder().getPosition() * kHandDegPerCnt;
@@ -119,10 +121,10 @@ public class Arm extends SubsystemBase {
   }
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Spinner Current", m_intakeSpinnerMotCtrl.getOutputCurrent());
-    // SmartDashboard.putNumber("SHMotCnts", getShoulderAngle());
-    // SmartDashboard.putNumber("ELMotCnts", getElbowAngle());
-    // SmartDashboard.putNumber("HAAngle", getHandAngle());
+    SmartDashboard.putNumber("Spinner Current", getIntakeCurrent());
+    SmartDashboard.putNumber("SHMotCnts", getShoulderAngle());
+    SmartDashboard.putNumber("ELMotCnts", getElbowAngle());
+    SmartDashboard.putNumber("HAAngle", getHandAngle());
     // SmartDashboard.putString("Arm Pos", m_armController.m_armPos.toString());
 
     // This method will be called once per scheduler run
