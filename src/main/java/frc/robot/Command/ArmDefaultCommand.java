@@ -4,6 +4,7 @@
 
 package frc.robot.Command;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
@@ -13,12 +14,14 @@ import frc.robot.Subsystem.Arm;
 
 public class ArmDefaultCommand extends CommandBase {
   Arm arm;
-  double bicepPos = 0;
-  double elbowPos = 0;
-  double intakePos = 0;
-  double intakeVel = 0;
-double intakeCurrentLim = 0;
-double intakeTimeLimit = 1;
+
+  double intakeCurrentLim = 0;
+  double intakeTimeLimit = 1;
+  boolean in = false;
+  boolean inLatch = false;
+  boolean out = false;
+  double intakeSpeed = 1.0;
+  Timer inTimer = new Timer();
   /** Creates a new ArmDefaultCommand. */
   public ArmDefaultCommand(Arm _subsystem) {
     addRequirements(_subsystem);
@@ -37,14 +40,37 @@ double intakeTimeLimit = 1;
    */
   @Override
   public void execute() {
-      
+      double speed = 0;
       // Move to position. Buttons change enum in arm
       arm.m_armController.moveToPosition();
       
       // // Get the Left and Right Trigger Axis values
       double lAxis = RobotContainer.operatorController.getLeftTriggerAxis();
       double rAxis = RobotContainer.operatorController.getRightTriggerAxis();
-      double speed = lAxis - rAxis;
+      if(lAxis > 0.5){
+        inLatch = true;
+        in = true;
+      }else {
+        in = false;
+        inLatch = false;
+      }
+      if(in && inLatch){
+        inLatch = false;
+        inTimer.reset(); inTimer.start();
+      }
+      if(in && !inTimer.hasElapsed(intakeTimeLimit) && arm.getIntakeCurrent() < intakeCurrentLim){
+        speed = intakeSpeed;
+
+      }
+      
+
+
+
+
+
+
+
+      //double speed = lAxis - rAxis;
      // Default speed = 0;
       arm.spinHand(speed);
       SmartDashboard.putNumber("Intake Current", arm.getIntakeCurrent());
