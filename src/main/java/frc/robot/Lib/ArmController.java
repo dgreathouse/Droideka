@@ -36,14 +36,14 @@ public class ArmController {
     
     public ArmController(Arm _arm){
         // 45 Deg/sec 1.5 Rad/Sec^2
-        m_shoulderPID = new ProfiledPIDController(10, 6, 0, new TrapezoidProfile.Constraints(1.5, 6));
-        m_elbowPID = new ProfiledPIDController(10, 10, 0, new TrapezoidProfile.Constraints(10, 7));
-        m_handPID = new ProfiledPIDController(10, 2, 0, new TrapezoidProfile.Constraints(5, 10));
+        m_shoulderPID = new ProfiledPIDController(10, 10, 0, new TrapezoidProfile.Constraints(3, 5));
+        m_elbowPID = new ProfiledPIDController(13, 6, 0, new TrapezoidProfile.Constraints(10, 7));
+        m_handPID = new ProfiledPIDController(10, 2, 0, new TrapezoidProfile.Constraints(5,5));
 
        // m_shoulderFF = new ArmDLGFeedForward(0.125, 0.55, 0.1);
-       m_shoulderFF = new ArmDLGFeedForward(0.0, 0.0, 0.3);
-        m_elbowFF = new ArmDLGFeedForward(0,0, 2);
-        m_handFF = new ArmDLGFeedForward(0.165, 0.6, 0.1);
+       m_shoulderFF = new ArmDLGFeedForward(0.0, 0.0, 0.0);
+        m_elbowFF = new ArmDLGFeedForward(0,0, 0);
+        m_handFF = new ArmDLGFeedForward(0.0, 0.0, 0.0);
         
         m_elbowPID.setTolerance(.01);
         m_elbowPID.setIntegratorRange(-3, 3);
@@ -59,7 +59,7 @@ public class ArmController {
         double shPID = m_shoulderPID.calculate(Math.toRadians(arm.getShoulderAngle()));
         double shVel = m_shoulderPID.getGoal().velocity;
         double shFF = m_shoulderFF.calculate(Math.toRadians(arm.getShoulderAngle()-90), shVel);
-        arm.moveShoulder(shPID + shFF);
+        arm.moveShoulder(shPID);
         //arm.moveShoulder(SmartDashboard.getNumber("ArmVolts", 0));
 
         // Elbow
@@ -69,8 +69,8 @@ public class ArmController {
         double elVel = m_elbowPID.getGoal().velocity;
         double elFF = m_elbowFF.calculate(Math.toRadians(arm.getElbowAngle()-90), elVel);
         SmartDashboard.putNumber("elPID", elPID);
-        SmartDashboard.putNumber("elFF", elFF);
-        arm.moveElbow(-elPID + elFF);
+        //SmartDashboard.putNumber("elFF", elFF);
+        arm.moveElbow(-elPID);
         //arm.moveElbow(SmartDashboard.getNumber("ArmVolts", 0));
 
         
@@ -80,7 +80,7 @@ public class ArmController {
         double hPID = m_handPID.calculate(Math.toRadians(arm.getHandAngle()));
         double hVel = m_handPID.getGoal().velocity;
         double hFF = m_handFF.calculate(Math.toRadians((arm.getHandAngle()+90)), hVel);
-        arm.moveHand(hPID + hFF);
+        arm.moveHand(hPID);
         //arm.moveHand(SmartDashboard.getNumber("ArmVolts", 0));
 
     }

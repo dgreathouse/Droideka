@@ -16,7 +16,7 @@ public class ArmData {
     public ArmData(){
         data.put(ArmPosEnum.HOME.toString(), new ArmInfo(0,0,0));
 
-        data.put(ArmPosEnum.FAR_CONE.toString(), new ArmInfo(80, 100, 0));
+        data.put(ArmPosEnum.FAR_CONE.toString(), new ArmInfo(85, 125, 25));
       //  data.put(ArmPosEnum.FAR_CONE.toString(), new ArmInfo(0, 90, 0));
         data.put(ArmPosEnum.FAR_CUBE.toString(), new ArmInfo(0,0, 0));
         data.put(ArmPosEnum.MID_CONE.toString(), new ArmInfo(28.4, 53.9, -38.4));
