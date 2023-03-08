@@ -19,14 +19,14 @@ public class ArmData {
         data.put(ArmPosEnum.FAR_CONE.toString(), new ArmInfo(85, 125, 25));
       //  data.put(ArmPosEnum.FAR_CONE.toString(), new ArmInfo(0, 90, 0));
         data.put(ArmPosEnum.FAR_CUBE.toString(), new ArmInfo(0,0, 0));
-        data.put(ArmPosEnum.MID_CONE.toString(), new ArmInfo(28.4, 53.9, -38.4));
+        data.put(ArmPosEnum.MID_CONE.toString(), new ArmInfo(28.4, 53.9, -32));
         data.put(ArmPosEnum.MID_CUBE.toString(), new ArmInfo(0,0, 0));
 
         data.put(ArmPosEnum.LOW_CONE.toString(), new ArmInfo(0, 0, 0));
 
         data.put(ArmPosEnum.LOW_CUBE.toString(), new ArmInfo(0, 0, 0));
         data.put(ArmPosEnum.WALL_CONE.toString(), new ArmInfo(37.3, 43.8, -52.1));
-        data.put(ArmPosEnum.WALL_CUBE.toString(), new ArmInfo(-23.8, -34.8, 34.4));
+        data.put(ArmPosEnum.WALL_CUBE.toString(), new ArmInfo(-25.6, -31,45));
         data.put(ArmPosEnum.FLOOR_BACK_CUBE.toString(), new ArmInfo(-1.4, -129.6, -48.1));
         //setting for cone in auton
         //data.put(ArmPosEnum.FLOOR_BACK_CUBE.toString(), new ArmInfo(3.9, -121.3, -50.6));
