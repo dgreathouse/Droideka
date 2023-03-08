@@ -43,7 +43,7 @@ public class Arm extends SubsystemBase {
   public WPI_TalonSRX m_leftElbowMotCtrl;
   public WPI_TalonSRX m_rightElbowMotCtrl;
   public CANSparkMax m_intakeRotateMotCtrl;
-  public CANSparkMax m_intakeSpinnerMotCtrl;
+  
   public ArmController m_armController;
 
   
@@ -72,11 +72,11 @@ public class Arm extends SubsystemBase {
     
 
     m_intakeRotateMotCtrl = new CANSparkMax(27, MotorType.kBrushless);
-    m_intakeSpinnerMotCtrl = new CANSparkMax(28, MotorType.kBrushless);
+
     m_intakeRotateMotCtrl.restoreFactoryDefaults();
     m_intakeRotateMotCtrl.setIdleMode(IdleMode.kBrake);
 
-    m_intakeSpinnerMotCtrl.setIdleMode(IdleMode.kBrake);
+    
 
     m_rightShoulderMotCtrl.getEncoder().setPosition(0.0);
     m_armController = new ArmController(this);
@@ -101,27 +101,19 @@ public class Arm extends SubsystemBase {
     m_intakeRotateMotCtrl.setVoltage(_volts);
   }
   
-  public void spinHand(double _speed){
-    double speed = _speed;
-    double volts = speed * 12;
 
-    m_intakeSpinnerMotCtrl.setVoltage(volts);
-  }
   public double getHandAngle(){
     return m_intakeRotateMotCtrl.getEncoder().getPosition() * kHandDegPerCnt;
    //return 0;
   }
+
   public void setArmPos(ArmPosEnum _pos){
     m_armController.m_armPos = _pos;
   }
-  public double getIntakeCurrent(){
-    return m_intakeSpinnerMotCtrl.getOutputCurrent();
-    
-   // return RobotContainer.pd.getCurrent(5);
-  }
+
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Spinner Current", getIntakeCurrent());
+    
     SmartDashboard.putNumber("SHMotCnts", getShoulderAngle());
     SmartDashboard.putNumber("ELMotCnts", getElbowAngle());
     SmartDashboard.putNumber("HAAngle", getHandAngle());

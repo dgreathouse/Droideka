@@ -14,10 +14,12 @@ import frc.robot.Command.ArmDefaultCommand;
 import frc.robot.Command.ArmSetCommand;
 import frc.robot.Command.AutoDoNothingCommandGroup;
 import frc.robot.Command.DrivetrainDefaultCommand;
-import frc.robot.Command.IntakeSpinCommand;
+import frc.robot.Command.IntakeInSpinCommand;
+import frc.robot.Command.IntakeOutSpinCommand;
+import frc.robot.Command.IntakeSpinnerDefaultCommand;
 import frc.robot.Command.SwitchFieldDriveMode;
 import frc.robot.Command.SwitchGyroCommand;
-import frc.robot.CommandGroups.AutoLeftConeCubeCommandGroup;
+
 import frc.robot.CommandGroups.AutoTest;
 import frc.robot.Lib.ArmData;
 import frc.robot.Lib.ArmPosEnum;
@@ -25,6 +27,7 @@ import frc.robot.Lib.Util.Direction;
 import frc.robot.Subsystem.Arm;
 
 import frc.robot.Subsystem.DrivetrainSubsystem;
+import frc.robot.Subsystem.IntakeSpinner;
 
 
 
@@ -34,6 +37,8 @@ public class RobotContainer {
 
   public static Arm arm = new Arm();
   private ArmDefaultCommand armDefaultCommand = new ArmDefaultCommand(arm);
+  public static IntakeSpinner intake = new IntakeSpinner();
+  private IntakeSpinnerDefaultCommand intakeDefaultCommand = new IntakeSpinnerDefaultCommand(intake);
 
   public static ArmData armData = new ArmData();
 
@@ -49,10 +54,10 @@ public class RobotContainer {
   public RobotContainer() {
     drivetrainSubsystem.setDefaultCommand(drivetrainDefaultCommand);
     arm.setDefaultCommand(armDefaultCommand);
-
+    intake.setDefaultCommand(intakeDefaultCommand);
     configureBindings();
 
-    autoChooser.addOption("Left Cone, Get Cube, Balance", new AutoLeftConeCubeCommandGroup());
+   
     autoChooser.addOption("Test", new AutoTest());
     autoChooser.setDefaultOption("Do Nothing", new AutoDoNothingCommandGroup());
     
@@ -84,8 +89,10 @@ public class RobotContainer {
 
     operatorController.start().onTrue(new ArmSetCommand(ArmPosEnum.FLOOR_BACK_CUBE));
 
-    operatorController.axisGreaterThan(2, 0.5).onTrue(new IntakeSpinCommand(Direction.OUT));
-    operatorController.axisGreaterThan(3, 0.5).onTrue(new IntakeSpinCommand(Direction.IN));
+    operatorController.y().onTrue(new IntakeInSpinCommand());
+    operatorController.a().onTrue(new IntakeOutSpinCommand());
+   // operatorController.axisGreaterThan(2, 0.5).onTrue(new IntakeSpinCommand(Direction.OUT));
+    //operatorController.axisGreaterThan(3, 0.5).onTrue(new IntakeSpinCommand(Direction.IN));
     
     drivetrainSubsystem.resetSteerEncoders();
     

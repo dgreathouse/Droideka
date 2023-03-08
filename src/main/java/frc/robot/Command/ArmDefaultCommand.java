@@ -14,14 +14,16 @@ import frc.robot.Subsystem.Arm;
 
 public class ArmDefaultCommand extends CommandBase {
   Arm arm;
-
+  double intakeCurrentAvg = 0;
   double intakeCurrentLim = 0;
   double intakeTimeLimit = 1;
   boolean in = false;
   boolean inLatch = false;
+  int intakeCurrentCnt = 0;
   boolean out = false;
   double intakeSpeed = 1.0;
   Timer inTimer = new Timer();
+  double inSpinCnts = 0;
   /** Creates a new ArmDefaultCommand. */
   public ArmDefaultCommand(Arm _subsystem) {
     addRequirements(_subsystem);
@@ -40,82 +42,11 @@ public class ArmDefaultCommand extends CommandBase {
    */
   @Override
   public void execute() {
-      double speed = 0;
+
+      
       // Move to position. Buttons change enum in arm
       arm.m_armController.moveToPosition();
-      
-      // // Get the Left and Right Trigger Axis values
-      double lAxis = RobotContainer.operatorController.getLeftTriggerAxis();
-      double rAxis = RobotContainer.operatorController.getRightTriggerAxis();
-      if(lAxis > 0.5){
-        inLatch = true;
-        in = true;
-      }else {
-        in = false;
-        inLatch = false;
-      }
-      if(in && inLatch){
-        inLatch = false;
-        inTimer.reset(); inTimer.start();
-      }
-      if(in && !inTimer.hasElapsed(intakeTimeLimit) && arm.getIntakeCurrent() < intakeCurrentLim){
-        speed = intakeSpeed;
-
-      }
-      
-
-
-
-
-
-
-
-      //double speed = lAxis - rAxis;
-     // Default speed = 0;
-      arm.spinHand(speed);
-      SmartDashboard.putNumber("Intake Current", arm.getIntakeCurrent());
-      // // Flags for direction
-      // boolean in = false;
-      // boolean out = false;
-      // boolean off = true;
-      // // Set flags based on the trigger being pulled in.
-      // in = lAxis > 0.5 ? true : false;
-      // out = rAxis > 0.5 ? true : false;
-      // // Filter the in-out-off
-      // if(in == true && out == true){
-      //   in = false; out = false; off = true;
-      // }else if(in == true && out == false){
-      //   off = false;
-      // }else if(in == false && out == true){
-      //   off = false;
-      // }else if(in == false && out == false){
-      //   off = true;
-      // }
-
-      // if(off){
-      //   speed = 0;
-      // }
-      
-      // // Spin the intake based on the L/R trigger
-      // ArmPosEnum pos = arm.m_armController.m_armPos;
-      // switch(pos){
-      //   case HOME:
-      //   case WALL_CONE:
-        
-      //   case WALL_CUBE:
-      //   case FAR_CONE:
-      //   case FAR_CUBE:
-      //   case MID_CONE:
-      //   case MID_CUBE:
-      //   case LOW_CONE:
-      //   case LOW_CUBE:
-      //   case FLOOR_BACK_CUBE:
-      //   default:
-
-
-
-      // }
-      // RobotContainer.arm.spinHand(speed);
+  
    }
  
   
