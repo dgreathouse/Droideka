@@ -9,12 +9,13 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.k;
 
 public class IntakeSpinner extends SubsystemBase {
   /** Creates a new IntakeSpinner. */
   public CANSparkMax m_intakeSpinnerMotCtrl;
   public IntakeSpinner() {
-    m_intakeSpinnerMotCtrl = new CANSparkMax(28, MotorType.kBrushless);
+    m_intakeSpinnerMotCtrl = new CANSparkMax(k.INTAKE.rightSpinnerCANId, MotorType.kBrushless);
     //m_intakeSpinnerMotCtrl.setOpenLoopRampRate(1);
     m_intakeSpinnerMotCtrl.setIdleMode(IdleMode.kBrake);
   }

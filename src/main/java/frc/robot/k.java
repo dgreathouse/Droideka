@@ -77,8 +77,8 @@ public class k {
         public static double stickAngleMax = 0.9;
     }
     public static class SHOULDER {
-        public static int leftCANId = 30;
-        public static int rightCANId = 31;
+        public static int leftCANId = 25;
+        public static int rightCANId = 26;
         public static double PID_P = 1;
         public static double PID_I = 1;
         public static double CntsPDeg = 1;
@@ -87,8 +87,8 @@ public class k {
         
     }
     public static class ELBOW {
-        public static int leftCANId = 32;
-        public static int rightCANId = 33;
+        public static int leftCANId = 48;
+        public static int rightCANId = 49;
         public static double PID_P = 1;
         public static double PID_I = 1;
         public static double CntsPDeg = 1;
@@ -96,8 +96,8 @@ public class k {
         public static double TimeoutOnTarget = 2;
     }
     public static class INTAKE {
-        public static int leftRotateCANId = 34;
-        public static int rightSpinnerCANId = 35;
+        public static int leftRotateCANId = 27;
+        public static int rightSpinnerCANId = 28;
         public static double PID_P = 1;
         public static double PID_I = 1;
         public static double CntsPDeg = 1;

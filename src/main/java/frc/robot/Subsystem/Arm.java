@@ -13,6 +13,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotContainer;
+import frc.robot.k;
 import frc.robot.Lib.ArmController;
 import frc.robot.Lib.ArmPosEnum;
 
@@ -49,21 +50,21 @@ public class Arm extends SubsystemBase {
   
   /** Creates a new Arm. */
   public Arm() {
-    m_leftShoulderMotCtrl = new CANSparkMax(25, MotorType.kBrushless);
-    m_rightShoulderMotCtrl = new CANSparkMax(26, MotorType.kBrushless);
+    m_leftShoulderMotCtrl = new CANSparkMax(k.SHOULDER.leftCANId, MotorType.kBrushless);
+    m_rightShoulderMotCtrl = new CANSparkMax(k.SHOULDER.rightCANId, MotorType.kBrushless);
     m_leftShoulderMotCtrl.restoreFactoryDefaults();
     m_rightShoulderMotCtrl.restoreFactoryDefaults();
     m_rightShoulderMotCtrl.follow(m_leftShoulderMotCtrl,true);
     m_rightShoulderMotCtrl.getEncoder().setPosition(0);
     m_leftShoulderMotCtrl.getEncoder().setPosition(0);
 
-    m_leftElbowMotCtrl = new WPI_TalonSRX(48);
+    m_leftElbowMotCtrl = new WPI_TalonSRX(k.ELBOW.leftCANId);
     m_leftElbowMotCtrl.configFactoryDefault();
     m_leftElbowMotCtrl.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
     m_leftElbowMotCtrl.setNeutralMode(NeutralMode.Brake);
     m_leftElbowMotCtrl.setSelectedSensorPosition(0);
 
-    m_rightElbowMotCtrl = new WPI_TalonSRX(49);
+    m_rightElbowMotCtrl = new WPI_TalonSRX(k.ELBOW.rightCANId);
     m_rightElbowMotCtrl.configFactoryDefault();
     m_rightElbowMotCtrl.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
     m_rightElbowMotCtrl.setNeutralMode(NeutralMode.Brake);
@@ -71,7 +72,7 @@ public class Arm extends SubsystemBase {
     m_rightElbowMotCtrl.follow(m_leftElbowMotCtrl);
     
 
-    m_intakeRotateMotCtrl = new CANSparkMax(27, MotorType.kBrushless);
+    m_intakeRotateMotCtrl = new CANSparkMax(k.INTAKE.leftRotateCANId, MotorType.kBrushless);
 
     m_intakeRotateMotCtrl.restoreFactoryDefaults();
     m_intakeRotateMotCtrl.setIdleMode(IdleMode.kBrake);

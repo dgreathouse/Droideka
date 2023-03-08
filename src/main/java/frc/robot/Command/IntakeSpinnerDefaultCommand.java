@@ -6,6 +6,7 @@ package frc.robot.Command;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Subsystem;
+import frc.robot.Robot;
 import frc.robot.RobotContainer;
 
 public class IntakeSpinnerDefaultCommand extends CommandBase {
@@ -22,7 +23,13 @@ public class IntakeSpinnerDefaultCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.intake.spinHand(0);
+    if(RobotContainer.operatorController.axisGreaterThan(2, 0.25).getAsBoolean()){
+      RobotContainer.intake.spinHand(-RobotContainer.operatorController.getLeftTriggerAxis());
+    }else if(RobotContainer.operatorController.axisGreaterThan(3, 0.25).getAsBoolean()){
+      RobotContainer.intake.spinHand(RobotContainer.operatorController.getRightTriggerAxis());
+    }else {
+      RobotContainer.intake.spinHand(0);
+    }
   }
 
   // Called once the command ends or is interrupted.

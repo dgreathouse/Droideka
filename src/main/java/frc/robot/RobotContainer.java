@@ -91,8 +91,6 @@ public class RobotContainer {
 
     operatorController.y().onTrue(new IntakeInSpinCommand());
     operatorController.a().onTrue(new IntakeOutSpinCommand());
-   // operatorController.axisGreaterThan(2, 0.5).onTrue(new IntakeSpinCommand(Direction.OUT));
-    //operatorController.axisGreaterThan(3, 0.5).onTrue(new IntakeSpinCommand(Direction.IN));
     
     drivetrainSubsystem.resetSteerEncoders();
     
