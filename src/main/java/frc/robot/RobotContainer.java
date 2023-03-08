@@ -82,15 +82,13 @@ public class RobotContainer {
     operatorController.rightBumper().and(operatorController.b()).onTrue(new ArmSetCommand(ArmPosEnum.MID_CUBE));
     operatorController.rightBumper().and(operatorController.a()).onTrue(new ArmSetCommand(ArmPosEnum.LOW_CUBE));
 
-
     operatorController.start().onTrue(new ArmSetCommand(ArmPosEnum.FLOOR_BACK_CUBE));
 
-   operatorController.axisGreaterThan(2, 0.5).onTrue(new IntakeSpinCommand(Direction.OUT));
-   // operatorController.axisGreaterThan(3, -0.5).onTrue(new IntakeSpinCommand(Direction.IN));
-
+    operatorController.axisGreaterThan(2, 0.5).onTrue(new IntakeSpinCommand(Direction.OUT));
+    operatorController.axisGreaterThan(3, 0.5).onTrue(new IntakeSpinCommand(Direction.IN));
     
     drivetrainSubsystem.resetSteerEncoders();
-    SmartDashboard.putData(pd);
+    
     LiveWindow.disableAllTelemetry();
 
   }

@@ -56,7 +56,7 @@ public class Arm extends SubsystemBase {
     m_rightShoulderMotCtrl.follow(m_leftShoulderMotCtrl,true);
     m_rightShoulderMotCtrl.getEncoder().setPosition(0);
     m_leftShoulderMotCtrl.getEncoder().setPosition(0);
-   
+
     m_leftElbowMotCtrl = new WPI_TalonSRX(48);
     m_leftElbowMotCtrl.configFactoryDefault();
     m_leftElbowMotCtrl.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
@@ -69,12 +69,15 @@ public class Arm extends SubsystemBase {
     m_rightElbowMotCtrl.setNeutralMode(NeutralMode.Brake);
     m_rightElbowMotCtrl.setSelectedSensorPosition(0);
     m_rightElbowMotCtrl.follow(m_leftElbowMotCtrl);
+    
 
     m_intakeRotateMotCtrl = new CANSparkMax(27, MotorType.kBrushless);
     m_intakeSpinnerMotCtrl = new CANSparkMax(28, MotorType.kBrushless);
     m_intakeRotateMotCtrl.restoreFactoryDefaults();
     m_intakeRotateMotCtrl.setIdleMode(IdleMode.kBrake);
+
     m_intakeSpinnerMotCtrl.setIdleMode(IdleMode.kBrake);
+
     m_rightShoulderMotCtrl.getEncoder().setPosition(0.0);
     m_armController = new ArmController(this);
 
@@ -100,11 +103,8 @@ public class Arm extends SubsystemBase {
   
   public void spinHand(double _speed){
     double speed = _speed;
-    // if(m_intakeSpinnerMotCtrl.getOutputCurrent() > 10){
-    //   speed = 0;
-    // }
     double volts = speed * 12;
-    SmartDashboard.putNumber("Spinner Volts", volts);
+
     m_intakeSpinnerMotCtrl.setVoltage(volts);
   }
   public double getHandAngle(){

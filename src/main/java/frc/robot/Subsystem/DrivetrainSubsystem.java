@@ -89,12 +89,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     
 
   }
-  // public void setRotationPIDAngle(double _val) {
-  //   rotationPIDAngle = _val;
-  // }
-  // public double getRotationPIDAngle(){
-  //   return rotationPIDAngle;
-  // }
+
   /**
    * 
    * @return Distance in Inches
@@ -169,12 +164,12 @@ public class DrivetrainSubsystem extends SubsystemBase {
   public void periodic() {
     updateOdometry();
 
-    SmartDashboard.putNumber("DriveInches", getDriveDistanceInches());
-    SmartDashboard.putNumber("PigeonAngle", -m_PGyro.getYaw());
-    SmartDashboard.putNumber("NavXAngle", -m_gyro.getAngle());
-    SmartDashboard.putNumber("RobotAngle", getRobotAngle());
-    m_f.sendData();
-    m_br.sendData();
-    m_bl.sendData();
+    // SmartDashboard.putNumber("DriveInches", getDriveDistanceInches());
+    // SmartDashboard.putNumber("PigeonAngle", -m_PGyro.getYaw());
+    // SmartDashboard.putNumber("NavXAngle", -m_gyro.getAngle());
+    // SmartDashboard.putNumber("RobotAngle", getRobotAngle());
+    // m_f.sendData();
+    // m_br.sendData();
+    // m_bl.sendData();
   }
 }

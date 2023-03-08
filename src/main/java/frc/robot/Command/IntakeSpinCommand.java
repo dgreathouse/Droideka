@@ -5,7 +5,7 @@
 package frc.robot.Command;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.Lib.Util.Direction;
@@ -30,20 +30,21 @@ public class IntakeSpinCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    SmartDashboard.putString("dir", dir.toString());
     amps = RobotContainer.arm.getIntakeCurrent();
     if(dir == Direction.IN){
       RobotContainer.arm.spinHand(0.5);
-      // if(amps > 5 || timer.hasElapsed(1)){
-      //   isFinished = true;
-      // }
+      if(amps > 5 || timer.hasElapsed(1)){
+        isFinished = true;
+        dir = Direction.OFF;
+      }
     }else if(dir == Direction.OUT){
       RobotContainer.arm.spinHand(-0.5);
-      // if(timer.hasElapsed(1)){
-      //   isFinished = true;
-      // }
+      if(timer.hasElapsed(1)){
+        isFinished = true;
+        dir = Direction.OFF;
+      }
     }else if(dir == Direction.OFF){
-     // isFinished = true;
+      isFinished = true;
     }
 
   }
