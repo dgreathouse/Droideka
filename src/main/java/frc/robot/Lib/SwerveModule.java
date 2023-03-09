@@ -119,7 +119,6 @@ public class SwerveModule {
         }
         // SmartDashboard
 
-        SmartDashboard.putNumber(m_data.name + "_SPIDOut",steerOutput);
 
         SmartDashboard.putNumber(m_data.name + "StateSpeed", state.speedMetersPerSecond);
         SmartDashboard.putNumber(m_data.name + "StateAngle", state.angle.getRadians());

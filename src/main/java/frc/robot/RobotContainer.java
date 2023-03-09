@@ -23,7 +23,6 @@ import frc.robot.Command.SwitchGyroCommand;
 import frc.robot.CommandGroups.AutoTest;
 import frc.robot.Lib.ArmData;
 import frc.robot.Lib.ArmPosEnum;
-import frc.robot.Lib.Util.Direction;
 import frc.robot.Subsystem.Arm;
 
 import frc.robot.Subsystem.DrivetrainSubsystem;
@@ -94,7 +93,7 @@ public class RobotContainer {
     
     drivetrainSubsystem.resetSteerEncoders();
     
-    LiveWindow.disableAllTelemetry();
+   // LiveWindow.disableAllTelemetry();
 
   }
   /** Return the selected command from the smartdashboard on the drivestation */

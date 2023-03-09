@@ -17,17 +17,17 @@ import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Lib.GyroEnum;
-import frc.robot.Lib.RotationMode;
+
 import frc.robot.Lib.SwerveModule;
 import frc.robot.k.DRIVETRAIN;
 import frc.robot.k.SWERVE;
 
 public class DrivetrainSubsystem extends SubsystemBase {
-  SwerveModule m_f = new SwerveModule(SWERVE.SDFront);
-  SwerveModule m_br = new SwerveModule(SWERVE.SDBackRight);
-  SwerveModule m_bl = new SwerveModule(SWERVE.SDBackLeft);
+  SwerveModule m_b = new SwerveModule(SWERVE.SDBack);
+  SwerveModule m_fl = new SwerveModule(SWERVE.SDFrontLeft);
+  SwerveModule m_fr = new SwerveModule(SWERVE.SDFrontRight);
   
-  GyroEnum currentGyro = GyroEnum.AHRS;
+  GyroEnum currentGyro = GyroEnum.PIGEON2;
   AHRS m_gyro = new AHRS(Port.kMXP);
 
   Pigeon2 m_PGyro = new Pigeon2(5);
@@ -38,14 +38,17 @@ public class DrivetrainSubsystem extends SubsystemBase {
     new SwerveDriveOdometry(
       DRIVETRAIN.kinematics, getRobotRotation2D(), 
       new SwerveModulePosition[]{
-        m_f.getPosition(),
-        m_br.getPosition(),
-        m_bl.getPosition()
         
+        m_fl.getPosition(),
+        m_fr.getPosition(),
+        m_b.getPosition()
       });
   /** Creates a new DrivetrainSubsystem. */
   public DrivetrainSubsystem() {
-    
+    m_gyro.calibrate();
+    while(!m_gyro.isCalibrating()){
+
+    }
     resetGyro();
     
   }
@@ -61,10 +64,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
             ? ChassisSpeeds.fromFieldRelativeSpeeds(_xSpeed, _ySpeed, _rot, getRobotRotation2D())
             : new ChassisSpeeds(_xSpeed, _ySpeed, _rot));
     SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, DRIVETRAIN.maxSpeed);
-    m_f.setDesiredState(swerveModuleStates[0],_optimize, false, false);
-    m_br.setDesiredState(swerveModuleStates[1],_optimize, false, false);
-    m_bl.setDesiredState(swerveModuleStates[2],_optimize, false, false);
     
+    m_fl.setDesiredState(swerveModuleStates[0],_optimize, false, false);
+    m_fr.setDesiredState(swerveModuleStates[1],_optimize, false, false);
+    m_b.setDesiredState(swerveModuleStates[2],_optimize, false, false);
   }
   // Line up the wheels with the direction requested from x,y.
   // Drive to the distance
@@ -73,20 +76,20 @@ public class DrivetrainSubsystem extends SubsystemBase {
     SwerveModuleState[] swerveModuleStates = DRIVETRAIN.kinematics.toSwerveModuleStates(new ChassisSpeeds(_xSpeed, _ySpeed, _rot));
     SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, DRIVETRAIN.maxSpeed);
 
-    m_f.setDesiredState(swerveModuleStates[0],_optimize, false, false);
-    m_br.setDesiredState(swerveModuleStates[1],_optimize, false, false);
-    m_bl.setDesiredState(swerveModuleStates[2],_optimize, false, false);
     
+    m_fl.setDesiredState(swerveModuleStates[0],_optimize, false, false);
+    m_fr.setDesiredState(swerveModuleStates[1],_optimize, false, false);
+    m_b.setDesiredState(swerveModuleStates[2],_optimize, false, false);
   }
 
   public void steerAuto(double _xSpeed, double _ySpeed){
     SwerveModuleState[] swerveModuleStates = DRIVETRAIN.kinematics.toSwerveModuleStates(new ChassisSpeeds(_xSpeed, _ySpeed, 0));
     SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, DRIVETRAIN.maxSpeed);
 
-    m_f.setDesiredState(swerveModuleStates[0],false, true, false);
-    m_br.setDesiredState(swerveModuleStates[1],false, true, false);
-    m_bl.setDesiredState(swerveModuleStates[2],false, true, false);
     
+    m_fl.setDesiredState(swerveModuleStates[0],false, true, false);
+    m_fr.setDesiredState(swerveModuleStates[1],false, true, false);
+    m_b.setDesiredState(swerveModuleStates[2],false, true, false);
 
   }
 
@@ -95,7 +98,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
    * @return Distance in Inches
    */
   public double getDriveDistanceMeters(){
-    double dis = (m_br.getDriveDistanceMeters() + m_bl.getDriveDistanceMeters() + m_f.getDriveDistanceMeters())/3.0;
+    double dis = (m_fl.getDriveDistanceMeters() + m_fr.getDriveDistanceMeters() + m_b.getDriveDistanceMeters())/3.0;
     return dis;
   }
   public double getDriveDistanceInches(){
@@ -103,13 +106,14 @@ public class DrivetrainSubsystem extends SubsystemBase {
   }
   public double getRobotAngle(){
     double ang = 0;
-    if(currentGyro == GyroEnum.AHRS){
-      ang = m_gyro.getAngle();
-    }else{
+    if(currentGyro == GyroEnum.PIGEON2){
       ang = m_PGyro.getYaw();
+      
+    }else{
+      ang = -m_gyro.getAngle();
     }
 
-    return -ang;
+    return ang;
   }
 
   public Rotation2d getRobotRotation2D(){
@@ -121,9 +125,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
     m_PGyro.setYaw(0);
   }
   public void resetDriveEncoders(){
-    m_f.resetDriveEncoders();
-    m_br.resetDriveEncoders();
-    m_bl.resetDriveEncoders();
+    m_b.resetDriveEncoders();
+    m_fl.resetDriveEncoders();
+    m_fr.resetDriveEncoders();
   }
   public void switchGyro(){
     if(currentGyro == GyroEnum.AHRS){
@@ -146,9 +150,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
     m_odometry.update(
         m_gyro.getRotation2d(),
         new SwerveModulePosition[] {
-          m_f.getPosition(),
-          m_br.getPosition(),
-          m_bl.getPosition()
+          
+          m_fl.getPosition(),
+          m_fr.getPosition(),
+          m_b.getPosition()
           
         });
   }
@@ -156,20 +161,20 @@ public class DrivetrainSubsystem extends SubsystemBase {
     isFieldRelative = _frm;
   }
   public void resetSteerEncoders(){
-    m_f.resetSteerSensors();
-    m_bl.resetSteerSensors();
-    m_br.resetSteerSensors();
+    m_b.resetSteerSensors();
+    m_fr.resetSteerSensors();
+    m_fl.resetSteerSensors();
   }
   @Override
   public void periodic() {
     updateOdometry();
 
-    // SmartDashboard.putNumber("DriveInches", getDriveDistanceInches());
+     SmartDashboard.putNumber("DriveInches", getDriveDistanceInches());
     // SmartDashboard.putNumber("PigeonAngle", -m_PGyro.getYaw());
     // SmartDashboard.putNumber("NavXAngle", -m_gyro.getAngle());
-    // SmartDashboard.putNumber("RobotAngle", getRobotAngle());
-    // m_f.sendData();
-    // m_br.sendData();
-    // m_bl.sendData();
+     SmartDashboard.putNumber("RobotAngle", getRobotAngle());
+    m_b.sendData();
+    m_fl.sendData();
+    m_fr.sendData();
   }
 }
