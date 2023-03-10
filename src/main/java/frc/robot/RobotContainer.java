@@ -68,7 +68,7 @@ public class RobotContainer {
   /** Configure the XBOX controller bindings from buttons/axis to Commands */
   private void configureBindings() {
     // Driver Controller bindings
-    driverController.start().onTrue(new SwitchGyroCommand());
+    driverController.x().onTrue(new SwitchGyroCommand());
     //  driverController.x().onTrue(new SwitchRotationMode());
     driverController.b().onTrue(new SwitchFieldDriveMode());
     // driverController.a().onTrue(new SetRotationAngleCommand(0));

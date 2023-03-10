@@ -37,9 +37,9 @@ public class k {
         public static double autoRotateOutScale = 1.0;
     }
     public static class SWERVE {
-        public static SwerveData SDBack = new SwerveData("Front", 10, InvertType.InvertMotorOutput, 20, InvertType.InvertMotorOutput, 1, 193);
-        public static SwerveData SDFrontLeft = new SwerveData("BRight",11, InvertType.None, 21, InvertType.InvertMotorOutput, 2, 166.70);
-        public static SwerveData SDFrontRight = new SwerveData("BLeft",12, InvertType.InvertMotorOutput,22, InvertType.InvertMotorOutput, 3, 281.3);
+        public static SwerveData SDBack = new SwerveData("B", 10, InvertType.InvertMotorOutput, 20, InvertType.InvertMotorOutput, 1, 193);
+        public static SwerveData SDFrontLeft = new SwerveData("FL",11, InvertType.None, 21, InvertType.InvertMotorOutput, 2, 166.70);
+        public static SwerveData SDFrontRight = new SwerveData("FR",12, InvertType.InvertMotorOutput,22, InvertType.InvertMotorOutput, 3, 281.3);
 
         public static double steerKp = .55;
         public static double steerKi = 0.15;

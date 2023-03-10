@@ -13,6 +13,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -28,7 +29,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   SwerveModule m_fr = new SwerveModule(SWERVE.SDFrontRight);
   
   GyroEnum currentGyro = GyroEnum.PIGEON2;
-  AHRS m_gyro = new AHRS(Port.kMXP);
+  ADIS16470_IMU m_gyro = new ADIS16470_IMU();
 
   Pigeon2 m_PGyro = new Pigeon2(5);
  // RotationMode m_rotationMode = RotationMode.AxisSpeed;
@@ -45,10 +46,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
       });
   /** Creates a new DrivetrainSubsystem. */
   public DrivetrainSubsystem() {
-    m_gyro.calibrate();
-    while(!m_gyro.isCalibrating()){
+    
 
-    }
     resetGyro();
     
   }
@@ -148,7 +147,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   // }
   public void updateOdometry() {
     m_odometry.update(
-        m_gyro.getRotation2d(),
+      Rotation2d.fromDegrees(getRobotAngle()),
         new SwerveModulePosition[] {
           
           m_fl.getPosition(),

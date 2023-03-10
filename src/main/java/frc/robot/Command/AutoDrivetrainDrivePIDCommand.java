@@ -5,6 +5,8 @@
 package frc.robot.Command;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -18,7 +20,7 @@ import frc.robot.k.DRIVETRAIN;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class AutoDrivetrainDrivePIDCommand extends CommandBase {
   PIDController rotPIDController = new PIDController(0, 0, 0);
-  PIDController drivePIDController = new PIDController(.1, 0.01, 0);
+  ProfiledPIDController drivePIDController = new ProfiledPIDController(30, 0, 0, new TrapezoidProfile.Constraints(10,5));
   double distance = 0;
   double driveTimeOut = 0;
   double angle = 0;
@@ -48,7 +50,7 @@ public class AutoDrivetrainDrivePIDCommand extends CommandBase {
     maxSpeed = _maxSpeed;
     // Drive
     drivePIDController.setTolerance(1);
-    drivePIDController.setIntegratorRange(0, 1);
+    drivePIDController.setIntegratorRange(-1, 1);
 
     // Rotation
     rotPIDController.setTolerance(1);
@@ -66,7 +68,6 @@ public class AutoDrivetrainDrivePIDCommand extends CommandBase {
     steerTimer.reset();
     driveTimer.reset();
     rotPIDController.reset();
-    drivePIDController.reset();
     steerTimer.start();
     
   }
@@ -78,7 +79,7 @@ public class AutoDrivetrainDrivePIDCommand extends CommandBase {
   
     // Steer
     if(!steerTimer.hasElapsed(steerTime)){
-      SmartDashboard.putNumber("Test", cnt++);
+      //SmartDashboard.putNumber("Test", cnt++);
       RobotContainer.drivetrainSubsystem.steerAuto(x,y);
     }else{
 
@@ -89,6 +90,7 @@ public class AutoDrivetrainDrivePIDCommand extends CommandBase {
       }else {
     // Drive
         double drv = drivePIDController.calculate(RobotContainer.drivetrainSubsystem.getDriveDistanceInches(),distance);
+        SmartDashboard.putNumber("drv", drv);
         double rot = rotPIDController.calculate(RobotContainer.drivetrainSubsystem.getRobotAngle(),angle);
         drv = Util.limit(drv, -maxSpeed, maxSpeed);
         RobotContainer.drivetrainSubsystem.driveAuto(drv, 0, rot,true);

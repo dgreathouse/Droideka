@@ -6,6 +6,7 @@ package frc.robot.CommandGroups;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Command.AutoDrivetrainDrivePIDCommand;
+import frc.robot.Command.AutoDrivetrainDriveProPidCommand;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -16,7 +17,7 @@ public class AutoTest extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new AutoDrivetrainDrivePIDCommand(2.0,0,0,-72, 5)
+      new AutoDrivetrainDrivePIDCommand(1, 1, 0, 48, 5)
     );
   }
 }

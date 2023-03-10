@@ -5,6 +5,7 @@
 package frc.robot.CommandGroups;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Command.AutoDrivetrainDrivePIDCommand;
 import frc.robot.Lib.Util;
 import frc.robot.Lib.Util.Direction;
 
@@ -20,6 +21,7 @@ public class AutoGamePieceCommandGroup extends SequentialCommandGroup {
     if(dir == Util.Direction.RIGHT){
       sign = -1.0;
     }
+    
     /**
      * Score game piece
      * Get game piece from field
@@ -27,7 +29,7 @@ public class AutoGamePieceCommandGroup extends SequentialCommandGroup {
      * Drive to pickup other game piece in field.
      */
     addCommands(
-
+      new AutoDrivetrainDrivePIDCommand(2,1,0,48,5 )
     );
   }
 }
