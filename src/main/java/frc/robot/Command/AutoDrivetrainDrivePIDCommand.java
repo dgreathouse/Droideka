@@ -12,7 +12,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.RobotContainer;
+import frc.robot.k;
 import frc.robot.Lib.Util;
+import frc.robot.Subsystem.DrivetrainSubsystem;
 import frc.robot.k.DRIVETRAIN;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -20,7 +22,7 @@ import frc.robot.k.DRIVETRAIN;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class AutoDrivetrainDrivePIDCommand extends CommandBase {
   PIDController rotPIDController = new PIDController(0, 0, 0);
-  ProfiledPIDController drivePIDController = new ProfiledPIDController(30, 0, 0, new TrapezoidProfile.Constraints(10,5));
+  ProfiledPIDController drivePIDController = new ProfiledPIDController(3, 0, 0, new TrapezoidProfile.Constraints(3,5));
   double distance = 0;
   double driveTimeOut = 0;
   double angle = 0;
@@ -32,6 +34,7 @@ public class AutoDrivetrainDrivePIDCommand extends CommandBase {
   boolean resetDone = false;
   int cnt = 0;
   double maxSpeed = 0;
+  DrivetrainSubsystem drive;
   /** Creates a new AutoDrivePIDCommand. */
   /**
    * 
@@ -43,7 +46,8 @@ public class AutoDrivetrainDrivePIDCommand extends CommandBase {
    */
   public AutoDrivetrainDrivePIDCommand(double _maxSpeed, double _x, double _y, double _distance, double _timeOut) {
     addRequirements(RobotContainer.drivetrainSubsystem);
-    distance = _distance;
+    drive = RobotContainer.drivetrainSubsystem;
+    distance = _distance * k.DRIVETRAIN.MetersPerInch; // Convert to meters
     driveTimeOut = _timeOut;
     x = _x * DRIVETRAIN.maxSpeed;
     y = _y * DRIVETRAIN.maxSpeed;
@@ -80,20 +84,20 @@ public class AutoDrivetrainDrivePIDCommand extends CommandBase {
     // Steer
     if(!steerTimer.hasElapsed(steerTime)){
       //SmartDashboard.putNumber("Test", cnt++);
-      RobotContainer.drivetrainSubsystem.steerAuto(x,y);
+      drive.steerAuto(x,y);
     }else{
 
       if(!resetDone){
-        RobotContainer.drivetrainSubsystem.resetDriveEncoders();
+        drive.resetDriveEncoders();
         resetDone = true;
         driveTimer.start();
-      }else {
-    // Drive
-        double drv = drivePIDController.calculate(RobotContainer.drivetrainSubsystem.getDriveDistanceInches(),distance);
+        
+      }else {    // Drive
+        double drv = drivePIDController.calculate(drive.getDriveDistanceMeters(),distance);
         SmartDashboard.putNumber("drv", drv);
-        double rot = rotPIDController.calculate(RobotContainer.drivetrainSubsystem.getRobotAngle(),angle);
-        drv = Util.limit(drv, -maxSpeed, maxSpeed);
-        RobotContainer.drivetrainSubsystem.driveAuto(drv, 0, rot,true);
+        double rot = rotPIDController.calculate(drive.getRobotAngle(),angle);
+        //drv = Util.limit(drv, -maxSpeed, maxSpeed);
+        drive.driveAuto(drv, 0, rot,true);
       }
     }
   }

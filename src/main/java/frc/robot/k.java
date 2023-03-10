@@ -35,6 +35,7 @@ public class k {
         public static double speedScale = 1.0;
         public static double rotationScale = 1.0;
         public static double autoRotateOutScale = 1.0;
+        public static double MetersPerInch = 1/39.37008;
     }
     public static class SWERVE {
         public static SwerveData SDBack = new SwerveData("B", 10, InvertType.InvertMotorOutput, 20, InvertType.InvertMotorOutput, 1, 193);

@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.k;
 import frc.robot.Lib.GyroEnum;
 
 import frc.robot.Lib.SwerveModule;
@@ -101,7 +102,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     return dis;
   }
   public double getDriveDistanceInches(){
-    return getDriveDistanceMeters() * 39.37;
+    return getDriveDistanceMeters() / k.DRIVETRAIN.MetersPerInch;
   }
   public double getRobotAngle(){
     double ang = 0;
