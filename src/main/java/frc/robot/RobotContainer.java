@@ -17,6 +17,7 @@ import frc.robot.Command.DrivetrainDefaultCommand;
 import frc.robot.Command.IntakeInSpinCommand;
 import frc.robot.Command.IntakeOutSpinCommand;
 import frc.robot.Command.IntakeSpinnerDefaultCommand;
+import frc.robot.Command.SwitchDriveNeutralMode;
 import frc.robot.Command.SwitchFieldDriveMode;
 import frc.robot.Command.SwitchGyroCommand;
 
@@ -70,11 +71,14 @@ public class RobotContainer {
   private void configureBindings() {
     // Driver Controller bindings
     driverController.x().onTrue(new SwitchGyroCommand());
-    //  driverController.x().onTrue(new SwitchRotationMode());
+    driverController.a().onTrue(new SwitchDriveNeutralMode());
     driverController.b().onTrue(new SwitchFieldDriveMode());
     // driverController.a().onTrue(new SetRotationAngleCommand(0));
     // driverController.y().onTrue(new SetRotationAngleCommand(180));
 
+    driverController.leftBumper().and(driverController.rightBumper()).onTrue(new ArmSetCommand(ArmPosEnum.HOME));
+    driverController.leftBumper().and(driverController.b()).onTrue(new ArmSetCommand(ArmPosEnum.MID_CONE));
+    driverController.rightBumper().and(driverController.b()).onTrue(new ArmSetCommand(ArmPosEnum.MID_CUBE));
 
     // Operator Controller Bindings
     operatorController.leftBumper().and(operatorController.rightBumper()).onTrue(new ArmSetCommand(ArmPosEnum.HOME));
@@ -88,7 +92,6 @@ public class RobotContainer {
     operatorController.rightBumper().and(operatorController.a()).onTrue(new ArmSetCommand(ArmPosEnum.LOW_CUBE));
 
     operatorController.x().onTrue(new ArmSetCommand(ArmPosEnum.FLOOR_BACK_CUBE));
-
     operatorController.y().onTrue(new IntakeInSpinCommand());
     operatorController.a().onTrue(new IntakeOutSpinCommand());
     

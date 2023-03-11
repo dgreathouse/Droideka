@@ -23,10 +23,16 @@ public class IntakeSpinnerDefaultCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(RobotContainer.operatorController.axisGreaterThan(2, 0.25).getAsBoolean()){
-      RobotContainer.intake.spinHand(-RobotContainer.operatorController.getLeftTriggerAxis());
-    }else if(RobotContainer.operatorController.axisGreaterThan(3, 0.25).getAsBoolean()){
-      RobotContainer.intake.spinHand(RobotContainer.operatorController.getRightTriggerAxis());
+    double leftSpeed = -RobotContainer.operatorController.getLeftTriggerAxis() - RobotContainer.driverController.getLeftTriggerAxis();
+    double rightSpeed = RobotContainer.operatorController.getLeftTriggerAxis() + RobotContainer.driverController.getLeftTriggerAxis();
+    double speed = leftSpeed + rightSpeed;
+    if(Math.abs(speed) < .25){
+      speed = 0;
+    }
+    if(RobotContainer.operatorController.axisGreaterThan(2, 0.25).getAsBoolean() || RobotContainer.driverController.axisGreaterThan(2, 0.25).getAsBoolean()){
+      RobotContainer.intake.spinHand(speed);
+    }else if(RobotContainer.operatorController.axisGreaterThan(3, 0.25).getAsBoolean() || RobotContainer.driverController.axisGreaterThan(3, 0.25).getAsBoolean()){
+      RobotContainer.intake.spinHand(speed);
     }else {
       RobotContainer.intake.spinHand(0);
     }

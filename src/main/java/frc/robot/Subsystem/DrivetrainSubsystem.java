@@ -33,7 +33,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   
   GyroEnum currentGyro = GyroEnum.PIGEON2;
   ADIS16470_IMU m_gyro = new ADIS16470_IMU();
-
+  NeutralMode driveNeutralMode = NeutralMode.Brake;
   Pigeon2 m_PGyro = new Pigeon2(5);
  // RotationMode m_rotationMode = RotationMode.AxisSpeed;
   public boolean isFieldRelative = true;
@@ -59,7 +59,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   //   drive(_xSpeed,_ySpeed,_rot);
   // }
   public void drive(double _xSpeed, double _ySpeed, double _rot, boolean _isFieldRelative, boolean _optimize){
-    setDriveNeutralMode(NeutralMode.Coast);
+    setDriveNeutralMode(driveNeutralMode);
     isFieldRelative = _isFieldRelative;
     var swerveModuleStates =
         DRIVETRAIN.kinematics.toSwerveModuleStates(
@@ -75,7 +75,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   // Line up the wheels with the direction requested from x,y.
   // Drive to the distance
   public void driveAuto(double _xSpeed, double _ySpeed, double _rot,  boolean _optimize){
-    setDriveNeutralMode(NeutralMode.Brake);
+    setDriveNeutralMode(driveNeutralMode);
     SwerveModuleState[] swerveModuleStates = DRIVETRAIN.kinematics.toSwerveModuleStates(new ChassisSpeeds(_xSpeed, _ySpeed, _rot));
     SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, DRIVETRAIN.maxSpeed);
 
@@ -173,6 +173,13 @@ public class DrivetrainSubsystem extends SubsystemBase {
     m_fr.setDriveNeutralMode(_mode);
     m_fl.setDriveNeutralMode(_mode);
 
+  }
+  public void switchDriveNeutralMode(){
+    if(driveNeutralMode == NeutralMode.Brake){
+      driveNeutralMode = NeutralMode.Coast;
+    }else {
+      driveNeutralMode = NeutralMode.Brake;
+    }
   }
   @Override
   public void periodic() {

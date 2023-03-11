@@ -4,11 +4,15 @@
 
 package frc.robot.CommandGroups;
 
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.RobotContainer;
+import frc.robot.Command.ArmSetCommand;
 import frc.robot.Command.AutoDrivetrainDrivePIDCommand;
-import frc.robot.Command.AutoDrivetrainDriveProPidCommand;
+import frc.robot.Command.AutoIntakeInCommand;
+import frc.robot.Command.AutoIntakeOutCommand;
+import frc.robot.Lib.ArmPosEnum;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -17,11 +21,22 @@ public class AutoTest extends SequentialCommandGroup {
   /** Creates a new AutoTest. */
   public AutoTest() {
     addRequirements(RobotContainer.drivetrainSubsystem);
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
+
+    
     addCommands(
-      new AutoDrivetrainDrivePIDCommand(1, 1, 0, 204, 10)
-      //new WaitCommand(10)
+      new ArmSetCommand(ArmPosEnum.FAR_CONE),
+      new WaitCommand(3),
+      new AutoIntakeOutCommand(),
+      new ArmSetCommand(ArmPosEnum.HOME),
+      new WaitCommand(2),
+      new ParallelCommandGroup(
+        new AutoDrivetrainDrivePIDCommand(1, 1, 0, 204, 10),
+        new ArmSetCommand(ArmPosEnum.FLOOR_BACK_CUBE),
+        new AutoIntakeInCommand()
+      ),
+      new ArmSetCommand(ArmPosEnum.HOME)
+
+      
     );
   }
 }
