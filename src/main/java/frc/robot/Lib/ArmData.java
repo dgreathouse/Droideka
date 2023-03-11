@@ -13,7 +13,7 @@ public class ArmData {
 
 
     HashMap<String, ArmInfo> data = new HashMap<String, ArmInfo>();
-    public ArmData(){
+    public ArmData(){          // ARM INFO( Bicep/Shoulder   Forearm/Elbow    Wrist/Intake)
         data.put(ArmPosEnum.HOME.toString(), new ArmInfo(0,0,0));
 
         data.put(ArmPosEnum.FAR_CONE.toString(), new ArmInfo(85, 125, 25));
@@ -27,7 +27,7 @@ public class ArmData {
         data.put(ArmPosEnum.LOW_CUBE.toString(), new ArmInfo(0, 0, 0));
         data.put(ArmPosEnum.WALL_CONE.toString(), new ArmInfo(37.3, 43.8, -52.1));
         data.put(ArmPosEnum.WALL_CUBE.toString(), new ArmInfo(-25.6, -31,45));
-        data.put(ArmPosEnum.FLOOR_BACK_CUBE.toString(), new ArmInfo(-1.4, -129.6, -48.1));
+        data.put(ArmPosEnum.FLOOR_BACK_CUBE.toString(), new ArmInfo(0, -110, -25));
         //setting for cone in auton
         //data.put(ArmPosEnum.FLOOR_BACK_CUBE.toString(), new ArmInfo(3.9, -121.3, -50.6));
 

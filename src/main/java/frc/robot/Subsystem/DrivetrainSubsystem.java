@@ -4,6 +4,7 @@
 
 package frc.robot.Subsystem;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.sensors.Pigeon2;
 import com.kauailabs.navx.frc.AHRS;
 
@@ -14,6 +15,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -57,6 +59,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   //   drive(_xSpeed,_ySpeed,_rot);
   // }
   public void drive(double _xSpeed, double _ySpeed, double _rot, boolean _isFieldRelative, boolean _optimize){
+    setDriveNeutralMode(NeutralMode.Coast);
     isFieldRelative = _isFieldRelative;
     var swerveModuleStates =
         DRIVETRAIN.kinematics.toSwerveModuleStates(
@@ -72,7 +75,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   // Line up the wheels with the direction requested from x,y.
   // Drive to the distance
   public void driveAuto(double _xSpeed, double _ySpeed, double _rot,  boolean _optimize){
-    
+    setDriveNeutralMode(NeutralMode.Brake);
     SwerveModuleState[] swerveModuleStates = DRIVETRAIN.kinematics.toSwerveModuleStates(new ChassisSpeeds(_xSpeed, _ySpeed, _rot));
     SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, DRIVETRAIN.maxSpeed);
 
@@ -164,6 +167,12 @@ public class DrivetrainSubsystem extends SubsystemBase {
     m_b.resetSteerSensors();
     m_fr.resetSteerSensors();
     m_fl.resetSteerSensors();
+  }
+  public void setDriveNeutralMode(NeutralMode _mode){
+    m_b.setDriveNeutralMode(_mode);
+    m_fr.setDriveNeutralMode(_mode);
+    m_fl.setDriveNeutralMode(_mode);
+
   }
   @Override
   public void periodic() {

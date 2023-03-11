@@ -125,6 +125,9 @@ public class SwerveModule {
 
         
     }
+    public void setDriveNeutralMode(NeutralMode _mode){
+        m_driveFx.setNeutralMode(_mode);
+    }
     public void sendData(){
         SmartDashboard.putNumber(m_data.name+ "SteerMotorAngle", Math.toDegrees(getSteerMotorAngle()));
         SmartDashboard.putNumber(m_data.name+ "CANCoderAngle", Math.toDegrees(getSwerveAngle()));

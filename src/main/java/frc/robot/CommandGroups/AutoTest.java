@@ -5,6 +5,8 @@
 package frc.robot.CommandGroups;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.RobotContainer;
 import frc.robot.Command.AutoDrivetrainDrivePIDCommand;
 import frc.robot.Command.AutoDrivetrainDriveProPidCommand;
 
@@ -14,10 +16,12 @@ import frc.robot.Command.AutoDrivetrainDriveProPidCommand;
 public class AutoTest extends SequentialCommandGroup {
   /** Creates a new AutoTest. */
   public AutoTest() {
+    addRequirements(RobotContainer.drivetrainSubsystem);
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new AutoDrivetrainDrivePIDCommand(1, 1, 0, 48, 5)
+      new AutoDrivetrainDrivePIDCommand(1, 1, 0, 204, 10)
+      //new WaitCommand(10)
     );
   }
 }

@@ -43,7 +43,7 @@ public class RobotContainer {
 
   public static CommandXboxController driverController = new CommandXboxController(0);
   public static CommandXboxController operatorController = new CommandXboxController(1);
-  public static PowerDistribution pd = new PowerDistribution();
+  
   SendableChooser<Command> autoChooser = new SendableChooser<>();
 
   /** RobotContainer holds all the static data for references to the subsystems.
@@ -62,6 +62,7 @@ public class RobotContainer {
     
     // Add more auto options here 
     SmartDashboard.putData(autoChooser);
+    SmartDashboard.putData(drivetrainSubsystem);
     LiveWindow.enableAllTelemetry();
 
   }
@@ -86,7 +87,7 @@ public class RobotContainer {
     operatorController.rightBumper().and(operatorController.b()).onTrue(new ArmSetCommand(ArmPosEnum.MID_CUBE));
     operatorController.rightBumper().and(operatorController.a()).onTrue(new ArmSetCommand(ArmPosEnum.LOW_CUBE));
 
-    operatorController.start().onTrue(new ArmSetCommand(ArmPosEnum.FLOOR_BACK_CUBE));
+    operatorController.x().onTrue(new ArmSetCommand(ArmPosEnum.FLOOR_BACK_CUBE));
 
     operatorController.y().onTrue(new IntakeInSpinCommand());
     operatorController.a().onTrue(new IntakeOutSpinCommand());

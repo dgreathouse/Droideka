@@ -21,8 +21,8 @@ import frc.robot.k.DRIVETRAIN;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class AutoDrivetrainDrivePIDCommand extends CommandBase {
-  PIDController rotPIDController = new PIDController(0, 0, 0);
-  ProfiledPIDController drivePIDController = new ProfiledPIDController(3, 0, 0, new TrapezoidProfile.Constraints(3,5));
+  PIDController rotPIDController = new PIDController(.05, 0.01, 0);
+  ProfiledPIDController drivePIDController = new ProfiledPIDController(3, 4, 0, new TrapezoidProfile.Constraints(3,1));
   double distance = 0;
   double driveTimeOut = 0;
   double angle = 0;
@@ -53,8 +53,9 @@ public class AutoDrivetrainDrivePIDCommand extends CommandBase {
     y = _y * DRIVETRAIN.maxSpeed;
     maxSpeed = _maxSpeed;
     // Drive
-    drivePIDController.setTolerance(1);
-    drivePIDController.setIntegratorRange(-1, 1);
+    drivePIDController.setTolerance(.01,.5);
+    drivePIDController.setIntegratorRange(-3, 3);
+    
 
     // Rotation
     rotPIDController.setTolerance(1);
@@ -92,14 +93,17 @@ public class AutoDrivetrainDrivePIDCommand extends CommandBase {
         resetDone = true;
         driveTimer.start();
         
+        
       }else {    // Drive
         double drv = drivePIDController.calculate(drive.getDriveDistanceMeters(),distance);
-        SmartDashboard.putNumber("drv", drv);
+       
         double rot = rotPIDController.calculate(drive.getRobotAngle(),angle);
+        
         //drv = Util.limit(drv, -maxSpeed, maxSpeed);
         drive.driveAuto(drv, 0, rot,true);
       }
     }
+    SmartDashboard.putBoolean("AtSetpoint",drivePIDController.atSetpoint());
   }
 
   // Called once the command ends or is interrupted.
@@ -111,9 +115,14 @@ public class AutoDrivetrainDrivePIDCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(drivePIDController.atSetpoint() || driveTimer.hasElapsed(driveTimeOut)){
+
+    if(drivePIDController.atGoal() || driveTimer.hasElapsed(driveTimeOut)){
+    
+    SmartDashboard.putNumber("DriveTime", driveTimer.get());
+      drive.drive(0, 0, 0, false, false);
       return true;
+    }else {
+      return false;
     }
-    return false;
   }
 }
