@@ -60,7 +60,7 @@ public class DrivetrainDefaultCommand extends CommandBase {
     // the right by default.
      var rot =
         -m_rotLimiter.calculate(MathUtil.applyDeadband(RobotContainer.driverController.getRightX(), k.DRIVETRAIN.stickDeadband))
-            * DRIVETRAIN.maxAngularSpeed;
+            * DRIVETRAIN.maxAngularSpeed * 0.5;
 
     // If angle PID driving then set rotation to the PID value 
     // double rotPID = m_rotationPIDController.calculate(RobotContainer.drivetrainSubsystem.getRobotAngle(),RobotContainer.drivetrainSubsystem.getRotationPIDAngle());

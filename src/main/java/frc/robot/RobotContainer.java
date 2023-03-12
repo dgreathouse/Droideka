@@ -82,7 +82,7 @@ public class RobotContainer {
 
     // Operator Controller Bindings
     operatorController.leftBumper().and(operatorController.rightBumper()).onTrue(new ArmSetCommand(ArmPosEnum.HOME));
-    operatorController.leftBumper().and(operatorController.x()).onTrue(new ArmSetCommand(ArmPosEnum.WALL_CONE));
+   // operatorController.leftBumper().and(operatorController.x()).onTrue(new ArmSetCommand(ArmPosEnum.WALL_CONE));
     operatorController.leftBumper().and(operatorController.y()).onTrue(new ArmSetCommand(ArmPosEnum.FAR_CONE));
     operatorController.leftBumper().and(operatorController.b()).onTrue(new ArmSetCommand(ArmPosEnum.MID_CONE));
     operatorController.leftBumper().and(operatorController.a()).onTrue(new ArmSetCommand(ArmPosEnum.LOW_CONE));
@@ -95,6 +95,10 @@ public class RobotContainer {
     operatorController.y().onTrue(new IntakeInSpinCommand());
     operatorController.a().onTrue(new IntakeOutSpinCommand());
     
+    //commented out because these are not coded.
+    //operatorController.leftBumper().and(operatorController.leftTrigger()).onTrue(new ArmSetCommand(ArmPosEnum.  Arm front dropping cone   ));
+    //operatorController.rightBumper().and(operatorController.rightTrigger()).onTrue(new ArmSetCommand(ArmPosEnum.  Arm front/back dropping cube   ));
+
     drivetrainSubsystem.resetSteerEncoders();
     
    // LiveWindow.disableAllTelemetry();

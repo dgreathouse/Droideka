@@ -20,17 +20,18 @@ public class IntakeOutSpinCommand extends CommandBase {
   @Override
   public void initialize() {
     isFinished = false;
-    spinnerCnts = RobotContainer.intake.getSpinnerCnts();
+    
+    RobotContainer.intake.setSpinnerCnts(0);
     //RobotContainer.intake.setSpinnerCnts(0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(RobotContainer.intake.getSpinnerCnts() > spinnerCnts + .3){
+    if(RobotContainer.intake.getSpinnerCnts() > .1){
       isFinished = true;
     }
-    RobotContainer.intake.spinHand(2);
+    RobotContainer.intake.spinHand(.2);
   }
 
   // Called once the command ends or is interrupted.

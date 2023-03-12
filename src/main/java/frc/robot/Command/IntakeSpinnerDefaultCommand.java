@@ -24,18 +24,18 @@ public class IntakeSpinnerDefaultCommand extends CommandBase {
   @Override
   public void execute() {
     double leftSpeed = -RobotContainer.operatorController.getLeftTriggerAxis() - RobotContainer.driverController.getLeftTriggerAxis();
-    double rightSpeed = RobotContainer.operatorController.getLeftTriggerAxis() + RobotContainer.driverController.getLeftTriggerAxis();
+    double rightSpeed = RobotContainer.operatorController.getRightTriggerAxis() + RobotContainer.driverController.getRightTriggerAxis();
     double speed = leftSpeed + rightSpeed;
     if(Math.abs(speed) < .25){
       speed = 0;
     }
-    if(RobotContainer.operatorController.axisGreaterThan(2, 0.25).getAsBoolean() || RobotContainer.driverController.axisGreaterThan(2, 0.25).getAsBoolean()){
+   // if(RobotContainer.operatorController.axisGreaterThan(2, 0.25).getAsBoolean() || RobotContainer.driverController.axisGreaterThan(2, 0.25).getAsBoolean()){
       RobotContainer.intake.spinHand(speed);
-    }else if(RobotContainer.operatorController.axisGreaterThan(3, 0.25).getAsBoolean() || RobotContainer.driverController.axisGreaterThan(3, 0.25).getAsBoolean()){
-      RobotContainer.intake.spinHand(speed);
-    }else {
-      RobotContainer.intake.spinHand(0);
-    }
+   // }else if(RobotContainer.operatorController.axisGreaterThan(3, 0.25).getAsBoolean() || RobotContainer.driverController.axisGreaterThan(3, 0.25).getAsBoolean()){
+  //    RobotContainer.intake.spinHand(speed);
+ //   }else {
+ //     RobotContainer.intake.spinHand(0);
+ //   }
   }
 
   // Called once the command ends or is interrupted.

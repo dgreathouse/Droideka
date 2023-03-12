@@ -23,17 +23,17 @@ public class IntakeInSpinCommand extends CommandBase {
   public void initialize() {
     isFinished = false;
     RobotContainer.intake.setSpinnerCnts(0);
-    SmartDashboard.putNumber("SpinnerInitCnts", RobotContainer.intake.getSpinnerCnts());
+    //SmartDashboard.putNumber("SpinnerInitCnts", RobotContainer.intake.getSpinnerCnts());
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
 
-    if(RobotContainer.intake.getSpinnerCnts() < -1.1){
+    if(RobotContainer.intake.getSpinnerCnts() < -.1){
       isFinished = true;
     }
-    RobotContainer.intake.spinHand(-.3);
+    RobotContainer.intake.spinHand(-.2);
   }
 
   
