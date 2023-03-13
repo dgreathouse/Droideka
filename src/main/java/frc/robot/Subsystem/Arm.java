@@ -119,7 +119,5 @@ public class Arm extends SubsystemBase {
     SmartDashboard.putNumber("HAAngle", getHandAngle());
 
     SmartDashboard.putString("Arm Pos", m_armController.m_armPos.toString());
-
-    // This method will be called once per scheduler run
   }
 }
