@@ -33,7 +33,7 @@ public class IntakeInSpinCommand extends CommandBase {
     if(RobotContainer.intake.getSpinnerCnts() < -.1){
       isFinished = true;
     }
-    RobotContainer.intake.spinHand(-.2);
+    RobotContainer.intake.spinHand(-0.5);
   }
 
   

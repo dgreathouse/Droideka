@@ -29,5 +29,6 @@ public enum ArmPosEnum {
     MID_CUBE,
     LOW_CONE,
     LOW_CUBE,
+    AUTO_FAR_CUBE
 
 }

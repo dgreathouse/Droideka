@@ -31,7 +31,7 @@ public class IntakeOutSpinCommand extends CommandBase {
     if(RobotContainer.intake.getSpinnerCnts() > .1){
       isFinished = true;
     }
-    RobotContainer.intake.spinHand(.2);
+    RobotContainer.intake.spinHand(.5);
   }
 
   // Called once the command ends or is interrupted.

@@ -20,7 +20,7 @@ public class DrivetrainDefaultCommand extends CommandBase {
     // Slew rate limiters to make joystick inputs more gentle; 1/2 sec from 0 to 1.
     private final SlewRateLimiter m_xspeedLimiter = new SlewRateLimiter(1);
     private final SlewRateLimiter m_yspeedLimiter = new SlewRateLimiter(1);
-    private final SlewRateLimiter m_rotLimiter = new SlewRateLimiter(2);
+    private final SlewRateLimiter m_rotLimiter = new SlewRateLimiter(1);
 
     PIDController m_rotationPIDController = new PIDController(k.DRIVETRAIN.rotKp, k.DRIVETRAIN.rotKi, k.DRIVETRAIN.rotKd);
     DrivetrainSubsystem drive;
@@ -60,7 +60,7 @@ public class DrivetrainDefaultCommand extends CommandBase {
     // the right by default.
      var rot =
         -m_rotLimiter.calculate(MathUtil.applyDeadband(RobotContainer.driverController.getRightX(), k.DRIVETRAIN.stickDeadband))
-            * DRIVETRAIN.maxAngularSpeed * 0.5;
+            * DRIVETRAIN.maxAngularSpeed * 0.3;
 
     // If angle PID driving then set rotation to the PID value 
     // double rotPID = m_rotationPIDController.calculate(RobotContainer.drivetrainSubsystem.getRobotAngle(),RobotContainer.drivetrainSubsystem.getRotationPIDAngle());

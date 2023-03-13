@@ -82,7 +82,7 @@ public class RobotContainer {
 
     // Operator Controller Bindings
     operatorController.leftBumper().and(operatorController.rightBumper()).onTrue(new ArmSetCommand(ArmPosEnum.HOME));
-   // operatorController.leftBumper().and(operatorController.x()).onTrue(new ArmSetCommand(ArmPosEnum.WALL_CONE));
+    operatorController.leftBumper().and(operatorController.x()).onTrue(new ArmSetCommand(ArmPosEnum.WALL_CONE));
     operatorController.leftBumper().and(operatorController.y()).onTrue(new ArmSetCommand(ArmPosEnum.FAR_CONE));
     operatorController.leftBumper().and(operatorController.b()).onTrue(new ArmSetCommand(ArmPosEnum.MID_CONE));
     operatorController.leftBumper().and(operatorController.a()).onTrue(new ArmSetCommand(ArmPosEnum.LOW_CONE));
@@ -91,7 +91,7 @@ public class RobotContainer {
     operatorController.rightBumper().and(operatorController.b()).onTrue(new ArmSetCommand(ArmPosEnum.MID_CUBE));
     operatorController.rightBumper().and(operatorController.a()).onTrue(new ArmSetCommand(ArmPosEnum.LOW_CUBE));
 
-    operatorController.x().onTrue(new ArmSetCommand(ArmPosEnum.FLOOR_BACK_CUBE));
+    //operatorController.x().onTrue(new ArmSetCommand(ArmPosEnum.FLOOR_BACK_CUBE));
     operatorController.y().onTrue(new IntakeInSpinCommand());
     operatorController.a().onTrue(new IntakeOutSpinCommand());
     

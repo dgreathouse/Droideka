@@ -38,7 +38,7 @@ public class Arm extends SubsystemBase {
  // 4096 * Rev = 124536 for 90Deg
   public static double kShoulderDegPerCnt = 90.0/30.53;
   public static double kElbowDegPerCnt = 0.080142;
-  public static double kHandDegPerCnt = 90/8.59;
+  public static double kHandDegPerCnt = 90/34.73;
   public CANSparkMax m_leftShoulderMotCtrl;
   public CANSparkMax m_rightShoulderMotCtrl;
   public WPI_TalonSRX m_leftElbowMotCtrl;
@@ -72,10 +72,10 @@ public class Arm extends SubsystemBase {
     m_rightElbowMotCtrl.follow(m_leftElbowMotCtrl);
     
 
-    m_intakeRotateMotCtrl = new CANSparkMax(k.INTAKE.leftRotateCANId, MotorType.kBrushless);
+    m_intakeRotateMotCtrl = new CANSparkMax(k.INTAKE.rigthSpinCANID, MotorType.kBrushless);
 
     m_intakeRotateMotCtrl.restoreFactoryDefaults();
-    m_intakeRotateMotCtrl.setIdleMode(IdleMode.kBrake);
+    m_intakeRotateMotCtrl.setIdleMode(IdleMode.kCoast);
 
     
 
