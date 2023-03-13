@@ -56,10 +56,10 @@ public class ArmInfo{
    public double fAngle = 0;
    public double hAngle = 0;
 
-    public ArmInfo(double _bAngle, double _fAngle, double _hAngle){
-        bAngle = _bAngle;
-        fAngle = _fAngle;
-        hAngle = _hAngle;
+    public ArmInfo(double shoulderAngle, double elbowAngle, double wristAngle){
+        bAngle = shoulderAngle;
+        fAngle = elbowAngle;
+        hAngle = wristAngle;
     }
 }
 
