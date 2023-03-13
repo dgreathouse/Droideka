@@ -20,7 +20,8 @@ import frc.robot.Command.IntakeSpinnerDefaultCommand;
 import frc.robot.Command.SwitchDriveNeutralMode;
 import frc.robot.Command.SwitchFieldDriveMode;
 import frc.robot.Command.SwitchGyroCommand;
-
+import frc.robot.CommandGroups.AutoPlaceConeCross;
+import frc.robot.CommandGroups.AutoPlaceCubeCross;
 import frc.robot.CommandGroups.AutoTest;
 import frc.robot.Lib.ArmData;
 import frc.robot.Lib.ArmPosEnum;
@@ -57,7 +58,8 @@ public class RobotContainer {
     intake.setDefaultCommand(intakeDefaultCommand);
     configureBindings();
 
-   
+    autoChooser.addOption("Place Cone Cross", new AutoPlaceConeCross());
+    autoChooser.addOption("Place Cube Cross", new AutoPlaceCubeCross());
     autoChooser.addOption("Test", new AutoTest());
     autoChooser.setDefaultOption("Do Nothing", new AutoDoNothingCommandGroup());
     
