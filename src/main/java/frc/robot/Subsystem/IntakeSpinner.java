@@ -40,5 +40,6 @@ public class IntakeSpinner extends SubsystemBase {
   @Override
   public void periodic() {
     SmartDashboard.putNumber("IntakeCurrent", getIntakeCurrent());
+    
   }
 }

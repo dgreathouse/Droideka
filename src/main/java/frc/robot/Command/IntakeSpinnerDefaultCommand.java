@@ -6,7 +6,6 @@ package frc.robot.Command;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Subsystem;
-import frc.robot.Robot;
 import frc.robot.RobotContainer;
 
 public class IntakeSpinnerDefaultCommand extends CommandBase {
@@ -28,6 +27,8 @@ public class IntakeSpinnerDefaultCommand extends CommandBase {
     double speed = leftSpeed + rightSpeed;
     if(Math.abs(speed) < .25){
       speed = 0;
+    }else if (Math.abs(speed) > .65){
+      speed = 0.65 * Math.signum(speed);
     }
    // if(RobotContainer.operatorController.axisGreaterThan(2, 0.25).getAsBoolean() || RobotContainer.driverController.axisGreaterThan(2, 0.25).getAsBoolean()){
       RobotContainer.intake.spinHand(speed);

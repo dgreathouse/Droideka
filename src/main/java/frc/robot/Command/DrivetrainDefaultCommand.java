@@ -7,12 +7,9 @@ package frc.robot.Command;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.filter.SlewRateLimiter;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.k;
-import frc.robot.Lib.RotationMode;
-import frc.robot.Lib.Util;
 import frc.robot.Subsystem.DrivetrainSubsystem;
 import frc.robot.k.DRIVETRAIN;
 
@@ -75,11 +72,11 @@ public class DrivetrainDefaultCommand extends CommandBase {
    * 
    * @return the angle requested by the thumbstick
    */
-  private double getRotationAngle(){
-    double ang = Util.getAngle(RobotContainer.driverController.getLeftX(), RobotContainer.driverController.getLeftY());
-    SmartDashboard.putNumber("RotationAngle", ang);
-    return ang;
-  }
+  // private double getRotationAngle(){
+  //   double ang = Util.getAngle(RobotContainer.driverController.getLeftX(), RobotContainer.driverController.getLeftY());
+  //   SmartDashboard.putNumber("RotationAngle", ang);
+  //   return ang;
+  // }
 
   // Called once the command ends or is interrupted.
   @Override

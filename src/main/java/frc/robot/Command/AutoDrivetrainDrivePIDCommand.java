@@ -10,10 +10,8 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-
 import frc.robot.RobotContainer;
 import frc.robot.k;
-import frc.robot.Lib.Util;
 import frc.robot.Subsystem.DrivetrainSubsystem;
 import frc.robot.k.DRIVETRAIN;
 

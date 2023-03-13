@@ -12,7 +12,6 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.RobotContainer;
 import frc.robot.k;
 import frc.robot.Lib.ArmController;
 import frc.robot.Lib.ArmPosEnum;
@@ -118,7 +117,8 @@ public class Arm extends SubsystemBase {
     SmartDashboard.putNumber("SHMotCnts", getShoulderAngle());
     SmartDashboard.putNumber("ELMotCnts", getElbowAngle());
     SmartDashboard.putNumber("HAAngle", getHandAngle());
-    // SmartDashboard.putString("Arm Pos", m_armController.m_armPos.toString());
+
+    SmartDashboard.putString("Arm Pos", m_armController.m_armPos.toString());
 
     // This method will be called once per scheduler run
   }

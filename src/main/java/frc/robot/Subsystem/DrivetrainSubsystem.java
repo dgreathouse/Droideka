@@ -6,8 +6,6 @@ package frc.robot.Subsystem;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.sensors.Pigeon2;
-import com.kauailabs.navx.frc.AHRS;
-
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -15,8 +13,6 @@ import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.k;
@@ -185,12 +181,12 @@ public class DrivetrainSubsystem extends SubsystemBase {
   public void periodic() {
     updateOdometry();
 
-     SmartDashboard.putNumber("DriveInches", getDriveDistanceInches());
+    // SmartDashboard.putNumber("DriveInches", getDriveDistanceInches());
     // SmartDashboard.putNumber("PigeonAngle", -m_PGyro.getYaw());
     // SmartDashboard.putNumber("NavXAngle", -m_gyro.getAngle());
      SmartDashboard.putNumber("RobotAngle", getRobotAngle());
-    m_b.sendData();
-    m_fl.sendData();
-    m_fr.sendData();
+    // m_b.sendData();
+    // m_fl.sendData();
+    // m_fr.sendData();
   }
 }
