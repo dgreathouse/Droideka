@@ -97,8 +97,8 @@ public class k {
         public static double TimeoutOnTarget = 2;
     }
     public static class INTAKE {
-        public static int leftRotateCANId = 27;
-        public static int rightSpinnerCANId = 28;
+        public static int rigthSpinCANID = 28;
+        public static int leftRotateCANID = 27;
         public static double PID_P = 1;
         public static double PID_I = 1;
         public static double CntsPDeg = 1;

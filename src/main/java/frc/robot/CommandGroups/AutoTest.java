@@ -20,19 +20,20 @@ import frc.robot.Lib.ArmPosEnum;
 public class AutoTest extends SequentialCommandGroup {
   /** Creates a new AutoTest. */
   public AutoTest() {
-    addRequirements(RobotContainer.drivetrainSubsystem);
+   // addRequirements(RobotContainer.drivetrainSubsystem, RobotContainer.intake, RobotContainer.arm);
 
     
     addCommands(
-      new ArmSetCommand(ArmPosEnum.FAR_CONE),
-      new WaitCommand(3),
+      new ArmSetCommand(ArmPosEnum.AUTO_FAR_CUBE),
+      new WaitCommand(1),
       new AutoIntakeOutCommand(),
       new ArmSetCommand(ArmPosEnum.HOME),
-      new WaitCommand(2),
+      new WaitCommand(.5),
       new ParallelCommandGroup(
+        new AutoIntakeInCommand(),
         new AutoDrivetrainDrivePIDCommand(1, 1, 0, 204, 10),
-        new ArmSetCommand(ArmPosEnum.FLOOR_BACK_CUBE),
-        new AutoIntakeInCommand()
+        new ArmSetCommand(ArmPosEnum.FLOOR_BACK_CUBE)
+        
       ),
       new ArmSetCommand(ArmPosEnum.HOME)
 
