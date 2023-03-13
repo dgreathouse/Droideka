@@ -3,8 +3,14 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.CommandGroups;
-
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.Command.ArmSetCommand;
+import frc.robot.Command.AutoDrivetrainDrivePIDCommand;
+import frc.robot.Command.AutoIntakeOutCommand;
+
+import frc.robot.Lib.ArmPosEnum;
+
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -17,6 +23,13 @@ public class AutoPlaceConeCross extends SequentialCommandGroup {
   public AutoPlaceConeCross() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands();
+    addCommands(
+      new ArmSetCommand(ArmPosEnum.FAR_CONE),
+      new WaitCommand(3),
+      new AutoIntakeOutCommand(),
+      new ArmSetCommand(ArmPosEnum.HOME),
+      new WaitCommand(2),
+      new AutoDrivetrainDrivePIDCommand(3, 1, 0, 180, 6)
+    );
   }
 }

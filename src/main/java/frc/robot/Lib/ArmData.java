@@ -27,8 +27,8 @@ public class ArmData {
         data.put(ArmPosEnum.LOW_CUBE.toString(), new ArmInfo(0, 0, 0));
         data.put(ArmPosEnum.WALL_CONE.toString(), new ArmInfo(0, -16, 124));
         data.put(ArmPosEnum.WALL_CUBE.toString(), new ArmInfo(-25.6, -31,45));
-        data.put(ArmPosEnum.FLOOR_BACK_CUBE.toString(), new ArmInfo(0, -120, -50));
-        data.put(ArmPosEnum.AUTO_FAR_CUBE.toString(), new ArmInfo(0,0, 35));
+        data.put(ArmPosEnum.FLOOR_FRONT_CONE.toString(), new ArmInfo(0, -120, -50));
+        data.put(ArmPosEnum.AUTO_FRONT_CONE.toString(), new ArmInfo(0,0, 35));
         //setting for cone in auton
         //data.put(ArmPosEnum.FLOOR_BACK_CUBE.toString(), new ArmInfo(3.9, -121.3, -50.6));
 

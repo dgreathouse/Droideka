@@ -7,7 +7,9 @@ package frc.robot.CommandGroups;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Command.ArmSetCommand;
-import frc.robot.Command.IntakeOutSpinCommand;
+import frc.robot.Command.AutoDrivetrainDrivePIDCommand;
+import frc.robot.Command.AutoIntakeOutCommand;
+
 import frc.robot.Lib.ArmPosEnum;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -19,13 +21,14 @@ public class AutoPlaceCubeCross extends SequentialCommandGroup {
   }
   /** Creates a new AutoPlaceCubeCross. */
   public AutoPlaceCubeCross() {
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
+
     addCommands(
       new ArmSetCommand(ArmPosEnum.FAR_CUBE),
       new WaitCommand(3),
-      new IntakeOutSpinCommand(),
-      new WaitCommand(1),
+      new AutoIntakeOutCommand(),
+      new ArmSetCommand(ArmPosEnum.HOME),
+      new WaitCommand(2),
+      new AutoDrivetrainDrivePIDCommand(3, 1, 0, 180, 6)
       
     );
   }

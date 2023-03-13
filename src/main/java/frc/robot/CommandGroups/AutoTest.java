@@ -24,7 +24,7 @@ public class AutoTest extends SequentialCommandGroup {
 
     
     addCommands(
-      new ArmSetCommand(ArmPosEnum.AUTO_FAR_CUBE),
+      new ArmSetCommand(ArmPosEnum.AUTO_FRONT_CONE),
       new WaitCommand(1),
       new AutoIntakeOutCommand(),
       new ArmSetCommand(ArmPosEnum.HOME),
@@ -32,7 +32,7 @@ public class AutoTest extends SequentialCommandGroup {
       new ParallelCommandGroup(
         new AutoIntakeInCommand(),
         new AutoDrivetrainDrivePIDCommand(1, 1, 0, 204, 10),
-        new ArmSetCommand(ArmPosEnum.FLOOR_BACK_CUBE)
+        new ArmSetCommand(ArmPosEnum.FLOOR_FRONT_CONE)
         
       ),
       new ArmSetCommand(ArmPosEnum.HOME)

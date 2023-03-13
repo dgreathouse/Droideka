@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Command.ArmDefaultCommand;
 import frc.robot.Command.ArmSetCommand;
 import frc.robot.Command.AutoDoNothingCommandGroup;
@@ -75,32 +76,32 @@ public class RobotContainer {
     driverController.x().onTrue(new SwitchGyroCommand());
     driverController.a().onTrue(new SwitchDriveNeutralMode());
     driverController.b().onTrue(new SwitchFieldDriveMode());
-    // driverController.a().onTrue(new SetRotationAngleCommand(0));
-    // driverController.y().onTrue(new SetRotationAngleCommand(180));
-
     driverController.leftBumper().and(driverController.rightBumper()).onTrue(new ArmSetCommand(ArmPosEnum.HOME));
-    driverController.leftBumper().and(driverController.b()).onTrue(new ArmSetCommand(ArmPosEnum.MID_CONE));
-    driverController.rightBumper().and(driverController.b()).onTrue(new ArmSetCommand(ArmPosEnum.MID_CUBE));
 
-    // Operator Controller Bindings
     operatorController.leftBumper().and(operatorController.rightBumper()).onTrue(new ArmSetCommand(ArmPosEnum.HOME));
-    operatorController.leftBumper().and(operatorController.x()).onTrue(new ArmSetCommand(ArmPosEnum.WALL_CONE));
+
+    operatorController.axisGreaterThan(1,0.5).onTrue(new ArmSetCommand(ArmPosEnum.WALL_CONE)); // Left Stick Right
+    operatorController.axisLessThan(1,-0.5).onTrue(new ArmSetCommand(ArmPosEnum.WALL_CONE)); // Left Stick Left
+
+    operatorController.axisGreaterThan(0,0.5).onTrue(new ArmSetCommand(ArmPosEnum.FLOOR_FRONT_CONE)); // Left Stick Down
+
+    operatorController.axisGreaterThan(0,-0.5).onTrue(new ArmSetCommand(ArmPosEnum.WALL_CUBE));  // Right Stick Right 
+    operatorController.axisLessThan(0,-0.5).onTrue(new ArmSetCommand(ArmPosEnum.WALL_CUBE));  // Right Stick Left
+    operatorController.axisGreaterThan(0,0.5).onTrue(new ArmSetCommand(ArmPosEnum.FLOOR_FRONT_CUBE)); // Right Stick Down
+
     operatorController.leftBumper().and(operatorController.y()).onTrue(new ArmSetCommand(ArmPosEnum.FAR_CONE));
     operatorController.leftBumper().and(operatorController.b()).onTrue(new ArmSetCommand(ArmPosEnum.MID_CONE));
     operatorController.leftBumper().and(operatorController.a()).onTrue(new ArmSetCommand(ArmPosEnum.LOW_CONE));
-    operatorController.rightBumper().and(operatorController.x()).onTrue(new ArmSetCommand(ArmPosEnum.WALL_CUBE));
+
     operatorController.rightBumper().and(operatorController.y()).onTrue(new ArmSetCommand(ArmPosEnum.FAR_CUBE));
     operatorController.rightBumper().and(operatorController.b()).onTrue(new ArmSetCommand(ArmPosEnum.MID_CUBE));
     operatorController.rightBumper().and(operatorController.a()).onTrue(new ArmSetCommand(ArmPosEnum.LOW_CUBE));
-
-    //operatorController.x().onTrue(new ArmSetCommand(ArmPosEnum.FLOOR_BACK_CUBE));
-    operatorController.y().onTrue(new IntakeInSpinCommand());
-    operatorController.a().onTrue(new IntakeOutSpinCommand());
     
-    //commented out because these are not coded.
-    //operatorController.leftBumper().and(operatorController.leftTrigger()).onTrue(new ArmSetCommand(ArmPosEnum.  Arm front dropping cone   ));
-    //operatorController.rightBumper().and(operatorController.rightTrigger()).onTrue(new ArmSetCommand(ArmPosEnum.  Arm front/back dropping cube   ));
-
+    operatorController.y().and(operatorController.leftBumper().negate()).and(operatorController.rightBumper().negate()).onTrue(new IntakeInSpinCommand());
+    operatorController.a().and(operatorController.leftBumper().negate()).and(operatorController.rightBumper().negate()).onTrue(new IntakeOutSpinCommand());
+    // operatorController.y().onTrue(new IntakeInSpinCommand());
+    // operatorController.a().onTrue(new IntakeOutSpinCommand());
+    
     drivetrainSubsystem.resetSteerEncoders();
     
    // LiveWindow.disableAllTelemetry();
