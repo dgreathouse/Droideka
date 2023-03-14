@@ -43,7 +43,7 @@ public class ArmData {
     public double getBicepAngle(ArmPosEnum _posString){
         return data.get(_posString.toString()).bAngle;
     }
-    public double getForearmAngle(ArmPosEnum _posString){
+    public double getElbowAngle(ArmPosEnum _posString){
         return data.get(_posString.toString()).fAngle;
     }
     public double getHandAngle(ArmPosEnum _posString){
