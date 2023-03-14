@@ -33,10 +33,10 @@ public class ArmData {
         data.put(ArmPosEnum.MID_CUBE.toString(), new ArmInfo(0,0, 35));
         data.put(ArmPosEnum.LOW_CUBE.toString(), new ArmInfo(0, 0, 0));
 
-        data.put(ArmPosEnum.FLOOR_FRONT_CUBE.toString(), new ArmInfo(0, -120, -50));
+        data.put(ArmPosEnum.FLOOR_FRONT_CUBE.toString(), new ArmInfo(-12, -154, -90));
         /******************  AUTO ARM DATA **************************/
         
-        data.put(ArmPosEnum.AUTO_FRONT_CONE.toString(), new ArmInfo(0,0, 35));
+        data.put(ArmPosEnum.AUTO_FRONT_CONE.toString(), new ArmInfo(-12,-154, 108));
 
 
     }
