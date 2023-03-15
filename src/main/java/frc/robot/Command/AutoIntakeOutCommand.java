@@ -11,7 +11,7 @@ import frc.robot.RobotContainer;
 
 public class AutoIntakeOutCommand extends CommandBase {
   double currentLim = 20;
-  double intakeSpeed = 3;
+  double intakeSpeed = .5;
   Timer timer = new Timer();
   /** Creates a new AutoIntakeInCommand. */
   public AutoIntakeOutCommand() {

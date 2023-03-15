@@ -20,7 +20,7 @@ public class ArmData {
         /******************  CONE DATA **************************/
         data.put(ArmPosEnum.WALL_CONE.toString(), new ArmInfo(0, -16, 124));
 
-        data.put(ArmPosEnum.FAR_CONE.toString(), new ArmInfo(82, 125, 20));
+        data.put(ArmPosEnum.FAR_CONE.toString(), new ArmInfo(82, 130, 20));
         data.put(ArmPosEnum.MID_CONE.toString(), new ArmInfo(28.4, 53.9, -32));
         data.put(ArmPosEnum.LOW_CONE.toString(), new ArmInfo(0, 0, 0));
 
@@ -29,7 +29,7 @@ public class ArmData {
         /******************  CUBE DATA **************************/
         data.put(ArmPosEnum.WALL_CUBE.toString(), new ArmInfo(-25.6, -31,45));
 
-        data.put(ArmPosEnum.FAR_CUBE.toString(), new ArmInfo(20,30, 30));
+        data.put(ArmPosEnum.FAR_CUBE.toString(), new ArmInfo(82, 140, 20));
         data.put(ArmPosEnum.MID_CUBE.toString(), new ArmInfo(0,0, 0));
         data.put(ArmPosEnum.LOW_CUBE.toString(), new ArmInfo(0, 0, 0));
 

@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Command.ArmSetCommand;
 import frc.robot.Command.AutoDrivetrainDrivePIDCommand;
+import frc.robot.Command.AutoIntakeInCommand;
 import frc.robot.Command.AutoIntakeOutCommand;
 
 import frc.robot.Lib.ArmPosEnum;
@@ -25,11 +26,11 @@ public class AutoPlaceConeCross extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new ArmSetCommand(ArmPosEnum.FAR_CONE),
-      new WaitCommand(3),
-      new AutoIntakeOutCommand(),
+      new WaitCommand(1.5), 
+      new AutoIntakeInCommand(),
       new ArmSetCommand(ArmPosEnum.HOME),
-      new WaitCommand(2),
-      new AutoDrivetrainDrivePIDCommand(3, 1, 0, 180, 6)
+      new WaitCommand(1),
+      new AutoDrivetrainDrivePIDCommand(2, 1, 0, 180, 6)
     );
   }
 }

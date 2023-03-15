@@ -20,7 +20,7 @@ import frc.robot.k.DRIVETRAIN;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class AutoDrivetrainDrivePIDCommand extends CommandBase {
   PIDController rotPIDController = new PIDController(.05, 0.01, 0);
-  ProfiledPIDController drivePIDController = new ProfiledPIDController(3, 4, 0, new TrapezoidProfile.Constraints(3,1.1));
+  ProfiledPIDController drivePIDController = new ProfiledPIDController(3, 4, 0, new TrapezoidProfile.Constraints(2,1.1));
   double distance = 0;
   double driveTimeOut = 0;
   double angle = 0;
@@ -59,7 +59,7 @@ public class AutoDrivetrainDrivePIDCommand extends CommandBase {
     rotPIDController.setTolerance(1);
     rotPIDController.setIntegratorRange(0, .5);
 
-
+    drivePIDController.reset(0);
     
   }
 
