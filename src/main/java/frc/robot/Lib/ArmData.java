@@ -20,20 +20,20 @@ public class ArmData {
         /******************  CONE DATA **************************/
         data.put(ArmPosEnum.WALL_CONE.toString(), new ArmInfo(0, -16, 124));
 
-        data.put(ArmPosEnum.FAR_CONE.toString(), new ArmInfo(85, 125, 25));
+        data.put(ArmPosEnum.FAR_CONE.toString(), new ArmInfo(82, 125, 20));
         data.put(ArmPosEnum.MID_CONE.toString(), new ArmInfo(28.4, 53.9, -32));
         data.put(ArmPosEnum.LOW_CONE.toString(), new ArmInfo(0, 0, 0));
 
-        data.put(ArmPosEnum.FLOOR_FRONT_CONE.toString(), new ArmInfo(0, -120, -50));
+        data.put(ArmPosEnum.FLOOR_FRONT_CONE.toString(), new ArmInfo(-12, -164, 0));
 
         /******************  CUBE DATA **************************/
         data.put(ArmPosEnum.WALL_CUBE.toString(), new ArmInfo(-25.6, -31,45));
 
         data.put(ArmPosEnum.FAR_CUBE.toString(), new ArmInfo(20,30, 30));
-        data.put(ArmPosEnum.MID_CUBE.toString(), new ArmInfo(0,0, 35));
+        data.put(ArmPosEnum.MID_CUBE.toString(), new ArmInfo(0,0, 0));
         data.put(ArmPosEnum.LOW_CUBE.toString(), new ArmInfo(0, 0, 0));
 
-        data.put(ArmPosEnum.FLOOR_FRONT_CUBE.toString(), new ArmInfo(-12, -154, -90));
+        data.put(ArmPosEnum.FLOOR_FRONT_CUBE.toString(), new ArmInfo(-10, -162, -105));
         /******************  AUTO ARM DATA **************************/
         
         data.put(ArmPosEnum.AUTO_FRONT_CONE.toString(), new ArmInfo(-12,-154, 108));

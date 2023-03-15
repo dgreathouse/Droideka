@@ -37,10 +37,11 @@ public class ArmController {
     public ArmController(Arm _arm){
         // All PIDs are in Degrees
         // Velocity is in 
-        m_shoulderPID = new ProfiledPIDController(1, 0, 0, new TrapezoidProfile.Constraints(25, 50));
-        m_elbowPID = new ProfiledPIDController(1, 0, 0, new TrapezoidProfile.Constraints(45,90));
-        m_handPID = new ProfiledPIDController(1, 0, 0, new TrapezoidProfile.Constraints(45,90));
+        m_shoulderPID = new ProfiledPIDController(.25, .4, 0, new TrapezoidProfile.Constraints(90, 100));
+        m_elbowPID = new ProfiledPIDController(.3, 0.60, 0, new TrapezoidProfile.Constraints(125,120));
+        m_handPID = new ProfiledPIDController(0.2, 0.5, 0, new TrapezoidProfile.Constraints(180,250));
 
+        m_shoulderPID.setTolerance(0.01);
         m_handPID.setTolerance(0.01);
         m_elbowPID.setTolerance(0.01);
         m_elbowPID.setIntegratorRange(-10, 10);
