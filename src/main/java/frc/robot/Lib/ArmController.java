@@ -38,7 +38,7 @@ public class ArmController {
         // All PIDs are in Degrees
         // Velocity is in 
         m_shoulderPID = new ProfiledPIDController(.25, .4, 0, new TrapezoidProfile.Constraints(90, 100));
-        m_elbowPID = new ProfiledPIDController(.3, 0.60, 0, new TrapezoidProfile.Constraints(145,120));
+        m_elbowPID = new ProfiledPIDController(.3, 0.60, 0, new TrapezoidProfile.Constraints(145,180));
         m_handPID = new ProfiledPIDController(0.2, 0.5, 0, new TrapezoidProfile.Constraints(180,250));
 
         m_shoulderPID.setTolerance(0.01);
