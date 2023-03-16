@@ -59,7 +59,7 @@ public class RobotContainer {
 
     autoChooser.addOption("Place Cone Cross", new AutoPlaceConeCross());
     autoChooser.addOption("Place Cube Cross", new AutoPlaceCubeCross());
-    autoChooser.addOption("Test", new AutoTest());
+   // autoChooser.addOption("Test", new AutoTest());
     autoChooser.setDefaultOption("Do Nothing", new AutoDoNothingCommandGroup());
     
     // Add more auto options here 

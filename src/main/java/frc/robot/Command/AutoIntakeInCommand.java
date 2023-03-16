@@ -37,7 +37,8 @@ public class AutoIntakeInCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if((RobotContainer.intake.getIntakeCurrent() > 50 && timer.hasElapsed(1)) || timer.hasElapsed(0.5)){
+    //if((RobotContainer.intake.getIntakeCurrent() > 50 && timer.hasElapsed(0.75)) || timer.hasElapsed(1.0)){
+    if(timer.hasElapsed(0.5)){
       RobotContainer.intake.spinHand(0);
       return true;
     }

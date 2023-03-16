@@ -8,7 +8,6 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.k;
@@ -20,7 +19,7 @@ import frc.robot.k.DRIVETRAIN;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class AutoDrivetrainDrivePIDCommand extends CommandBase {
   PIDController rotPIDController = new PIDController(.05, 0.01, 0);
-  ProfiledPIDController drivePIDController = new ProfiledPIDController(3, 4, 0, new TrapezoidProfile.Constraints(2,1.1));
+  ProfiledPIDController drivePIDController = new ProfiledPIDController(3, 4, 0, new TrapezoidProfile.Constraints(2,3));
   double distance = 0;
   double driveTimeOut = 0;
   double angle = 0;
@@ -52,7 +51,7 @@ public class AutoDrivetrainDrivePIDCommand extends CommandBase {
     maxSpeed = _maxSpeed;
     // Drive
     drivePIDController.setTolerance(.01,.5);
-    drivePIDController.setIntegratorRange(-3, 3);
+    drivePIDController.setIntegratorRange(-1, 1);
     
 
     // Rotation
@@ -101,7 +100,7 @@ public class AutoDrivetrainDrivePIDCommand extends CommandBase {
         drive.driveAuto(drv, 0, rot,true);
       }
     }
-    SmartDashboard.putBoolean("AtSetpoint",drivePIDController.atSetpoint());
+    //SmartDashboard.putBoolean("AtSetpoint",drivePIDController.atSetpoint());
   }
 
   // Called once the command ends or is interrupted.
@@ -116,7 +115,7 @@ public class AutoDrivetrainDrivePIDCommand extends CommandBase {
 
     if(drivePIDController.atGoal() || driveTimer.hasElapsed(driveTimeOut)){
     
-    SmartDashboard.putNumber("DriveTime", driveTimer.get());
+  //  SmartDashboard.putNumber("DriveTime", driveTimer.get());
       drive.drive(0, 0, 0, false, false);
       return true;
     }else {
