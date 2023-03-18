@@ -15,8 +15,8 @@ import frc.robot.k.DRIVETRAIN;
 
 public class DrivetrainDefaultCommand extends CommandBase {
     // Slew rate limiters to make joystick inputs more gentle; 1/2 sec from 0 to 1.
-    private final SlewRateLimiter m_xspeedLimiter = new SlewRateLimiter(1);
-    private final SlewRateLimiter m_yspeedLimiter = new SlewRateLimiter(1);
+    private final SlewRateLimiter m_xspeedLimiter = new SlewRateLimiter(1.2);
+    private final SlewRateLimiter m_yspeedLimiter = new SlewRateLimiter(1.2);
     private final SlewRateLimiter m_rotLimiter = new SlewRateLimiter(1);
 
     PIDController m_rotationPIDController = new PIDController(k.DRIVETRAIN.rotKp, k.DRIVETRAIN.rotKi, k.DRIVETRAIN.rotKd);
@@ -43,6 +43,8 @@ public class DrivetrainDefaultCommand extends CommandBase {
      var xSpeed =
         -m_xspeedLimiter.calculate(MathUtil.applyDeadband(RobotContainer.driverController.getLeftY(), k.DRIVETRAIN.stickDeadband))
             * DRIVETRAIN.maxSpeed;
+            // MathUtil.applyDeadband(RobotContainer.driverController.getLeftY(), k.DRIVETRAIN.stickDeadband)
+            // * DRIVETRAIN.maxSpeed;
 
     // Get the y speed or sideways/strafe speed. We are inverting this because
     // we want a positive value when we pull to the left. Xbox controllers
@@ -50,6 +52,8 @@ public class DrivetrainDefaultCommand extends CommandBase {
      var ySpeed =
         -m_yspeedLimiter.calculate(MathUtil.applyDeadband(RobotContainer.driverController.getLeftX(), k.DRIVETRAIN.stickDeadband))
             * DRIVETRAIN.maxSpeed;
+        // MathUtil.applyDeadband(RobotContainer.driverController.getLeftX(), k.DRIVETRAIN.stickDeadband)
+        // * DRIVETRAIN.maxSpeed;
 
     // Get the rate of angular rotation. We are inverting this because we want a
     // positive value when we pull to the left (remember, CCW is positive in

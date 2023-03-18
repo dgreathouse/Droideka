@@ -116,7 +116,7 @@ public class AutoDrivetrainDrivePIDCommand extends CommandBase {
     if(drivePIDController.atGoal() || driveTimer.hasElapsed(driveTimeOut)){
     
   //  SmartDashboard.putNumber("DriveTime", driveTimer.get());
-      drive.drive(0, 0, 0, false, false);
+      drive.drive(0, 0, 0, true, false);
       return true;
     }else {
       return false;

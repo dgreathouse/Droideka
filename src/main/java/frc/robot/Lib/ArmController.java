@@ -37,9 +37,9 @@ public class ArmController {
     public ArmController(Arm _arm){
         // All PIDs are in Degrees
         // Velocity is in 
-        m_shoulderPID = new ProfiledPIDController(.25, .4, 0, new TrapezoidProfile.Constraints(90, 100));
-        m_elbowPID = new ProfiledPIDController(.3, 0.60, 0, new TrapezoidProfile.Constraints(145,180));
-        m_handPID = new ProfiledPIDController(0.2, 0.5, 0, new TrapezoidProfile.Constraints(180,250));
+        m_shoulderPID = new ProfiledPIDController(.37, .4, 0, new TrapezoidProfile.Constraints(115,  105));
+        m_elbowPID = new ProfiledPIDController(.33, 0.60, 0, new TrapezoidProfile.Constraints(120,145));
+        m_handPID = new ProfiledPIDController(0.2, 0.5, 0, new TrapezoidProfile.Constraints(112,130));
 
         m_shoulderPID.setTolerance(0.01);
         m_handPID.setTolerance(0.01);
@@ -53,14 +53,14 @@ public class ArmController {
         double shoulderAngle = RobotContainer.armData.getBicepAngle(m_armPos);
         m_shoulderPID.setGoal(shoulderAngle);
         double shPID = m_shoulderPID.calculate(arm.getShoulderAngle());
-        arm.moveShoulder(shPID);
+     //   arm.moveShoulder(shPID);
 
 
         // Elbow 0 = Straight up in starting position + Deg goes out back
         double elbowAngle = RobotContainer.armData.getElbowAngle(m_armPos);
         m_elbowPID.setGoal(elbowAngle);
         double elPID = m_elbowPID.calculate(arm.getElbowAngle());
-        arm.moveElbow(-elPID);
+     //   arm.moveElbow(-elPID);
 
 
         
@@ -68,7 +68,7 @@ public class ArmController {
         double handAngle = RobotContainer.armData.getHandAngle(m_armPos);
         m_handPID.setGoal(handAngle);
         double hPID = m_handPID.calculate(arm.getHandAngle());
-        arm.moveHand(hPID);
+       // arm.moveHand(hPID);
 
                 // // Shoulder
                 // double shoulderAngle = Math.toRadians(RobotContainer.armData.getBicepAngle(m_armPos));
@@ -82,9 +82,6 @@ public class ArmController {
                 // m_elbowPID.setGoal(elbowAngle);
                 // double elPID = m_elbowPID.calculate(Math.toRadians(arm.getElbowAngle()));
                 // arm.moveElbow(-elPID);
-        
-        
-                
                 // // Hand
                 // double hAngle = Math.toRadians((RobotContainer.armData.getHandAngle(m_armPos)));
                 // m_handPID.setGoal(hAngle);

@@ -18,7 +18,7 @@ public class ArmData {
         
         data.put(ArmPosEnum.HOME.toString(), new ArmInfo(0,0,0));
         /******************  CONE DATA **************************/
-        data.put(ArmPosEnum.WALL_CONE.toString(), new ArmInfo(0, -16, 124));
+        data.put(ArmPosEnum.WALL_CONE.toString(), new ArmInfo(-2.5, -28.5, 129));
 
         data.put(ArmPosEnum.FAR_CONE.toString(), new ArmInfo(82, 130, 20));
         data.put(ArmPosEnum.MID_CONE.toString(), new ArmInfo(28.4, 53.9, -32));

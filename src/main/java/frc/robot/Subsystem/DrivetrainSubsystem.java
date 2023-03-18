@@ -6,6 +6,8 @@ package frc.robot.Subsystem;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.sensors.Pigeon2;
+import com.ctre.phoenix.sensors.WPI_Pigeon2;
+
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -109,7 +111,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
       ang = m_PGyro.getYaw();
       
     }else{
-      ang = -m_gyro.getAngle();
+      ang = m_gyro.getAngle();
     }
 
     return ang;
@@ -121,6 +123,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   }
   public void resetGyro(){
     m_gyro.reset();
+    m_gyro.calibrate();
     m_PGyro.setYaw(0);
   }
   public void resetDriveEncoders(){
@@ -186,7 +189,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
     // SmartDashboard.putNumber("PigeonAngle", -m_PGyro.getYaw());
     // SmartDashboard.putNumber("NavXAngle", -m_gyro.getAngle());
      SmartDashboard.putNumber("RobotAngle", getRobotAngle());
-
+     SmartDashboard.putString("Current Gyro", currentGyro.toString());
+     SmartDashboard.putBoolean("Relative ", isFieldRelative);
     // m_b.sendData();
     // m_fl.sendData();
     // m_fr.sendData();

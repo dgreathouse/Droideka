@@ -14,32 +14,35 @@ import frc.robot.k;
 
 public class IntakeSpinner extends SubsystemBase {
   /** Creates a new IntakeSpinner. */
-  public CANSparkMax m_intakeSpinnerMotCtrl;
+ // public CANSparkMax m_intakeSpinnerMotCtrl;
   public IntakeSpinner() {
-    m_intakeSpinnerMotCtrl = new CANSparkMax(k.INTAKE.leftRotateCANID, MotorType.kBrushless);
+ //   m_intakeSpinnerMotCtrl = new CANSparkMax(k.INTAKE.leftRotateCANID, MotorType.kBrushless);
     //m_intakeSpinnerMotCtrl.setOpenLoopRampRate(1);
-    m_intakeSpinnerMotCtrl.setIdleMode(IdleMode.kBrake);
+  //  m_intakeSpinnerMotCtrl.setIdleMode(IdleMode.kBrake);
   }
   public void spinHand(double _speed){
     double speed = _speed;
     double volts = speed * 12;
 
-    m_intakeSpinnerMotCtrl.setVoltage(volts);
+   // m_intakeSpinnerMotCtrl.setVoltage(volts);
   }
   public double getSpinnerCnts(){
-    return m_intakeSpinnerMotCtrl.getEncoder().getPosition();
+    return 0;
+   // return m_intakeSpinnerMotCtrl.getEncoder().getPosition();
   }
   public void setSpinnerCnts(double val){
-    m_intakeSpinnerMotCtrl.getEncoder().setPosition(0);
+   
+  //  m_intakeSpinnerMotCtrl.getEncoder().setPosition(0);
   }
   public double getIntakeCurrent(){
-    return m_intakeSpinnerMotCtrl.getOutputCurrent();
+   // return m_intakeSpinnerMotCtrl.getOutputCurrent();/
+   return 0;
     
    // return RobotContainer.pd.getCurrent(5);
   }
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("IntakeCurrent", getIntakeCurrent());
+ //   SmartDashboard.putNumber("IntakeCurrent", getIntakeCurrent());
     
   }
 }
