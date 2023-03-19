@@ -42,7 +42,7 @@ public class ArmDefaultCommand extends CommandBase {
 
       
       // Move to position. Buttons change enum in arm
-      //arm.m_armController.moveToPosition();
+      arm.m_armController.moveToPosition();
   
    }
  

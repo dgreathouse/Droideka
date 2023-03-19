@@ -49,74 +49,74 @@ public class Arm extends SubsystemBase {
   
   /** Creates a new Arm. */
   public Arm() {
-    // m_leftShoulderMotCtrl = new CANSparkMax(k.SHOULDER.leftCANId, MotorType.kBrushless);
-    // m_rightShoulderMotCtrl = new CANSparkMax(k.SHOULDER.rightCANId, MotorType.kBrushless);
-    // m_leftShoulderMotCtrl.restoreFactoryDefaults();
-    // m_rightShoulderMotCtrl.restoreFactoryDefaults();
-    // m_rightShoulderMotCtrl.follow(m_leftShoulderMotCtrl,true);
-    // m_rightShoulderMotCtrl.getEncoder().setPosition(0);
-    // m_leftShoulderMotCtrl.getEncoder().setPosition(0);
+    m_leftShoulderMotCtrl = new CANSparkMax(k.SHOULDER.leftCANId, MotorType.kBrushless);
+    m_rightShoulderMotCtrl = new CANSparkMax(k.SHOULDER.rightCANId, MotorType.kBrushless);
+    m_leftShoulderMotCtrl.restoreFactoryDefaults();
+    m_rightShoulderMotCtrl.restoreFactoryDefaults();
+    m_rightShoulderMotCtrl.follow(m_leftShoulderMotCtrl,true);
+    m_rightShoulderMotCtrl.getEncoder().setPosition(0);
+    m_leftShoulderMotCtrl.getEncoder().setPosition(0);
 
-    // m_leftElbowMotCtrl = new WPI_TalonSRX(k.ELBOW.leftCANId);
-    // m_leftElbowMotCtrl.configFactoryDefault();
-    // m_leftElbowMotCtrl.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
-    // m_leftElbowMotCtrl.setNeutralMode(NeutralMode.Brake);
-    // m_leftElbowMotCtrl.setSelectedSensorPosition(0);
+    m_leftElbowMotCtrl = new WPI_TalonSRX(k.ELBOW.leftCANId);
+    m_leftElbowMotCtrl.configFactoryDefault();
+    m_leftElbowMotCtrl.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+    m_leftElbowMotCtrl.setNeutralMode(NeutralMode.Brake);
+    m_leftElbowMotCtrl.setSelectedSensorPosition(0);
 
-    // m_rightElbowMotCtrl = new WPI_TalonSRX(k.ELBOW.rightCANId);
-    // m_rightElbowMotCtrl.configFactoryDefault();
-    // m_rightElbowMotCtrl.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
-    // m_rightElbowMotCtrl.setNeutralMode(NeutralMode.Brake);
-    // m_rightElbowMotCtrl.setSelectedSensorPosition(0);
-    // m_rightElbowMotCtrl.follow(m_leftElbowMotCtrl);
+    m_rightElbowMotCtrl = new WPI_TalonSRX(k.ELBOW.rightCANId);
+    m_rightElbowMotCtrl.configFactoryDefault();
+    m_rightElbowMotCtrl.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+    m_rightElbowMotCtrl.setNeutralMode(NeutralMode.Brake);
+    m_rightElbowMotCtrl.setSelectedSensorPosition(0);
+    m_rightElbowMotCtrl.follow(m_leftElbowMotCtrl);
     
 
-    // m_intakeRotateMotCtrl = new CANSparkMax(k.INTAKE.rigthSpinCANID, MotorType.kBrushless);
+    m_intakeRotateMotCtrl = new CANSparkMax(k.INTAKE.rigthSpinCANID, MotorType.kBrushless);
 
-    // m_intakeRotateMotCtrl.restoreFactoryDefaults();
-    // m_intakeRotateMotCtrl.setIdleMode(IdleMode.kCoast);
+    m_intakeRotateMotCtrl.restoreFactoryDefaults();
+    m_intakeRotateMotCtrl.setIdleMode(IdleMode.kCoast);
 
     
 
-    // m_rightShoulderMotCtrl.getEncoder().setPosition(0.0);
-    // m_armController = new ArmController(this);
+    m_rightShoulderMotCtrl.getEncoder().setPosition(0.0);
+    m_armController = new ArmController(this);
 
   }
 
   public double getShoulderAngle(){
-    return 0;
-  //  return m_leftShoulderMotCtrl.getEncoder().getPosition()* kShoulderDegPerCnt;
+  //  return 0;
+    return m_leftShoulderMotCtrl.getEncoder().getPosition()* kShoulderDegPerCnt;
   }
   public double getElbowAngle(){
-    return 0;
-  //  return m_leftElbowMotCtrl.getSelectedSensorPosition() * kElbowDegPerCnt;
+  //  return 0;
+    return m_leftElbowMotCtrl.getSelectedSensorPosition() * kElbowDegPerCnt;
   }
   public double getHandAngle(){
-  return 0;
-  //  return m_intakeRotateMotCtrl.getEncoder().getPosition() * kHandDegPerCnt;
+  //return 0;
+    return m_intakeRotateMotCtrl.getEncoder().getPosition() * kHandDegPerCnt;
   }
   
   public void moveShoulder(double _volts){
-   //// m_leftShoulderMotCtrl.setVoltage(_volts);
+    m_leftShoulderMotCtrl.setVoltage(_volts);
   }
   public void moveElbow(double _volts){
-   /////// m_leftElbowMotCtrl.setVoltage(_volts);
+    m_leftElbowMotCtrl.setVoltage(_volts);
   }
   public void moveHand(double _volts){
-  //  m_intakeRotateMotCtrl.setVoltage(_volts);
+    m_intakeRotateMotCtrl.setVoltage(_volts);
   }
 
   public void setArmPos(ArmPosEnum _pos){
-   // m_armController.m_armPos = _pos;
+    m_armController.m_armPos = _pos;
   }
 
   @Override
   public void periodic() {
     
-    // SmartDashboard.putNumber("SHMotCnts", getShoulderAngle());
-    // SmartDashboard.putNumber("ELMotCnts", getElbowAngle());
-    // SmartDashboard.putNumber("HAAngle", getHandAngle());
+    SmartDashboard.putNumber("SHMotCnts", getShoulderAngle());
+    SmartDashboard.putNumber("ELMotCnts", getElbowAngle());
+    SmartDashboard.putNumber("HAAngle", getHandAngle());
 
-    // SmartDashboard.putString("Arm Pos", m_armController.m_armPos.toString());
+    SmartDashboard.putString("Arm Pos", m_armController.m_armPos.toString());
   }
 }

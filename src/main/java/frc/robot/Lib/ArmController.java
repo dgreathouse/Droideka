@@ -53,14 +53,14 @@ public class ArmController {
         double shoulderAngle = RobotContainer.armData.getBicepAngle(m_armPos);
         m_shoulderPID.setGoal(shoulderAngle);
         double shPID = m_shoulderPID.calculate(arm.getShoulderAngle());
-     //   arm.moveShoulder(shPID);
+        arm.moveShoulder(shPID);
 
 
         // Elbow 0 = Straight up in starting position + Deg goes out back
         double elbowAngle = RobotContainer.armData.getElbowAngle(m_armPos);
         m_elbowPID.setGoal(elbowAngle);
         double elPID = m_elbowPID.calculate(arm.getElbowAngle());
-     //   arm.moveElbow(-elPID);
+        arm.moveElbow(-elPID);
 
 
         
@@ -68,7 +68,7 @@ public class ArmController {
         double handAngle = RobotContainer.armData.getHandAngle(m_armPos);
         m_handPID.setGoal(handAngle);
         double hPID = m_handPID.calculate(arm.getHandAngle());
-       // arm.moveHand(hPID);
+        arm.moveHand(hPID);
 
                 // // Shoulder
                 // double shoulderAngle = Math.toRadians(RobotContainer.armData.getBicepAngle(m_armPos));
