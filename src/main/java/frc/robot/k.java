@@ -32,8 +32,8 @@ public class k {
         public static double rotToleranceVel = 10; // Deg/sec
         public static double rotMaxOutput  = .5;
         public static double stickDeadband = 0.1;
-        public static double speedScale = 0.7;
-        public static double rotationScale = 0.4;
+        public static double speedScale = 1.0;
+        public static double rotationScale = 0.5;
         public static double autoRotateOutScale = 1.0;
         public static double MetersPerInch = 1/39.37008;
     }
