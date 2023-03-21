@@ -37,8 +37,6 @@ public class IntakeSpinner extends SubsystemBase {
   public double getIntakeCurrent(){
     return m_intakeSpinnerMotCtrl.getOutputCurrent();
   // return 0;
-    
-   // return RobotContainer.pd.getCurrent(5);
   }
   @Override
   public void periodic() {

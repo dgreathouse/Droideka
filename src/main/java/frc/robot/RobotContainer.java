@@ -82,13 +82,10 @@ public class RobotContainer {
     operatorController.axisGreaterThan(0,0.5).onTrue(new ArmSetCommand(ArmPosEnum.WALL_CONE)); // Left Stick Right
     operatorController.axisLessThan(0,-0.5).onTrue(new ArmSetCommand(ArmPosEnum.WALL_CONE)); // Left Stick Left
 
-    operatorController.axisGreaterThan(1,0.5).onTrue(new ArmSetCommand(ArmPosEnum.FLOOR_FRONT_CONE)); // Left Stick Down
+    operatorController.axisGreaterThan(1,0.5).onTrue(new ArmSetCommand(ArmPosEnum.FLOOR_FRONT_CUBE)); // Left Stick Down
 
-    operatorController.axisGreaterThan(4,-0.5).onTrue(new ArmSetCommand(ArmPosEnum.WALL_CUBE));  // Right Stick Right 
-    operatorController.axisLessThan(4,-0.5).onTrue(new ArmSetCommand(ArmPosEnum.WALL_CUBE));  // Right Stick Left
     operatorController.axisGreaterThan(5,0.5).onTrue(new ArmSetCommand(ArmPosEnum.FLOOR_FRONT_CUBE)); // Right Stick Down
 
-    operatorController.leftBumper().and(operatorController.y()).onTrue(new ArmSetCommand(ArmPosEnum.FAR_CONE));
     operatorController.leftBumper().and(operatorController.b()).onTrue(new ArmSetCommand(ArmPosEnum.MID_CONE));
     operatorController.leftBumper().and(operatorController.a()).onTrue(new ArmSetCommand(ArmPosEnum.LOW_CONE));
 

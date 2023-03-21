@@ -21,15 +21,12 @@ package frc.robot.Lib;
 public enum ArmPosEnum {
     HOME,
     WALL_CONE,
-    WALL_CUBE,
-    FLOOR_FRONT_CONE,
     FLOOR_FRONT_CUBE,
-    FAR_CONE,
     FAR_CUBE,
     MID_CONE,
     MID_CUBE,
     LOW_CONE,
     LOW_CUBE,
-    AUTO_FRONT_CONE
+    AUTO_FRONT_CUBE
 
 }
