@@ -35,7 +35,7 @@ import frc.robot.Lib.ArmPosEnum;
 public class Arm extends SubsystemBase {
 
  // 4096 * Rev = 124536 for 90Deg
-  public static double kShoulderDegPerCnt = 90.0/30.53;
+  public static double kShoulderDegPerCnt = 90/12.5;
   public static double kElbowDegPerCnt = 0.080142;
   public static double kHandDegPerCnt = 90/34.73;
   public CANSparkMax m_leftShoulderMotCtrl;
@@ -72,8 +72,8 @@ public class Arm extends SubsystemBase {
   }
 
   public double getShoulderAngle(){
-    return 0;
-   // return m_leftShoulderMotCtrl.getEncoder().getPosition()* kShoulderDegPerCnt;
+   // return 0;
+    return m_leftShoulderMotCtrl.getEncoder().getPosition()* kShoulderDegPerCnt;
   }
 
   public double getHandAngle(){
