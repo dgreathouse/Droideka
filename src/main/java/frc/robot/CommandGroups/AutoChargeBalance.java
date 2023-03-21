@@ -4,39 +4,34 @@
 
 package frc.robot.CommandGroups;
 
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Command.ArmSetCommand;
+import frc.robot.Command.AutoDriveBalancePIDCommand;
 import frc.robot.Command.AutoDrivetrainDrivePIDCommand;
 import frc.robot.Command.AutoIntakeInCommand;
-import frc.robot.Command.AutoIntakeOutCommand;
-import frc.robot.Lib.ArmPosEnum;
 
+
+import frc.robot.Lib.ArmPosEnum;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AutoTest extends SequentialCommandGroup {
-  /** Creates a new AutoTest. */
-  public AutoTest() {
-   // addRequirements(RobotContainer.drivetrainSubsystem, RobotContainer.intake, RobotContainer.arm);
-
-    
+public class AutoChargeBalance extends SequentialCommandGroup {
+  public String getName(){
+    return "Place Cone Cross";
+  }
+  /** Creates a new AutoChargeBalance. */
+  public AutoChargeBalance() {
+    // Add your commands in the addCommands() call, e.g.
+    // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new ArmSetCommand(ArmPosEnum.AUTO_FRONT_CUBE),
-      new WaitCommand(1),
-      new AutoIntakeOutCommand(),
+      new ArmSetCommand(ArmPosEnum.FAR_CUBE),
+      new WaitCommand(1.5), 
+      new AutoIntakeInCommand(),
       new ArmSetCommand(ArmPosEnum.HOME),
-      new WaitCommand(.5),
-      new ParallelCommandGroup(
-        new AutoIntakeInCommand(),
-        new AutoDrivetrainDrivePIDCommand(1, 1, 0, 204, 10),
-        new ArmSetCommand(ArmPosEnum.FLOOR_FRONT_CUBE)
-        
-      ),
-      new ArmSetCommand(ArmPosEnum.HOME)
-
-      
+      new WaitCommand(1),
+      new AutoDrivetrainDrivePIDCommand(2, 1, 0, 48, 6),
+      new AutoDriveBalancePIDCommand()
     );
   }
 }

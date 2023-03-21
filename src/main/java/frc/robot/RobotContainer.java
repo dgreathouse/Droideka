@@ -13,8 +13,6 @@ import frc.robot.Command.ArmDefaultCommand;
 import frc.robot.Command.ArmSetCommand;
 import frc.robot.Command.AutoDoNothingCommandGroup;
 import frc.robot.Command.DrivetrainDefaultCommand;
-import frc.robot.Command.IntakeInSpinCommand;
-import frc.robot.Command.IntakeOutSpinCommand;
 import frc.robot.Command.IntakeSpinnerDefaultCommand;
 import frc.robot.Command.SwitchDriveNeutralMode;
 import frc.robot.Command.SwitchFieldDriveMode;
