@@ -35,14 +35,13 @@ import frc.robot.Lib.ArmPosEnum;
 public class Arm extends SubsystemBase {
 
  // 4096 * Rev = 124536 for 90Deg
-  public static double kShoulderDegPerCnt = 90.0/30.53;
+  public static double kShoulderDegPerCnt = 90/12.5;
   public static double kElbowDegPerCnt = 0.080142;
   public static double kHandDegPerCnt = 90/34.73;
   public CANSparkMax m_leftShoulderMotCtrl;
   public CANSparkMax m_rightShoulderMotCtrl;
-  public WPI_TalonSRX m_leftElbowMotCtrl;
-  public WPI_TalonSRX m_rightElbowMotCtrl;
-  public CANSparkMax m_intakeRotateMotCtrl;
+
+//  public CANSparkMax m_intakeRotateMotCtrl;
   
   public ArmController m_armController;
 
@@ -57,24 +56,13 @@ public class Arm extends SubsystemBase {
     m_rightShoulderMotCtrl.getEncoder().setPosition(0);
     m_leftShoulderMotCtrl.getEncoder().setPosition(0);
 
-    m_leftElbowMotCtrl = new WPI_TalonSRX(k.ELBOW.leftCANId);
-    m_leftElbowMotCtrl.configFactoryDefault();
-    m_leftElbowMotCtrl.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
-    m_leftElbowMotCtrl.setNeutralMode(NeutralMode.Brake);
-    m_leftElbowMotCtrl.setSelectedSensorPosition(0);
 
-    m_rightElbowMotCtrl = new WPI_TalonSRX(k.ELBOW.rightCANId);
-    m_rightElbowMotCtrl.configFactoryDefault();
-    m_rightElbowMotCtrl.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
-    m_rightElbowMotCtrl.setNeutralMode(NeutralMode.Brake);
-    m_rightElbowMotCtrl.setSelectedSensorPosition(0);
-    m_rightElbowMotCtrl.follow(m_leftElbowMotCtrl);
     
 
-    m_intakeRotateMotCtrl = new CANSparkMax(k.INTAKE.rigthSpinCANID, MotorType.kBrushless);
+    // m_intakeRotateMotCtrl = new CANSparkMax(k.INTAKE.rigthSpinCANID, MotorType.kBrushless);
 
-    m_intakeRotateMotCtrl.restoreFactoryDefaults();
-    m_intakeRotateMotCtrl.setIdleMode(IdleMode.kCoast);
+    // m_intakeRotateMotCtrl.restoreFactoryDefaults();
+    // m_intakeRotateMotCtrl.setIdleMode(IdleMode.kCoast);
 
     
 
@@ -84,26 +72,21 @@ public class Arm extends SubsystemBase {
   }
 
   public double getShoulderAngle(){
-  //  return 0;
+   // return 0;
     return m_leftShoulderMotCtrl.getEncoder().getPosition()* kShoulderDegPerCnt;
   }
-  public double getElbowAngle(){
-  //  return 0;
-    return m_leftElbowMotCtrl.getSelectedSensorPosition() * kElbowDegPerCnt;
-  }
+
   public double getHandAngle(){
-  //return 0;
-    return m_intakeRotateMotCtrl.getEncoder().getPosition() * kHandDegPerCnt;
+  return 0;
+   // return m_intakeRotateMotCtrl.getEncoder().getPosition() * kHandDegPerCnt;
   }
   
   public void moveShoulder(double _volts){
     m_leftShoulderMotCtrl.setVoltage(_volts);
   }
-  public void moveElbow(double _volts){
-    m_leftElbowMotCtrl.setVoltage(_volts);
-  }
+
   public void moveHand(double _volts){
-    m_intakeRotateMotCtrl.setVoltage(_volts);
+   // m_intakeRotateMotCtrl.setVoltage(_volts);
   }
 
   public void setArmPos(ArmPosEnum _pos){
@@ -114,7 +97,7 @@ public class Arm extends SubsystemBase {
   public void periodic() {
     
     SmartDashboard.putNumber("SHMotCnts", getShoulderAngle());
-    SmartDashboard.putNumber("ELMotCnts", getElbowAngle());
+
     SmartDashboard.putNumber("HAAngle", getHandAngle());
 
     SmartDashboard.putString("Arm Pos", m_armController.m_armPos.toString());
