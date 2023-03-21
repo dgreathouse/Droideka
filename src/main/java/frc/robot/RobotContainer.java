@@ -83,7 +83,6 @@ public class RobotContainer {
     operatorController.axisLessThan(0,-0.5).onTrue(new ArmSetCommand(ArmPosEnum.WALL_CONE)); // Left Stick Left
 
     operatorController.axisGreaterThan(1,0.5).onTrue(new ArmSetCommand(ArmPosEnum.FLOOR_FRONT_CUBE)); // Left Stick Down
-
     operatorController.axisGreaterThan(5,0.5).onTrue(new ArmSetCommand(ArmPosEnum.FLOOR_FRONT_CUBE)); // Right Stick Down
 
     operatorController.leftBumper().and(operatorController.b()).onTrue(new ArmSetCommand(ArmPosEnum.MID_CONE));
@@ -93,8 +92,8 @@ public class RobotContainer {
     operatorController.rightBumper().and(operatorController.b()).onTrue(new ArmSetCommand(ArmPosEnum.MID_CUBE));
     operatorController.rightBumper().and(operatorController.a()).onTrue(new ArmSetCommand(ArmPosEnum.LOW_CUBE));
     
-    operatorController.y().and(operatorController.leftBumper().negate()).and(operatorController.rightBumper().negate()).onTrue(new IntakeInSpinCommand());
-    operatorController.a().and(operatorController.leftBumper().negate()).and(operatorController.rightBumper().negate()).onTrue(new IntakeOutSpinCommand());
+    // operatorController.y().and(operatorController.leftBumper().negate()).and(operatorController.rightBumper().negate()).onTrue(new IntakeInSpinCommand());
+    // operatorController.a().and(operatorController.leftBumper().negate()).and(operatorController.rightBumper().negate()).onTrue(new IntakeOutSpinCommand());
     // operatorController.y().onTrue(new IntakeInSpinCommand());
     // operatorController.a().onTrue(new IntakeOutSpinCommand());
     
