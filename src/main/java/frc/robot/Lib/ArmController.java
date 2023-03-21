@@ -57,11 +57,11 @@ public class ArmController {
 
   
         
-        // Hand
-        // double handAngle = RobotContainer.armData.getHandAngle(m_armPos);
-        // m_handPID.setGoal(handAngle);
-        // double hPID = m_handPID.calculate(arm.getHandAngle());
-        // arm.moveHand(hPID);
+        //Hand
+        double handAngle = RobotContainer.armData.getHandAngle(m_armPos);
+        m_handPID.setGoal(handAngle);
+        double hPID = m_handPID.calculate(arm.getHandAngle());
+        arm.moveHand(hPID);
 
                 // // Shoulder
                 // double shoulderAngle = Math.toRadians(RobotContainer.armData.getBicepAngle(m_armPos));
