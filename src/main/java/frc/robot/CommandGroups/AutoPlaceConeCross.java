@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Command.ArmSetCommand;
 import frc.robot.Command.AutoDrivetrainDrivePIDCommand;
 import frc.robot.Command.AutoIntakeInCommand;
-import frc.robot.Command.AutoIntakeOutCommand;
+
 
 import frc.robot.Lib.ArmPosEnum;
 

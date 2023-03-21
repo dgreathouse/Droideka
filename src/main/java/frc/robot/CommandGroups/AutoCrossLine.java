@@ -5,7 +5,7 @@
 package frc.robot.CommandGroups;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
+
 import frc.robot.Command.ArmSetCommand;
 import frc.robot.Command.AutoDrivetrainDrivePIDCommand;
 import frc.robot.Lib.ArmPosEnum;

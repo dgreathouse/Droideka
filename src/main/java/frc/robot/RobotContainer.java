@@ -22,7 +22,6 @@ import frc.robot.Command.SwitchGyroCommand;
 import frc.robot.CommandGroups.AutoCrossLine;
 import frc.robot.CommandGroups.AutoPlaceConeCross;
 import frc.robot.CommandGroups.AutoPlaceCubeCross;
-import frc.robot.CommandGroups.AutoTest;
 import frc.robot.Lib.ArmData;
 import frc.robot.Lib.ArmPosEnum;
 import frc.robot.Subsystem.Arm;
