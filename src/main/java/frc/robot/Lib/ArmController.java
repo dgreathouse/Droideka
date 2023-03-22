@@ -20,7 +20,7 @@ import frc.robot.Subsystem.Arm;
 public class ArmController {
     
     Arm arm;
-    public ArmPosEnum m_armPos = ArmPosEnum.HOME;
+    public ArmPosEnum m_armPos = ArmPosEnum.AUTO_HOME;
 
     ProfiledPIDController m_shoulderPID;
 
@@ -36,8 +36,7 @@ public class ArmController {
     public ArmController(Arm _arm){
         // All PIDs are in Degrees
         // Velocity is in 
-        m_shoulderPID = new ProfiledPIDController(.37, .4, 0, new TrapezoidProfile.Constraints(115,  105));
-
+        m_shoulderPID = new ProfiledPIDController(0.4, 0.0, 0, new TrapezoidProfile.Constraints(100,  160));
         m_handPID = new ProfiledPIDController(0.2, 0.5, 0, new TrapezoidProfile.Constraints(112,130));
 
         m_shoulderPID.setTolerance(0.01);
