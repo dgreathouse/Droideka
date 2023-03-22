@@ -33,8 +33,8 @@ import frc.robot.Lib.ArmPosEnum;
 public class Arm extends SubsystemBase {
 
  // 4096 * Rev = 124536 for 90Deg
-  public static double kShoulderDegPerCnt = 90/3.5;
-  public static double kHandDegPerCnt = 90/34.73;
+  public static double kShoulderDegPerCnt = 90/13;
+  public static double kHandDegPerCnt = 90/29;
   public CANSparkMax m_leftShoulderMotCtrl;
   public CANSparkMax m_rightShoulderMotCtrl;
 
@@ -51,6 +51,8 @@ public class Arm extends SubsystemBase {
     m_rightShoulderMotCtrl.follow(m_leftShoulderMotCtrl,true);
     m_rightShoulderMotCtrl.getEncoder().setPosition(0);
     m_leftShoulderMotCtrl.getEncoder().setPosition(0);
+    m_leftShoulderMotCtrl.setIdleMode(IdleMode.kBrake);
+    m_rightShoulderMotCtrl.setIdleMode(IdleMode.kBrake);
 
 
     
