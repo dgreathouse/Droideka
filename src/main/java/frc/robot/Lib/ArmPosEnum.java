@@ -28,6 +28,8 @@ public enum ArmPosEnum {
     LOW_CONE,
     LOW_CUBE,
     AUTO_FRONT_CUBE,
-    AUTO_HOME
+    AUTO_HOME,
+    FAR_CUBE_REVERSE,
+    MID_CUBE_REVERSE
 
 }

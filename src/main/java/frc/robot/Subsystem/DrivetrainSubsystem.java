@@ -115,6 +115,17 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
     return ang;
   }
+  public double getRobotAngle360(){
+    double ang = 0;
+    if(currentGyro == GyroEnum.PIGEON2){
+      ang = m_PGyro.getYaw();
+      
+    }else{
+      ang = m_gyro.getAngle();
+    }
+
+    return ang%360;
+  }
   public double getRobotPitch(){
     double ang = 0;
     if(currentGyro == GyroEnum.PIGEON2){

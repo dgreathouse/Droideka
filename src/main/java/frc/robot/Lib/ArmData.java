@@ -24,14 +24,17 @@ public class ArmData {
         data.put(ArmPosEnum.LOW_CONE.toString(), new ArmInfo(40,  0));
 
         /******************  CUBE DATA **************************/
-        data.put(ArmPosEnum.FAR_CUBE.toString(), new ArmInfo(13,  -125));
+        data.put(ArmPosEnum.FAR_CUBE.toString(), new ArmInfo(22,  -157));
         data.put(ArmPosEnum.MID_CUBE.toString(), new ArmInfo(35, -157));
-        data.put(ArmPosEnum.LOW_CUBE.toString(), new ArmInfo(-113,-157));
+        data.put(ArmPosEnum.LOW_CUBE.toString(), new ArmInfo(35,  -157));
+
+        data.put(ArmPosEnum.FAR_CUBE_REVERSE.toString(), new ArmInfo(-90,  -157));
+        data.put(ArmPosEnum.MID_CUBE_REVERSE.toString(), new ArmInfo(-90, -157));
 
         data.put(ArmPosEnum.FLOOR_FRONT_CUBE.toString(), new ArmInfo(-113, -82));
 
         /******************  AUTO ARM DATA **************************/
-        data.put(ArmPosEnum.AUTO_FRONT_CUBE.toString(), new ArmInfo(-113, -82));
+        data.put(ArmPosEnum.AUTO_FRONT_CUBE.toString(), new ArmInfo(0, 0));
         data.put(ArmPosEnum.AUTO_HOME.toString(),new ArmInfo(0, 0));
 
     }
