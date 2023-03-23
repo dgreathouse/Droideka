@@ -21,7 +21,7 @@ public class IntakeInSpinCommand extends CommandBase {
   @Override
   public void initialize() {
     isFinished = false;
-    RobotContainer.intake.setSpinnerCnts(0);
+    //RobotContainer.intake.setSpinnerCnts(0);
     //SmartDashboard.putNumber("SpinnerInitCnts", RobotContainer.intake.getSpinnerCnts());
   }
 
@@ -29,9 +29,9 @@ public class IntakeInSpinCommand extends CommandBase {
   @Override
   public void execute() {
 
-    if(RobotContainer.intake.getSpinnerCnts() < -.1){
-      isFinished = true;
-    }
+    // if(RobotContainer.intake.getSpinnerCnts() < -.1){
+    //   isFinished = true;
+    // }
     RobotContainer.intake.spinHand(-0.5);
   }
 

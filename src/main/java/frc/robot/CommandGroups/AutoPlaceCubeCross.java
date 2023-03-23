@@ -4,10 +4,12 @@
 
 package frc.robot.CommandGroups;
 
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Command.ArmSetCommand;
 import frc.robot.Command.AutoDrivetrainDrivePIDCommand;
+import frc.robot.Command.AutoIntakeInCommand;
 import frc.robot.Command.AutoIntakeOutCommand;
 
 import frc.robot.Lib.ArmPosEnum;
@@ -26,9 +28,13 @@ public class AutoPlaceCubeCross extends SequentialCommandGroup {
       new ArmSetCommand(ArmPosEnum.FAR_CUBE),
       new WaitCommand(1.5),
       new AutoIntakeOutCommand(),
-      new ArmSetCommand(ArmPosEnum.HOME),
-      new WaitCommand(1),
-      new AutoDrivetrainDrivePIDCommand(2, 1, 0, 180, 6)
+      new ArmSetCommand(ArmPosEnum.AUTO_FRONT_CUBE),
+      new WaitCommand(.5),
+      new ParallelCommandGroup(
+          new AutoIntakeInCommand(),
+          new AutoDrivetrainDrivePIDCommand(2, 1, 0, 190, 6)
+      ),
+      new ArmSetCommand(ArmPosEnum.HOME)
       
     );
   }

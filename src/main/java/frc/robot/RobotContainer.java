@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -63,7 +64,9 @@ public class RobotContainer {
     
     // Add more auto options here 
     SmartDashboard.putData(autoChooser);
-    SmartDashboard.putData(drivetrainSubsystem);
+    PowerDistribution pdh = new PowerDistribution();
+    SmartDashboard.putData(pdh);
+    //SmartDashboard.putData(drivetrainSubsystem);
     LiveWindow.enableAllTelemetry();
 
   }

@@ -4,9 +4,9 @@
 
 package frc.robot.Subsystem;
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMax.IdleMode;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -14,11 +14,12 @@ import frc.robot.k;
 
 public class IntakeSpinner extends SubsystemBase {
   /** Creates a new IntakeSpinner. */
-  public CANSparkMax m_intakeSpinnerMotCtrl;
+  public WPI_TalonSRX m_intakeSpinnerMotCtrl;
   public IntakeSpinner() {
-   m_intakeSpinnerMotCtrl = new CANSparkMax(k.INTAKE.leftRotateCANID, MotorType.kBrushless);
-   m_intakeSpinnerMotCtrl.setOpenLoopRampRate(1);
-   m_intakeSpinnerMotCtrl.setIdleMode(IdleMode.kBrake);
+   m_intakeSpinnerMotCtrl = new WPI_TalonSRX(k.INTAKE.spinCANID);
+   m_intakeSpinnerMotCtrl.configFactoryDefault();
+   //m_intakeSpinnerMotCtrl.setOpenLoopRampRate(1);
+   m_intakeSpinnerMotCtrl.setNeutralMode(NeutralMode.Brake);
   }
   public void spinHand(double _speed){
     double speed = _speed;
@@ -26,16 +27,10 @@ public class IntakeSpinner extends SubsystemBase {
 
     m_intakeSpinnerMotCtrl.setVoltage(volts);
   }
-  public double getSpinnerCnts(){
-    //return 0;
-    return m_intakeSpinnerMotCtrl.getEncoder().getPosition();
-  }
-  public void setSpinnerCnts(double val){
-   
-    m_intakeSpinnerMotCtrl.getEncoder().setPosition(0);
-  }
+
+
   public double getIntakeCurrent(){
-    return m_intakeSpinnerMotCtrl.getOutputCurrent();
+    return 0;
   // return 0;
   }
   @Override

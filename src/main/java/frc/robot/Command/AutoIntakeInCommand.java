@@ -10,7 +10,7 @@ import frc.robot.RobotContainer;
 
 public class AutoIntakeInCommand extends CommandBase {
   double currentLim = 20;
-  double intakeSpeed = -1;
+  double intakeSpeed = 1;
   Timer timer = new Timer();
   /** Creates a new AutoIntakeInCommand. */
   public AutoIntakeInCommand() {
@@ -38,7 +38,7 @@ public class AutoIntakeInCommand extends CommandBase {
   @Override
   public boolean isFinished() {
     //if((RobotContainer.intake.getIntakeCurrent() > 50 && timer.hasElapsed(0.75)) || timer.hasElapsed(1.0)){
-    if(timer.hasElapsed(0.5)){
+    if((RobotContainer.intake.getIntakeCurrent()>40 && timer.hasElapsed(1))|| timer.hasElapsed(4)){
       RobotContainer.intake.spinHand(0);
       return true;
     }

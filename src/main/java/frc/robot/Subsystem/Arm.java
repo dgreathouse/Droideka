@@ -57,7 +57,7 @@ public class Arm extends SubsystemBase {
 
     
 
-    m_intakeRotateMotCtrl = new CANSparkMax(k.INTAKE.rigthSpinCANID, MotorType.kBrushless);
+    m_intakeRotateMotCtrl = new CANSparkMax(k.INTAKE.rotateCANID, MotorType.kBrushless);
     m_intakeRotateMotCtrl.restoreFactoryDefaults();
     m_intakeRotateMotCtrl.setIdleMode(IdleMode.kBrake);
 

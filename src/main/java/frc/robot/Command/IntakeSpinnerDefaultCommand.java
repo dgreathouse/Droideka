@@ -4,11 +4,13 @@
 
 package frc.robot.Command;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.RobotContainer;
 
 public class IntakeSpinnerDefaultCommand extends CommandBase {
+  Timer timer = new Timer();
   /** Creates a new IntakeSpinnerDefaultCommand. */
   public IntakeSpinnerDefaultCommand(Subsystem _sys) {
     addRequirements(_sys);
@@ -26,31 +28,51 @@ public class IntakeSpinnerDefaultCommand extends CommandBase {
     double leftSpeed = RobotContainer.operatorController.getLeftTriggerAxis();
     double rightSpeed = RobotContainer.operatorController.getRightTriggerAxis();
     double speed = rightSpeed - leftSpeed;
+    double curr = RobotContainer.intake.getIntakeCurrent();
     speed *= sign;
     if(Math.abs(speed) < .20){
       speed = 0;
+      
     }else {
     switch(RobotContainer.arm.m_armController.m_armPos){
-
+      
       case FAR_CUBE:
-        speed = 1.0;
+        speed = -1.0;
         break;
-      case FLOOR_FRONT_CUBE:
+      case FLOOR_FRONT_CUBE: // Current to high
+       
+        if(curr > 30){
+          speed = 0;
+        }else {
+          speed = 0.4;
+        }
         break;
-      case HOME:
-        speed = 0;
+      case HOME:  // 0 or Wall speed with current limit
+ 
+        if(curr > 30){
+          speed = 0;
+        }else {
+          speed = .4;
+        }
         break;
       case LOW_CONE:
-        speed = .4;
+        speed = -.4;
         break;
       case LOW_CUBE:
-        
+        speed = -.4;
         break;
       case MID_CONE:
+      speed = -.4;
         break;
       case MID_CUBE:
+        speed = -.4;
         break;
-      case WALL_CONE:
+      case WALL_CONE:// Current limit
+      if(curr > 30){
+        speed = 0;
+      }else {
+        speed = .4;
+      }
         break;
       default:
         break;

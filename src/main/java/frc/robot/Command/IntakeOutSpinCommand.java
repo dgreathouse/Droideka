@@ -21,16 +21,16 @@ public class IntakeOutSpinCommand extends CommandBase {
   public void initialize() {
     isFinished = false;
     
-    RobotContainer.intake.setSpinnerCnts(0);
+   // RobotContainer.intake.setSpinnerCnts(0);
     //RobotContainer.intake.setSpinnerCnts(0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(RobotContainer.intake.getSpinnerCnts() > .1){
-      isFinished = true;
-    }
+    // if(RobotContainer.intake.getSpinnerCnts() > .1){
+    //   isFinished = true;
+    // }
     RobotContainer.intake.spinHand(.5);
   }
 

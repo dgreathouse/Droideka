@@ -38,7 +38,7 @@ public class k {
         public static double MetersPerInch = 1/39.37008;
     }
     public static class SWERVE {
-        public static SwerveData SDBack = new SwerveData("B", 10, InvertType.InvertMotorOutput, 20, InvertType.InvertMotorOutput, 1, 193);
+        public static SwerveData SDBack = new SwerveData("B", 10, InvertType.InvertMotorOutput, 20, InvertType.InvertMotorOutput, 1, 197.2);
         public static SwerveData SDFrontLeft = new SwerveData("FL",11, InvertType.None, 21, InvertType.InvertMotorOutput, 2, 166.70);
         public static SwerveData SDFrontRight = new SwerveData("FR",12, InvertType.InvertMotorOutput,22, InvertType.InvertMotorOutput, 3, 281.3);
 
@@ -97,8 +97,8 @@ public class k {
         public static double TimeoutOnTarget = 2;
     }
     public static class INTAKE {
-        public static int rigthSpinCANID = 28;
-        public static int leftRotateCANID = 27;
+        public static int rotateCANID = 28;
+        public static int spinCANID = 49;
         public static double PID_P = 1;
         public static double PID_I = 1;
         public static double CntsPDeg = 1;

@@ -36,8 +36,8 @@ public class ArmController {
     public ArmController(Arm _arm){
         // All PIDs are in Degrees
         // Velocity is in 
-        m_shoulderPID = new ProfiledPIDController(0.4, 0.0, 0, new TrapezoidProfile.Constraints(100,  160));
-        m_handPID = new ProfiledPIDController(0.2, 0.5, 0, new TrapezoidProfile.Constraints(112,130));
+        m_shoulderPID = new ProfiledPIDController(0.42, 0.05, 0, new TrapezoidProfile.Constraints(100,  160));
+        m_handPID = new ProfiledPIDController(0.2, 0.5, 0, new TrapezoidProfile.Constraints(125,130));
 
         m_shoulderPID.setTolerance(0.01);
         m_handPID.setTolerance(0.01);
@@ -51,9 +51,6 @@ public class ArmController {
         m_shoulderPID.setGoal(shoulderAngle);
         double shPID = m_shoulderPID.calculate(arm.getShoulderAngle());
         arm.moveShoulder(shPID);
-
-
-  
         
         //Hand
         double handAngle = RobotContainer.armData.getHandAngle(m_armPos);
