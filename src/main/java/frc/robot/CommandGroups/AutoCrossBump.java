@@ -5,8 +5,10 @@
 package frc.robot.CommandGroups;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Command.ArmSetCommand;
 import frc.robot.Command.AutoDrivetrainDriveDisCommand;
+import frc.robot.Command.AutoIntakeOutCommand;
 import frc.robot.Lib.ArmPosEnum;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -18,8 +20,12 @@ public class AutoCrossBump extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
+      new ArmSetCommand(ArmPosEnum.FAR_CUBE),
+      new WaitCommand(1.5),
+      new AutoIntakeOutCommand(),
       new ArmSetCommand(ArmPosEnum.HOME),
-      new AutoDrivetrainDriveDisCommand(2, 150, 6)
+      new WaitCommand(1),
+      new AutoDrivetrainDriveDisCommand(2, 36, 6)
     );
   }
 }
