@@ -13,11 +13,13 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Command.ArmDefaultCommand;
 import frc.robot.Command.ArmSetCommand;
 import frc.robot.Command.AutoDoNothingCommandGroup;
+import frc.robot.Command.AutoDrivetrainDriveDisCommand;
 import frc.robot.Command.DrivetrainDefaultCommand;
 import frc.robot.Command.IntakeSpinnerDefaultCommand;
 import frc.robot.Command.SwitchDriveNeutralMode;
 import frc.robot.Command.SwitchFieldDriveMode;
 import frc.robot.Command.SwitchGyroCommand;
+import frc.robot.CommandGroups.AutoCrossBump;
 import frc.robot.CommandGroups.AutoCrossLine;
 import frc.robot.CommandGroups.AutoPlaceConeCross; 
 import frc.robot.CommandGroups.AutoPlaceCubeCross;
@@ -58,6 +60,7 @@ public class RobotContainer {
 
     autoChooser.addOption("Place Cone Cross", new AutoPlaceConeCross());
     autoChooser.addOption("Place Cube Cross", new AutoPlaceCubeCross());
+    autoChooser.addOption("Cross Bump", new AutoCrossBump());
     autoChooser.addOption("Cross Line", new AutoCrossLine());
    // autoChooser.addOption("Test", new AutoTest());
     autoChooser.setDefaultOption("Do Nothing", new AutoDoNothingCommandGroup());
