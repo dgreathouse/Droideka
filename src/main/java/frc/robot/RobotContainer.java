@@ -87,13 +87,14 @@ public class RobotContainer {
     operatorController.leftBumper().and(operatorController.b()).onTrue(new ArmSetCommand(ArmPosEnum.MID_CONE));
     operatorController.leftBumper().and(operatorController.a()).onTrue(new ArmSetCommand(ArmPosEnum.LOW_CONE));
 
-    /************************* Operator Control Buttons (CUMES) **************************************************/
+    /************************* Operator Control Buttons (CUBES) **************************************************/
     operatorController.axisGreaterThan(1,0.5).onTrue(new ArmSetCommand(ArmPosEnum.FLOOR_FRONT_CUBE)); // Left Stick Down
     operatorController.axisGreaterThan(5,0.5).onTrue(new ArmSetCommand(ArmPosEnum.FLOOR_FRONT_CUBE)); // Right Stick Down
     operatorController.rightBumper().and(operatorController.y()).onTrue(new ArmSetCommand(ArmPosEnum.FAR_CUBE));
     operatorController.rightBumper().and(operatorController.b()).onTrue(new ArmSetCommand(ArmPosEnum.MID_CUBE));
     operatorController.rightBumper().and(operatorController.a()).onTrue(new ArmSetCommand(ArmPosEnum.LOW_CUBE));
-    
+    operatorController.rightBumper().and(operatorController.x()).onTrue(new ArmSetCommand(ArmPosEnum.FAR_CUBE_REVERSE));
+    operatorController.rightBumper().and(operatorController.back()).onTrue(new ArmSetCommand(ArmPosEnum.MID_CUBE_REVERSE));
     drivetrainSubsystem.resetSteerEncoders();
     
    // LiveWindow.disableAllTelemetry();

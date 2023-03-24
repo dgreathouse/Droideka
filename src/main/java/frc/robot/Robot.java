@@ -29,7 +29,9 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+   // RobotContainer.arm.setBrakes();
+  }
 
   @Override
   public void disabledPeriodic() {}

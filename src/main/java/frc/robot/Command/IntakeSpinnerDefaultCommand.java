@@ -74,6 +74,12 @@ public class IntakeSpinnerDefaultCommand extends CommandBase {
         speed = .4;
       }
         break;
+        case MID_CUBE_REVERSE:
+        speed = -.6;
+        break;
+        case FAR_CUBE_REVERSE:
+        speed = -1;
+        break;
       default:
         break;
 

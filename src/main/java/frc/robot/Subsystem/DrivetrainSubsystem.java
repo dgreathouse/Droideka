@@ -212,6 +212,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
      SmartDashboard.putNumber("RobotAngle", getRobotAngle());
      SmartDashboard.putString("Current Gyro", currentGyro.toString());
      SmartDashboard.putBoolean("Relative ", isFieldRelative);
+     SmartDashboard.putNumber("RobotAngle360", getRobotAngle360());
     m_b.sendData();
     m_fl.sendData();
     m_fr.sendData();

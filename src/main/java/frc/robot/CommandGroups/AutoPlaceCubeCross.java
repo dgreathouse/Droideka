@@ -28,13 +28,10 @@ public class AutoPlaceCubeCross extends SequentialCommandGroup {
       new ArmSetCommand(ArmPosEnum.FAR_CUBE),
       new WaitCommand(1.5),
       new AutoIntakeOutCommand(),
-      new ArmSetCommand(ArmPosEnum.AUTO_FRONT_CUBE),
-      new WaitCommand(.5),
-      new ParallelCommandGroup(
-          new AutoIntakeInCommand(),
-          new AutoDrivetrainDrivePIDCommand(2, 1, 0, 190, 6)
-      ),
-      new ArmSetCommand(ArmPosEnum.HOME)
+      new ArmSetCommand(ArmPosEnum.HOME),
+      new WaitCommand(1),
+      new AutoDrivetrainDrivePIDCommand(2, 1, 0, 190, 6)
+      
       
     );
   }

@@ -16,25 +16,25 @@ public class ArmData {
     public ArmData(){          // ARM INFO( Bicep/Shoulder   Forearm/Elbow    Wrist/Intake)
 
         
-        data.put(ArmPosEnum.HOME.toString(), new ArmInfo(-113,-157));
+        data.put(ArmPosEnum.HOME.toString(), new ArmInfo(-126.5,4.5));
 
         /******************  CONE DATA **************************/
-        data.put(ArmPosEnum.WALL_CONE.toString(), new ArmInfo(-8.5,  125.8));
-        data.put(ArmPosEnum.MID_CONE.toString(), new ArmInfo(40,  0));
-        data.put(ArmPosEnum.LOW_CONE.toString(), new ArmInfo(40,  0));
+        data.put(ArmPosEnum.WALL_CONE.toString(), new ArmInfo(2.2,  300));
+        data.put(ArmPosEnum.MID_CONE.toString(), new ArmInfo(57,  158));
+        data.put(ArmPosEnum.LOW_CONE.toString(), new ArmInfo(57,  158));
 
         /******************  CUBE DATA **************************/
-        data.put(ArmPosEnum.FAR_CUBE.toString(), new ArmInfo(22,  -157));
-        data.put(ArmPosEnum.MID_CUBE.toString(), new ArmInfo(35, -157));
-        data.put(ArmPosEnum.LOW_CUBE.toString(), new ArmInfo(35,  -157));
+        data.put(ArmPosEnum.FAR_CUBE.toString(), new ArmInfo(45,  60));
+        data.put(ArmPosEnum.MID_CUBE.toString(), new ArmInfo(65, 50));
+        data.put(ArmPosEnum.LOW_CUBE.toString(), new ArmInfo(-126.5,  4.5));
 
-        data.put(ArmPosEnum.FAR_CUBE_REVERSE.toString(), new ArmInfo(-90,  -157));
-        data.put(ArmPosEnum.MID_CUBE_REVERSE.toString(), new ArmInfo(-90, -157));
+        data.put(ArmPosEnum.FAR_CUBE_REVERSE.toString(), new ArmInfo(-22,  91));
+        data.put(ArmPosEnum.MID_CUBE_REVERSE.toString(), new ArmInfo(-52, 57));
 
-        data.put(ArmPosEnum.FLOOR_FRONT_CUBE.toString(), new ArmInfo(-113, -82));
+        data.put(ArmPosEnum.FLOOR_FRONT_CUBE.toString(), new ArmInfo(-126.5, 76));
 
         /******************  AUTO ARM DATA **************************/
-        data.put(ArmPosEnum.AUTO_FRONT_CUBE.toString(), new ArmInfo(0, 0));
+        data.put(ArmPosEnum.AUTO_FRONT_CUBE.toString(), new ArmInfo(-126.5, 76));
         data.put(ArmPosEnum.AUTO_HOME.toString(),new ArmInfo(0, 0));
 
     }
