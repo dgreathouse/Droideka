@@ -25,7 +25,7 @@ public class AutoCrossBump extends SequentialCommandGroup {
       new AutoIntakeOutCommand(),
       new ArmSetCommand(ArmPosEnum.HOME),
       new WaitCommand(1),
-      new AutoDrivetrainDriveDisCommand(2, 36, 6)
+      new AutoDrivetrainDriveDisCommand(2, 140, 6)
     );
   }
 }
