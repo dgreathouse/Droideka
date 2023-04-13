@@ -24,12 +24,14 @@ import frc.robot.k.DRIVETRAIN;
 import frc.robot.k.SWERVE;
 
 public class DrivetrainSubsystem extends SubsystemBase {
-  SwerveModule m_b = new SwerveModule(SWERVE.SDBack);
+  
   SwerveModule m_fl = new SwerveModule(SWERVE.SDFrontLeft);
   SwerveModule m_fr = new SwerveModule(SWERVE.SDFrontRight);
-  
+  SwerveModule m_br = new SwerveModule(SWERVE.SDBackRight);
+  SwerveModule m_bl = new SwerveModule(SWERVE.SDBackLeft);
+
   GyroEnum currentGyro = GyroEnum.PIGEON2;
-  ADIS16470_IMU m_gyro = new ADIS16470_IMU();
+
   public NeutralMode driveNeutralMode = NeutralMode.Brake;
   Pigeon2 m_PGyro = new Pigeon2(5);
  // RotationMode m_rotationMode = RotationMode.AxisSpeed;
@@ -42,7 +44,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
         
         m_fl.getPosition(),
         m_fr.getPosition(),
-        m_b.getPosition()
+        m_br.getPosition(),
+        m_bl.getPosition()
       });
   /** Creates a new DrivetrainSubsystem. */
   public DrivetrainSubsystem() {
@@ -51,10 +54,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     resetGyro();
     
   }
-  // public void drive(double _xSpeed, double _ySpeed, double _rot, boolean _fieldRelativeMode){
-  //   isFieldRelative = _fieldRelativeMode;
-  //   drive(_xSpeed,_ySpeed,_rot);
-  // }
+
   public void drive(double _xSpeed, double _ySpeed, double _rot, boolean _isFieldRelative, boolean _optimize){
 
     isFieldRelative = _isFieldRelative;
@@ -67,7 +67,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
     
     m_fl.setDesiredState(swerveModuleStates[0],_optimize, false, false);
     m_fr.setDesiredState(swerveModuleStates[1],_optimize, false, false);
-    m_b.setDesiredState(swerveModuleStates[2],_optimize, false, false);
+    m_br.setDesiredState(swerveModuleStates[2],_optimize, false, false);
+    m_bl.setDesiredState(swerveModuleStates[3],_optimize, false, false);
   }
   // Line up the wheels with the direction requested from x,y.
   // Drive to the distance
@@ -79,7 +80,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
     
     m_fl.setDesiredState(swerveModuleStates[0],_optimize, false, false);
     m_fr.setDesiredState(swerveModuleStates[1],_optimize, false, false);
-    m_b.setDesiredState(swerveModuleStates[2],_optimize, false, false);
+    m_br.setDesiredState(swerveModuleStates[2],_optimize, false, false);
+    m_bl.setDesiredState(swerveModuleStates[3],_optimize, false, false);
   }
 
   public void steerAuto(double _xSpeed, double _ySpeed){
@@ -89,7 +91,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
     
     m_fl.setDesiredState(swerveModuleStates[0],false, true, false);
     m_fr.setDesiredState(swerveModuleStates[1],false, true, false);
-    m_b.setDesiredState(swerveModuleStates[2],false, true, false);
+    m_br.setDesiredState(swerveModuleStates[2],false, true, false);
+    m_bl.setDesiredState(swerveModuleStates[3],false, true, false);
 
   }
 
@@ -98,7 +101,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
    * @return Distance in Inches
    */
   public double getDriveDistanceMeters(){
-    double dis = (m_fl.getDriveDistanceMeters() + m_fr.getDriveDistanceMeters() + m_b.getDriveDistanceMeters())/3.0;
+    double dis = (m_fl.getDriveDistanceMeters() + m_fr.getDriveDistanceMeters() + m_br.getDriveDistanceMeters())/3.0;
     return dis;
   }
   public double getDriveDistanceInches(){
@@ -110,7 +113,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
       ang = m_PGyro.getYaw();
       
     }else{
-      ang = m_gyro.getAngle();
+      ang = 0;
     }
 
     return ang;
@@ -121,7 +124,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
       ang = m_PGyro.getYaw();
       
     }else{
-      ang = m_gyro.getAngle();
+      ang = 0;
     }
 
     return ang%360;
@@ -143,14 +146,14 @@ public class DrivetrainSubsystem extends SubsystemBase {
     return Rotation2d.fromDegrees(angle);
   }
   public void resetGyro(){
-    m_gyro.reset();
-    m_gyro.calibrate();
+
     m_PGyro.setYaw(0);
   }
   public void resetDriveEncoders(){
-    m_b.resetDriveEncoders();
+    m_br.resetDriveEncoders();
     m_fl.resetDriveEncoders();
     m_fr.resetDriveEncoders();
+    m_bl.resetDriveEncoders();
   }
   public void switchGyro(){
     if(currentGyro == GyroEnum.AHRS){
@@ -159,16 +162,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
       currentGyro = GyroEnum.AHRS;
     }
   }
-  // public void switchRotationMode(){
-  //   if(m_rotationMode == RotationMode.PIDAngle){
-  //     m_rotationMode = RotationMode.AxisSpeed;
-  //   }else if(m_rotationMode == RotationMode.AxisSpeed){
-  //     m_rotationMode = RotationMode.PIDAngle;
-  //   }
-  // }
-  // public RotationMode getRotationMode(){
-  //   return m_rotationMode;
-  // }
+
   public void updateOdometry() {
     m_odometry.update(
       Rotation2d.fromDegrees(getRobotAngle()),
@@ -176,7 +170,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
           
           m_fl.getPosition(),
           m_fr.getPosition(),
-          m_b.getPosition()
+          m_br.getPosition(),
+          m_bl.getPosition()
           
         });
   }
@@ -184,15 +179,16 @@ public class DrivetrainSubsystem extends SubsystemBase {
     isFieldRelative = _frm;
   }
   public void resetSteerEncoders(){
-    m_b.resetSteerSensors();
+    m_br.resetSteerSensors();
     m_fr.resetSteerSensors();
     m_fl.resetSteerSensors();
+    m_bl.resetSteerSensors();
   }
   public void setDriveNeutralMode(NeutralMode _mode){
-    m_b.setDriveNeutralMode(_mode);
+    m_br.setDriveNeutralMode(_mode);
     m_fr.setDriveNeutralMode(_mode);
     m_fl.setDriveNeutralMode(_mode);
-
+    m_bl.setDriveNeutralMode(_mode);
   }
   public void switchDriveNeutralMode(){
     if(driveNeutralMode == NeutralMode.Brake){
@@ -213,8 +209,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
      SmartDashboard.putString("Current Gyro", currentGyro.toString());
      SmartDashboard.putBoolean("Relative ", isFieldRelative);
      SmartDashboard.putNumber("RobotAngle360", getRobotAngle360());
-    m_b.sendData();
+    m_br.sendData();
     m_fl.sendData();
     m_fr.sendData();
+    m_bl.sendData();
   }
 }

@@ -38,49 +38,19 @@ public class DrivetrainDefaultCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-        // Get the x speed. We are inverting this because Xbox controllers return
-    // negative values when we push forward.
-     var xSpeed =
-        -m_xspeedLimiter.calculate(MathUtil.applyDeadband(RobotContainer.driverController.getLeftY(), k.DRIVETRAIN.stickDeadband))
-            * DRIVETRAIN.maxSpeed;
-            // MathUtil.applyDeadband(RobotContainer.driverController.getLeftY(), k.DRIVETRAIN.stickDeadband)
-            // * DRIVETRAIN.maxSpeed;
 
-    // Get the y speed or sideways/strafe speed. We are inverting this because
-    // we want a positive value when we pull to the left. Xbox controllers
-    // return positive values when you pull to the right by default.
-     var ySpeed =
-        -m_yspeedLimiter.calculate(MathUtil.applyDeadband(RobotContainer.driverController.getLeftX(), k.DRIVETRAIN.stickDeadband))
+     var xSpeed = -m_xspeedLimiter.calculate(MathUtil.applyDeadband(RobotContainer.driverController.getLeftY(), k.DRIVETRAIN.stickDeadband))
             * DRIVETRAIN.maxSpeed;
-        // MathUtil.applyDeadband(RobotContainer.driverController.getLeftX(), k.DRIVETRAIN.stickDeadband)
-        // * DRIVETRAIN.maxSpeed;
 
-    // Get the rate of angular rotation. We are inverting this because we want a
-    // positive value when we pull to the left (remember, CCW is positive in
-    // mathematics). Xbox controllers return positive values when you pull to
-    // the right by default.
-     var rot =
-        -m_rotLimiter.calculate(MathUtil.applyDeadband(RobotContainer.driverController.getRightX(), k.DRIVETRAIN.stickDeadband))
+     var ySpeed = -m_yspeedLimiter.calculate(MathUtil.applyDeadband(RobotContainer.driverController.getLeftX(), k.DRIVETRAIN.stickDeadband))
+            * DRIVETRAIN.maxSpeed;
+
+     var rot = -m_rotLimiter.calculate(MathUtil.applyDeadband(RobotContainer.driverController.getRightX(), k.DRIVETRAIN.stickDeadband))
             * DRIVETRAIN.maxAngularSpeed;
 
-    // If angle PID driving then set rotation to the PID value 
-    // double rotPID = m_rotationPIDController.calculate(RobotContainer.drivetrainSubsystem.getRobotAngle(),RobotContainer.drivetrainSubsystem.getRotationPIDAngle());
-    // rotPID = 0;
-    // if(RobotContainer.drivetrainSubsystem.getRotationMode() == RotationMode.PIDAngle){
-    //   rot = rot * k.DRIVETRAIN.maxAngularSpeed;
-    //   //SmartDashboard.putNumber("RotationPID", -rotPID);
-    // }
+
     RobotContainer.drivetrainSubsystem.drive(xSpeed * k.DRIVETRAIN.speedScale, ySpeed * k.DRIVETRAIN.speedScale, rot*k.DRIVETRAIN.rotationScale,RobotContainer.drivetrainSubsystem.isFieldRelative,true);
   }
-  /** Using the Right Thumb stick find the requested angle
-   * 
-   * @return the angle requested by the thumbstick
-   */
-  // private double getRotationAngle(){
-  //   double ang = Util.getAngle(RobotContainer.driverController.getLeftX(), RobotContainer.driverController.getLeftY());
-  //   SmartDashboard.putNumber("RotationAngle", ang);
-  //   return ang;
-  // }
 
   // Called once the command ends or is interrupted.
   @Override

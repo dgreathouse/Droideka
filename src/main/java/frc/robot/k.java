@@ -13,9 +13,11 @@ public class k {
        public static double maxAngularSpeed = Math.PI*4; // 1/2 Rotation/Sec
         public static SwerveDriveKinematics kinematics = new SwerveDriveKinematics(
             // Front to back 607mm, Side to side 640mm
-            new Translation2d(0.3035, 0.320), // Front Left
-            new Translation2d(0.3035, -0.320),
-            new Translation2d(-0.3035, 0.0)
+            new Translation2d(0.37143, 0.219343), // Front Left 24
+            new Translation2d(0.37143, -0.219343),  // Front Right
+
+            new Translation2d(-0.37143, -0.219343),       // Back Right
+            new Translation2d(-0.37143, 0.219343)        // Back Left
         );
     //     public static SwerveDriveKinematics kinematics = new SwerveDriveKinematics(
     //         // Front to back 607mm, Side to side 640mm
@@ -31,17 +33,18 @@ public class k {
         public static double rotToleranceDeg = 1;
         public static double rotToleranceVel = 10; // Deg/sec
         public static double rotMaxOutput  = .5;
-        public static double stickDeadband = 0.1;
+        public static double stickDeadband = 0.05;
         public static double speedScale = 1.0;
-        public static double rotationScale = 0.5;
+        public static double rotationScale = 1.0;
         public static double autoRotateOutScale = 1.0;
         public static double MetersPerInch = 1/39.37008;
     }
     public static class SWERVE {
-        public static SwerveData SDBack = new SwerveData("B", 10, InvertType.InvertMotorOutput, 20, InvertType.InvertMotorOutput, 1, 197.2);
+        
         public static SwerveData SDFrontLeft = new SwerveData("FL",11, InvertType.None, 21, InvertType.InvertMotorOutput, 2, 166.70);
         public static SwerveData SDFrontRight = new SwerveData("FR",12, InvertType.InvertMotorOutput,22, InvertType.InvertMotorOutput, 3, 281.3);
-
+        public static SwerveData SDBackRight = new SwerveData("BR", 10, InvertType.InvertMotorOutput, 20, InvertType.InvertMotorOutput, 1, 197.2);
+        public static SwerveData SDBackLeft = new SwerveData("BL", 10, InvertType.InvertMotorOutput, 20, InvertType.InvertMotorOutput, 1, 197.2);
         public static double steerKp = .55;
         public static double steerKi = 0.15;
         public static double steerKd = 0;

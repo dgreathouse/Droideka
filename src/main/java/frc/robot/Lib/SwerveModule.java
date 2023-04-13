@@ -66,7 +66,7 @@ public class SwerveModule {
         m_driveFx.setSelectedSensorPosition(0);
     }
     public void resetSteerSensors(){
-        m_steerFx.setSelectedSensorPosition((Math.toDegrees(getSwerveAngle())- m_data.angleOffset_Deg)*k.SWERVE.kSteerMotCntsPerWheelDeg);
+        m_steerFx.setSelectedSensorPosition((Math.toDegrees(getSwerveAngle()) - m_data.angleOffset_Deg)*k.SWERVE.kSteerMotCntsPerWheelDeg);
     }
     /**
      * 
