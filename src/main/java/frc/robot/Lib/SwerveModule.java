@@ -38,9 +38,9 @@ public class SwerveModule {
 
     public SwerveModule(SwerveData _data){
         m_data = _data;
-        m_driveFx = new WPI_TalonFX(_data.driveCANID);
-        m_steerFx = new WPI_TalonFX(_data.steerCANID);
-        m_steerEnc = new CANCoder(_data.canCoderCANID);
+        m_driveFx = new WPI_TalonFX(_data.driveCANID, "CANivore");
+        m_steerFx = new WPI_TalonFX(_data.steerCANID, "CANivore");
+        m_steerEnc = new CANCoder(_data.canCoderCANID, "CANivore");
         
         m_steerEnc.configAbsoluteSensorRange(AbsoluteSensorRange.Unsigned_0_to_360);
 
